@@ -1,0 +1,328 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Clientes y diversidad de clientes en Ethereum — Ethernauta</title>
+  <meta name="description" content="Qué son los clientes de Ethereum, cuáles existen y por qué la diversidad entre ellos es fundamental para la salud de la red.">
+  <link rel="canonical" href="https://ethernauta.lat/clientes-y-diversidad.html" />
+  <meta property="og:title" content="Clientes y diversidad de clientes en Ethereum — Ethernauta" />
+  <meta property="og:description" content="Qué son los clientes de Ethereum, cuáles existen y por qué la diversidad entre ellos es fundamental para la salud de la red." />
+  <meta property="og:type" content="article" />
+  <meta property="og:url" content="https://ethernauta.lat/clientes-y-diversidad.html" />
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:ital,wght@0,400;0,700;1,400&family=DM+Mono:wght@300;400&display=swap" rel="stylesheet">
+  <style>
+    :root {
+      --bg: #0a0d0f;
+      --surface: #0f1316;
+      --border: #1c2128;
+      --eth: #627eea;
+      --text: #dde3ea;
+      --text-dim: #7a8694;
+      --text-faint: #3d4855;
+      --accent: #c8d8f0;
+    }
+
+    * { margin: 0; padding: 0; box-sizing: border-box; }
+    html { scroll-behavior: smooth; }
+
+    body {
+      background: var(--bg);
+      color: var(--text);
+      font-family: 'DM Mono', monospace;
+      font-weight: 300;
+      overflow-x: hidden;
+    }
+
+    nav {
+      position: fixed;
+      top: 0; left: 0; right: 0;
+      z-index: 100;
+      padding: 1.25rem 3rem;
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      border-bottom: 1px solid var(--border);
+      background: rgba(10,13,15,0.9);
+      backdrop-filter: blur(12px);
+    }
+
+    .nav-logo {
+      font-family: 'Playfair Display', serif;
+      font-style: italic;
+      font-size: 1.1rem;
+      color: var(--text);
+      text-decoration: none;
+    }
+
+    .nav-links {
+      display: flex;
+      gap: 2rem;
+      list-style: none;
+    }
+
+    .nav-links a {
+      font-size: 0.75rem;
+      letter-spacing: 0.12em;
+      text-transform: uppercase;
+      color: var(--text-dim);
+      text-decoration: none;
+      transition: color 0.2s;
+    }
+
+    .nav-links a:hover { color: var(--text); }
+
+    .article-header {
+      padding: 10rem 3rem 4rem;
+      border-bottom: 1px solid var(--border);
+      max-width: 800px;
+      margin: 0 auto;
+    }
+
+    .article-meta {
+      font-size: 0.65rem;
+      letter-spacing: 0.25em;
+      text-transform: uppercase;
+      color: var(--text-faint);
+      margin-bottom: 2rem;
+    }
+
+    .article-title {
+      font-family: 'Playfair Display', serif;
+      font-size: clamp(2.2rem, 5vw, 3.8rem);
+      font-weight: 700;
+      line-height: 1.05;
+      letter-spacing: -0.02em;
+      margin-bottom: 1.5rem;
+    }
+
+    .article-title em {
+      font-style: italic;
+      color: var(--eth);
+    }
+
+    .article-body {
+      max-width: 800px;
+      margin: 0 auto;
+      padding: 4rem 3rem 6rem;
+    }
+
+    .article-body p {
+      font-size: 1rem;
+      line-height: 1.9;
+      color: var(--text-dim);
+      margin-bottom: 1.6rem;
+    }
+
+    .article-body p strong {
+      color: var(--text);
+      font-weight: 400;
+    }
+
+    .article-body h2 {
+      font-family: 'Playfair Display', serif;
+      font-size: 1.6rem;
+      font-weight: 700;
+      color: var(--text);
+      margin: 3.5rem 0 1.2rem;
+      line-height: 1.2;
+    }
+
+    .article-body h3 {
+      font-size: 0.85rem;
+      letter-spacing: 0.12em;
+      text-transform: uppercase;
+      color: var(--eth);
+      margin: 2.5rem 0 1rem;
+    }
+
+    .article-body ul {
+      list-style: none;
+      margin-bottom: 1.6rem;
+    }
+
+    .article-body ul li {
+      font-size: 1rem;
+      line-height: 1.9;
+      color: var(--text-dim);
+      padding-left: 1.2rem;
+      position: relative;
+      margin-bottom: 0.4rem;
+    }
+
+    .article-body ul li::before {
+      content: '·';
+      position: absolute;
+      left: 0;
+      color: var(--eth);
+    }
+
+    .article-body ul li a,
+    .article-body p a {
+      color: var(--eth);
+      text-decoration: none;
+      transition: color 0.2s;
+    }
+
+    .article-body ul li a:hover,
+    .article-body p a:hover { color: var(--accent); }
+
+    .article-body ul li strong {
+      color: var(--text);
+      font-weight: 400;
+    }
+
+    .article-body blockquote {
+      border-left: 2px solid var(--eth);
+      padding-left: 1.5rem;
+      margin: 2rem 0;
+    }
+
+    .article-body blockquote p {
+      font-style: italic;
+      color: var(--text-dim);
+    }
+
+    .article-footer {
+      max-width: 800px;
+      margin: 0 auto;
+      padding: 3rem 3rem 6rem;
+      border-top: 1px solid var(--border);
+    }
+
+    .article-attribution {
+      font-size: 0.8rem;
+      color: var(--text-faint);
+      font-style: italic;
+      margin-bottom: 1rem;
+    }
+
+    .article-firma {
+      font-family: 'Playfair Display', serif;
+      font-style: italic;
+      font-size: 1.1rem;
+      color: var(--eth);
+    }
+
+    footer {
+      padding: 2.5rem 3rem;
+      display: flex;
+      justify-content: space-between;
+      font-size: 0.65rem;
+      color: var(--text-faint);
+      border-top: 1px solid var(--border);
+    }
+
+    footer a {
+      color: var(--text-faint);
+      text-decoration: none;
+    }
+
+    @media (max-width: 900px) {
+      nav { padding: 1rem 1.5rem; }
+      .nav-links { display: none; }
+      .article-header,
+      .article-body,
+      .article-footer { padding-left: 1.5rem; padding-right: 1.5rem; }
+    }
+  </style>
+</head>
+<body>
+
+<nav>
+  <a href="/" class="nav-logo">Ethernauta</a>
+  <ul class="nav-links">
+    <li><a href="/#temas">Temas</a></li>
+    <li><a href="/#entradas">Entradas</a></li>
+    <li><a href="/#autor">Autor</a></li>
+    <li><a href="https://x.com/saquelogarcia" target="_blank">X</a></li>
+  </ul>
+</nav>
+
+<header class="article-header">
+  <p class="article-meta">Infraestructura real &nbsp;·&nbsp; Julio 2025</p>
+  <h1 class="article-title">Cuando ser redundante<br>es una virtud: los <em>clientes</em> de Ethereum</h1>
+</header>
+
+<article class="article-body">
+
+  <p>En muchos ámbitos solemos valorar la simplicidad. En el caso de los clientes de Ethereum, cuanto más complejo sea el entramado, mejor. Por complejo nos referimos a diverso, compuesto por múltiples partes, heterogéneo.</p>
+
+  <p>En otras blockchains, un solo cliente se encarga del flujo completo de operaciones de la red. En Ethereum, tanto las tareas de consenso como las de ejecución son llevadas a cabo por una diversidad creciente de clientes. Y esto es celebrado e impulsado proactivamente por los desarrolladores y la comunidad del ecosistema.</p>
+
+  <h2>¿Qué es un cliente?</h2>
+
+  <p>En el mundo del software, un cliente es un programa que accede a datos o servicios alojados en otro dispositivo llamado servidor. Desde la aparición de internet, la arquitectura cliente-servidor se volvió cotidiana.</p>
+
+  <p>En Ethereum, los clientes son programas que, instalados en los nodos, ejecutan tareas específicas en las dos capas de la red: consenso y ejecución. Todo nodo validador debe tener un cliente de ejecución y uno de consenso, cada uno especializado en las funciones que el protocolo asigna a su respectiva capa.</p>
+
+  <p>Como explica la documentación de Ethereum.org: "Cada cliente tiene casos de uso y ventajas únicas. La diversidad permite que las implementaciones se enfoquen en distintas características y públicos. Es posible elegir un cliente según sus funciones, soporte, lenguaje de programación o licencias."</p>
+
+  <h2>Clientes de ejecución</h2>
+
+  <ul>
+    <li><strong>Go-Ethereum (Geth):</strong> una de las implementaciones originales. Es el más utilizado, con una base de usuarios y herramientas muy amplia. Escrito en Go.</li>
+    <li><strong>Nethermind:</strong> escrito en C# .NET, compatible con múltiples plataformas, incluyendo ARM.</li>
+    <li><strong>Besu:</strong> cliente empresarial de Ethereum, escrito en Java.</li>
+    <li><strong>Erigon:</strong> derivado de Geth, enfocado en eficiencia y rendimiento. Escrito en Go.</li>
+    <li><strong>Reth:</strong> implementación en Rust, modular, rápida y eficiente.</li>
+  </ul>
+
+  <p>Vale la pena mencionar también <a href="https://blog.lambdaclass.com/celebrating-a-year-of-ethrex/" target="_blank">ethrex</a>, un cliente de ejecución para Ethereum y L2s desarrollado por el equipo de LambdaClass desde Argentina. Escrito en Rust, busca destacarse por su enfoque en la simplicidad y eficiencia. Su desarrollo no solo refleja la capacidad técnica de la región sino que cobra relevancia particular dado que Buenos Aires se consolida como un punto central en el ecosistema Ethereum.</p>
+
+  <h2>Clientes de consenso</h2>
+
+  <ul>
+    <li><strong>Lighthouse:</strong> en Rust, enfocado en seguridad y escalabilidad.</li>
+    <li><strong>Lodestar:</strong> escrito en TypeScript.</li>
+    <li><strong>Nimbus:</strong> eficiente en recursos, apto tanto para dispositivos limitados como para infraestructura robusta.</li>
+    <li><strong>Prysm:</strong> en Go, con una interfaz web opcional.</li>
+    <li><strong>Teku:</strong> uno de los clientes originales, escrito en Java, con licencia Apache 2.0.</li>
+  </ul>
+
+  <h2>Por qué importa la diversidad</h2>
+
+  <p>Un dato llamativo es que estos clientes están escritos en distintos lenguajes: Go, Java, Rust, C#, TypeScript. Esa diversidad de lenguajes es clave para atraer talento que quizás no desarrolla smart contracts pero sí tiene experiencia en otras áreas.</p>
+
+  <p>Pero más allá del aspecto técnico, la diversidad es vital para la fortaleza de la red. Si un cliente comenzara a fallar y hubiera demasiada concentración en su uso, las consecuencias podrían ser graves: una bifurcación involuntaria donde los nodos afectados continúen con una versión errónea de la red.</p>
+
+  <p>Esto no es teórico. En 2021, un bug en una versión específica de Geth (1.10.7) provocó exactamente ese tipo de problema. Se resolvió gracias al funcionamiento correcto de otros clientes que mantuvieron el estado actualizado. Ese mismo año, Nethermind sufrió un ataque directo. La red se recuperó porque no todos los nodos dependían de él.</p>
+
+  <p>Como señala la documentación de Ethereum.org: un error en un cliente de consenso con más del 33% de los nodos podría impedir que la capa de consenso finalizara, lo que significa que los usuarios no podrían confiar en que sus transacciones no se revertirían.</p>
+
+  <p>Hay también una dimensión humana en esto. Si el mantenimiento de la red recayera sobre un único cliente, recaería también sobre un único equipo. Contar con diversos equipos sosteniendo diversos clientes distribuye las responsabilidades y hace la red más sostenible a largo plazo.</p>
+
+  <h2>La situación actual</h2>
+
+  <p>En 2022, tras The Merge, más del 80% de los nodos de ejecución usaban Geth y más del 60% de los de consenso, Prysm. Hoy (julio 2025), Geth representa el 58% y Prysm bajó al 25%, siendo superado por Lighthouse con un 45%. La tendencia es positiva, aunque el camino es largo.</p>
+
+  <p>La comunidad impulsa activamente el uso de clientes minoritarios. Y tiene sentido: quien decida correr un nodo propio debería, en la medida de lo posible, evitar los clientes mayoritarios. Claro que no es solo una cuestión de voluntad, ya que los distintos clientes tienen distintos requisitos de hardware, diferencias de UX y están optimizados para distintas funciones.</p>
+
+  <p>Además de los operadores individuales, hacen falta instituciones, empresas y exchanges que se comprometan con esta diversificación. Ellos tienen los recursos para adaptarse.</p>
+
+  <h2>Recursos para seguir</h2>
+
+  <ul>
+    <li><a href="https://ethereum.org/es/developers/docs/nodes-and-clients/" target="_blank">Ethereum.org — Nodos y clientes</a></li>
+    <li><a href="https://ethereum.org/es/developers/docs/nodes-and-clients/client-diversity/" target="_blank">Ethereum.org — Diversidad de clientes</a></li>
+    <li><a href="https://clientdiversity.org/" target="_blank">clientdiversity.org</a> — métricas de consenso</li>
+    <li><a href="https://supermajority.info/" target="_blank">supermajority.info</a> — métricas de ejecución</li>
+    <li><a href="https://ethernodes.org/" target="_blank">ethernodes.org</a></li>
+    <li><a href="https://rated.network/" target="_blank">rated.network</a></li>
+  </ul>
+
+</article>
+
+<div class="article-footer">
+  <p class="article-attribution">Este artículo lo escribí originalmente para ETH Kipu. Lo publico aquí con su autorización.</p>
+  <p class="article-firma">El Ethernauta</p>
+</div>
+
+<footer>
+  <a href="/">Ethernauta</a>
+  <span>ethernauta.lat — Buenos Aires, 2026</span>
+</footer>
+
+</body>
+</html>
