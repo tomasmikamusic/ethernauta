@@ -1,0 +1,359 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Nodos en Ethereum — Ethernauta</title>
+  <meta name="description" content="Qué es un nodo, tipos de nodos, por qué correr uno y qué se necesita. Una introducción completa a los nodos de Ethereum.">
+  <link rel="canonical" href="https://ethernauta.lat/nodos-de-ethereum" />
+  <meta property="og:title" content="Nodos en Ethereum — Ethernauta" />
+  <meta property="og:description" content="Qué es un nodo, tipos de nodos, por qué correr uno y qué se necesita." />
+  <meta property="og:type" content="article" />
+  <meta property="og:url" content="https://ethernauta.lat/nodos-de-ethereum" />
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:ital,wght@0,400;0,700;1,400&family=DM+Mono:wght@300;400&display=swap" rel="stylesheet">
+  <style>
+    :root {
+      --bg: #0a0d0f;
+      --surface: #0f1316;
+      --border: #1c2128;
+      --eth: #627eea;
+      --text: #dde3ea;
+      --text-dim: #7a8694;
+      --text-faint: #3d4855;
+      --accent: #c8d8f0;
+    }
+
+    * { margin: 0; padding: 0; box-sizing: border-box; }
+    html { scroll-behavior: smooth; }
+
+    body {
+      background: var(--bg);
+      color: var(--text);
+      font-family: 'DM Mono', monospace;
+      font-weight: 300;
+      overflow-x: hidden;
+    }
+
+    nav {
+      position: fixed;
+      top: 0; left: 0; right: 0;
+      z-index: 100;
+      padding: 1.25rem 3rem;
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      border-bottom: 1px solid var(--border);
+      background: rgba(10,13,15,0.9);
+      backdrop-filter: blur(12px);
+    }
+
+    .nav-logo {
+      font-family: 'Playfair Display', serif;
+      font-style: italic;
+      font-size: 1.1rem;
+      color: var(--text);
+      text-decoration: none;
+    }
+
+    .nav-links {
+      display: flex;
+      gap: 2rem;
+      list-style: none;
+    }
+
+    .nav-links a {
+      font-size: 0.75rem;
+      letter-spacing: 0.12em;
+      text-transform: uppercase;
+      color: var(--text-dim);
+      text-decoration: none;
+      transition: color 0.2s;
+    }
+
+    .nav-links a:hover { color: var(--text); }
+
+    /* ARTICLE HEADER */
+    .article-header {
+      padding: 10rem 3rem 4rem;
+      border-bottom: 1px solid var(--border);
+      max-width: 800px;
+      margin: 0 auto;
+    }
+
+    .article-meta {
+      font-size: 0.65rem;
+      letter-spacing: 0.25em;
+      text-transform: uppercase;
+      color: var(--text-faint);
+      margin-bottom: 2rem;
+    }
+
+    .article-title {
+      font-family: 'Playfair Display', serif;
+      font-size: clamp(2.5rem, 5vw, 4rem);
+      font-weight: 700;
+      line-height: 1.05;
+      letter-spacing: -0.02em;
+      margin-bottom: 1.5rem;
+    }
+
+    .article-title em {
+      font-style: italic;
+      color: var(--eth);
+    }
+
+    /* ARTICLE BODY */
+    .article-body {
+      max-width: 800px;
+      margin: 0 auto;
+      padding: 4rem 3rem 6rem;
+    }
+
+    .article-body p {
+      font-size: 1rem;
+      line-height: 1.9;
+      color: var(--text-dim);
+      margin-bottom: 1.6rem;
+    }
+
+    .article-body p strong {
+      color: var(--text);
+      font-weight: 400;
+    }
+
+    .article-body h2 {
+      font-family: 'Playfair Display', serif;
+      font-size: 1.6rem;
+      font-weight: 700;
+      color: var(--text);
+      margin: 3.5rem 0 1.2rem;
+      line-height: 1.2;
+    }
+
+    .article-body h3 {
+      font-size: 0.85rem;
+      letter-spacing: 0.12em;
+      text-transform: uppercase;
+      color: var(--eth);
+      margin: 2.5rem 0 1rem;
+    }
+
+    .article-body ul {
+      list-style: none;
+      margin-bottom: 1.6rem;
+    }
+
+    .article-body ul li {
+      font-size: 1rem;
+      line-height: 1.9;
+      color: var(--text-dim);
+      padding-left: 1.2rem;
+      position: relative;
+      margin-bottom: 0.4rem;
+    }
+
+    .article-body ul li::before {
+      content: '·';
+      position: absolute;
+      left: 0;
+      color: var(--eth);
+    }
+
+    .article-body ul li a {
+      color: var(--eth);
+      text-decoration: none;
+      transition: color 0.2s;
+    }
+
+    .article-body ul li a:hover { color: var(--accent); }
+
+    .article-body ul li strong {
+      color: var(--text);
+      font-weight: 400;
+    }
+
+    /* FIRMA */
+    .article-footer {
+      max-width: 800px;
+      margin: 0 auto;
+      padding: 0 3rem 6rem;
+      border-top: 1px solid var(--border);
+      padding-top: 3rem;
+    }
+
+    .article-attribution {
+      font-size: 0.8rem;
+      color: var(--text-faint);
+      font-style: italic;
+      margin-bottom: 1rem;
+    }
+
+    .article-firma {
+      font-family: 'Playfair Display', serif;
+      font-style: italic;
+      font-size: 1.1rem;
+      color: var(--eth);
+    }
+
+    /* FOOTER */
+    footer {
+      padding: 2.5rem 3rem;
+      display: flex;
+      justify-content: space-between;
+      font-size: 0.65rem;
+      color: var(--text-faint);
+      border-top: 1px solid var(--border);
+    }
+
+    footer a {
+      color: var(--text-faint);
+      text-decoration: none;
+    }
+
+    @media (max-width: 900px) {
+      nav { padding: 1rem 1.5rem; }
+      .nav-links { display: none; }
+      .article-header,
+      .article-body,
+      .article-footer { padding-left: 1.5rem; padding-right: 1.5rem; }
+    }
+  </style>
+</head>
+<body>
+
+<nav>
+  <a href="/" class="nav-logo">Ethernauta</a>
+  <ul class="nav-links">
+    <li><a href="/#temas">Temas</a></li>
+    <li><a href="/#entradas">Entradas</a></li>
+    <li><a href="/#autor">Autor</a></li>
+    <li><a href="https://x.com/tomasmikamusic" target="_blank">X</a></li>
+  </ul>
+</nav>
+
+<header class="article-header">
+  <p class="article-meta">Infraestructura real &nbsp;·&nbsp; Junio 2025</p>
+  <h1 class="article-title">Nodos en <em>Ethereum</em></h1>
+</header>
+
+<article class="article-body">
+
+  <p>El corazón de Ethereum es su Virtual Machine, la EVM, y de hecho el nombre "Ethereum" remite a lo etéreo, lo inmaterial.</p>
+
+  <p>Eso es porque buena parte del valor reside en que Ethereum funciona como una gran computadora descentralizada a nivel global, sin ubicarse en ningún punto específico ni estar bajo control de una sola entidad, sino compartida por múltiples participantes.</p>
+
+  <p>Sin embargo, esa esencia "virtual" tiene su contraparte concreta: los procesos donde los 0 y 1 se transforman en transacciones, contratos inteligentes y dapps ocurren literal y efectivamente en máquinas concretas ejecutando programas específicos. Llegamos así a hablar de los <strong>nodos</strong>.</p>
+
+  <h2>¿Qué es un nodo?</h2>
+
+  <p>Los distintos aspectos de los procesos que ocurren en Ethereum son ejecutados en capas distintas de la red: la capa de Ejecución y la capa de Consenso. Estas capas "viven" en la red gracias a los clientes, programas informáticos especializados que, instalados en cientos de miles de ordenadores a lo largo y ancho del mundo, interactúan permanentemente llevando adelante el funcionamiento de la red.</p>
+
+  <p>Si se me permite una metáfora: los nodos son como las células de este gran cuerpo que es la blockchain.</p>
+
+  <p>Para decirlo de manera sencilla: un nodo es una computadora que, conectada a una red junto a otros nodos y ejecutando cierto software específico, verifica bloques, mantiene consenso y almacena información.</p>
+
+  <h2>Tipos de nodos</h2>
+
+  <h3>Nodos completos (full nodes)</h3>
+
+  <p>Este nombre puede ser un poco engañoso, ya que estos nodos no guardan una copia completa de toda la historia de la red, pero sí almacenan información suficiente para llevar adelante de manera completa las acciones tanto de ejecución como de consenso. Para ello, deben ejecutar ambos clientes especializados en estas tareas.</p>
+
+  <p>Son los nodos más comunes. Probablemente, quien diga "tengo un nodo de Ethereum" se refiera a este tipo.</p>
+
+  <h3>Nodos de archivo (archive nodes)</h3>
+
+  <p>Estos sí guardan una copia completa de toda la información de la blockchain desde su génesis. Existen en mucha menor cantidad, ya que tienen requerimientos considerablemente mayores de hardware, especialmente en almacenamiento. Son de gran importancia para conservar la historia completa de la red, aunque para el correcto funcionamiento de la red actual no es estrictamente necesaria esa conservación (sí lo es para otros fines como la trazabilidad y la transparencia).</p>
+
+  <h3>Nodos ligeros (light nodes)</h3>
+
+  <p>Hay varios proyectos trabajando en su desarrollo, pero este tipo de nodos aún no están en pleno funcionamiento. Desde la teoría, manejan una información muy resumida de los bloques, condensada en sus encabezados, y con eso pueden realizar ciertas tareas limitadas pero útiles. Si necesitan acceder a mayor información de la red, deben recurrir a los datos de nodos completos.</p>
+
+  <p>Ahí está probablemente el cuello de botella: la necesidad de que haya full nodes disponibles de manera pública y configurados de manera compatible con los light nodes. Una prestación que, por el momento, está siendo difícil de encontrar.</p>
+
+  <h3>Nodos validadores</h3>
+
+  <p>Estos son nodos completos, pero con más funciones. Aparte de ejecutar los clientes de Ejecución y de Consenso, tienen la capacidad de proponer bloques y de votar los bloques propuestos por otros validadores.</p>
+
+  <p>Son los nodos para los que se requiere el depósito (stake) de ETH: desde la actualización Pectra, el monto es variable entre 32 y 2048 ETH. A mayor stake, mayores chances de proponer bloques y, por lo tanto, de recibir recompensas.</p>
+
+  <h2>¿Por qué ejecutar un full node si solo los validadores ganan recompensas?</h2>
+
+  <p>La pregunta que muchos se hacen: si solo los validadores reciben recompensas económicas, ¿por qué alguien invertiría dinero y tiempo en sostener otros tipos de nodos?</p>
+
+  <p>Hay bastantes razones, tanto para uno mismo como para la red.</p>
+
+  <h3>Privacidad y seguridad</h3>
+
+  <p>Correr mi propio nodo me permite mayor privacidad y, en consecuencia, mayor seguridad. Al realizar una transacción desde mi wallet, me estoy comunicando con un nodo ajeno. Lo más probable es que ese nodo pertenezca a una empresa privada que concentra gran cantidad de ellos. Por ejemplo, Metamask usa por defecto el servicio de Infura.</p>
+
+  <p>Esto no tiene por qué ser malo. Es un servicio que permite que la mayoría de las personas podamos transaccionar sin poseer un nodo ni conocer los datos técnicos para configurar la wallet. Pero si nos ponemos finos en temas de privacidad, vamos a encontrar que esos proveedores están recibiendo información como mi IP relacionada a mi número de cuenta.</p>
+
+  <p>En la época de la big data, que algún actor malintencionado cruce cientos de miles de datos vinculados a mi IP no tiene buena pinta. Correr mi propio nodo me permite enviar transacciones directamente sin esa vinculación.</p>
+
+  <h3>Resistencia a la censura</h3>
+
+  <p>Un nodo ajeno podría, por algún motivo, elegir no ejecutar transacciones provenientes de cierta cuenta. Con mi propio nodo no tengo que pedir permiso a nadie para usar la red. Ni siquiera el gobierno más poderoso del mundo podría evitar que realice una transacción (salvo que tire mi puerta abajo, claro está).</p>
+
+  <h3>Robustez de la red</h3>
+
+  <p>La diversidad de nodos también es buena para la red. Hay un punto interesante acá: la red es resiliente incluso ante un ataque de los propios encargados de su seguridad. Si bien es prácticamente imposible, si dos tercios de los validadores se unieran para validar bloques falsos, los operadores de nodos completos detectarían ese comportamiento y podrían rechazar esa versión, decidiendo continuar con una versión que solo contenga transacciones que cumplieron realmente las reglas del protocolo.</p>
+
+  <h3>El argumento de la descentralización real</h3>
+
+  <p>Hoy muchos nodos de Ethereum están sostenidos por empresas e instituciones tecnológicas. Esto tiene un lado positivo: suelen contar con la infraestructura necesaria para mantenerlos encendidos, actualizados y disponibles. Pero también plantea una preocupación: si demasiados nodos están en pocas manos, perdemos diversidad y con ella, parte de la descentralización que queremos defender.</p>
+
+  <p>Otro aspecto preocupante es la concentración geográfica: más nodos en ciertos lugares centrales que en otros más periféricos. Lo que sí está en nuestras manos es promover que más personas, desde distintos lugares y contextos, puedan correr sus propios nodos.</p>
+
+  <h2>¿Qué se necesita para correr un nodo?</h2>
+
+  <h3>¿Puedo usar mi computadora personal?</h3>
+
+  <p>En teoría, sí. En la práctica, correr un nodo completo desde una computadora que se usa todos los días para otras tareas puede volverse inviable. La carga de trabajo constante, el almacenamiento requerido y el hecho de que debería estar encendida y conectada a internet 24/7 hacen que la experiencia no sea ideal.</p>
+
+  <p>Lo más habitual es dedicar una máquina exclusivamente a esa tarea. Existen incluso equipos específicos diseñados para correr nodos de Ethereum, ya optimizados en términos de hardware.</p>
+
+  <h3>Requisitos técnicos mínimos</h3>
+
+  <ul>
+    <li><strong>Almacenamiento:</strong> mínimo 2 TB de disco SSD.</li>
+    <li><strong>Memoria RAM:</strong> 16 GB.</li>
+    <li><strong>Conexión a internet:</strong> estable, sin caídas frecuentes y con buen ancho de banda y baja latencia.</li>
+  </ul>
+
+  <p>El tipo exacto de equipo depende del cliente que se elija, y de si se va a correr la red principal o una testnet (que requiere menos recursos).</p>
+
+  <h3>¿Y si no tengo ese hardware?</h3>
+
+  <p>Si no se cuenta con los recursos o el entorno técnico para correr un nodo desde casa, hay alternativas. Muchos nodos se ejecutan actualmente en servicios de nube como Google Cloud o Amazon Web Services. No es la opción más descentralizada, pero puede ser una buena forma de involucrarse en el funcionamiento de la red sin depender de infraestructura doméstica.</p>
+
+  <p>También existen herramientas que simulan redes Ethereum de forma local, como <strong>Ganache</strong>, <strong>Hardhat Network</strong> o <strong>Anvil</strong>. Estas simulaciones no impactan en la red real, pero son ideales para aprender y experimentar antes de correr un nodo real. Yo empecé por ahí.</p>
+
+  <h3>¿Y el software?</h3>
+
+  <p>Para correr un nodo se necesita ejecutar dos programas específicos llamados clientes: uno para ejecución y otro para consenso. Cada cliente tiene características propias que influirán en la elección. En una próxima entrada voy a profundizar en los distintos clientes, sus diferencias y por qué la diversidad entre ellos importa tanto como la diversidad de nodos.</p>
+
+  <h2>Recursos para ir más lejos</h2>
+
+  <ul>
+    <li><a href="https://ethereum.org/es/developers/docs/nodes-and-clients/" target="_blank">Ethereum.org — Nodos y clientes</a></li>
+    <li><a href="https://ethereum.org/es/run-a-node/" target="_blank">Ethereum.org — Correr un nodo</a></li>
+    <li><a href="https://etherscan.io/nodetracker" target="_blank">Mapa de nodos</a> por Etherscan</li>
+    <li><a href="https://ethernodes.org/" target="_blank">Ethernodes</a> por Bitfly</li>
+    <li><a href="https://www.nodewatch.io/" target="_blank">Nodewatch</a> de Chainsafe, nodos de consenso rastreados</li>
+  </ul>
+
+</article>
+
+<div class="article-footer">
+  <p class="article-attribution">Este artículo lo escribí originalmente para ETH Kipu. Lo publico aquí con su autorización.</p>
+  <p class="article-firma">El Ethernauta</p>
+</div>
+
+<footer>
+  <a href="/">Ethernauta</a>
+  <span>ethernauta.lat — Buenos Aires, 2026</span>
+</footer>
+
+</body>
+</html>
