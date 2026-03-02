@@ -1,0 +1,289 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Ethereum, Google, la Inteligencia Artificial y el plomero — Ethernauta</title>
+  <meta name="description" content="AI Agents en Ethereum, reputación on-chain y el ERC-8004. Cómo decidir en qué agente autónomo confiar cuando está manejando tu dinero.">
+  <link rel="canonical" href="https://ethernauta.lat/ethereum-e-ia.html" />
+  <meta property="og:title" content="Ethereum, Google, la IA y el plomero que no me arregló el depósito — Ethernauta" />
+  <meta property="og:description" content="AI Agents en Ethereum, reputación on-chain y el ERC-8004." />
+  <meta property="og:type" content="article" />
+  <meta property="og:url" content="https://ethernauta.lat/ethereum-e-ia.html" />
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:ital,wght@0,400;0,700;1,400&family=DM+Mono:wght@300;400&display=swap" rel="stylesheet">
+  <style>
+    :root {
+      --bg: #0a0d0f;
+      --surface: #0f1316;
+      --border: #1c2128;
+      --eth: #627eea;
+      --text: #dde3ea;
+      --text-dim: #7a8694;
+      --text-faint: #3d4855;
+      --accent: #c8d8f0;
+    }
+
+    * { margin: 0; padding: 0; box-sizing: border-box; }
+    html { scroll-behavior: smooth; }
+
+    body {
+      background: var(--bg);
+      color: var(--text);
+      font-family: 'DM Mono', monospace;
+      font-weight: 300;
+      overflow-x: hidden;
+    }
+
+    nav {
+      position: fixed;
+      top: 0; left: 0; right: 0;
+      z-index: 100;
+      padding: 1.25rem 3rem;
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      border-bottom: 1px solid var(--border);
+      background: rgba(10,13,15,0.9);
+      backdrop-filter: blur(12px);
+    }
+
+    .nav-logo {
+      font-family: 'Playfair Display', serif;
+      font-style: italic;
+      font-size: 1.1rem;
+      color: var(--text);
+      text-decoration: none;
+    }
+
+    .nav-links {
+      display: flex;
+      gap: 2rem;
+      list-style: none;
+    }
+
+    .nav-links a {
+      font-size: 0.75rem;
+      letter-spacing: 0.12em;
+      text-transform: uppercase;
+      color: var(--text-dim);
+      text-decoration: none;
+      transition: color 0.2s;
+    }
+
+    .nav-links a:hover { color: var(--text); }
+
+    .article-header {
+      padding: 10rem 3rem 4rem;
+      border-bottom: 1px solid var(--border);
+      max-width: 800px;
+      margin: 0 auto;
+    }
+
+    .article-meta {
+      font-size: 0.65rem;
+      letter-spacing: 0.25em;
+      text-transform: uppercase;
+      color: var(--text-faint);
+      margin-bottom: 2rem;
+    }
+
+    .article-title {
+      font-family: 'Playfair Display', serif;
+      font-size: clamp(2rem, 4.5vw, 3.5rem);
+      font-weight: 700;
+      line-height: 1.05;
+      letter-spacing: -0.02em;
+      margin-bottom: 1.5rem;
+    }
+
+    .article-title em {
+      font-style: italic;
+      color: var(--eth);
+    }
+
+    .article-body {
+      max-width: 800px;
+      margin: 0 auto;
+      padding: 4rem 3rem 6rem;
+    }
+
+    .article-body p {
+      font-size: 1rem;
+      line-height: 1.9;
+      color: var(--text-dim);
+      margin-bottom: 1.6rem;
+    }
+
+    .article-body p strong {
+      color: var(--text);
+      font-weight: 400;
+    }
+
+    .article-body h2 {
+      font-family: 'Playfair Display', serif;
+      font-size: 1.6rem;
+      font-weight: 700;
+      color: var(--text);
+      margin: 3.5rem 0 1.2rem;
+      line-height: 1.2;
+    }
+
+    .article-body h3 {
+      font-size: 0.85rem;
+      letter-spacing: 0.12em;
+      text-transform: uppercase;
+      color: var(--eth);
+      margin: 2.5rem 0 1rem;
+    }
+
+    .article-body ul {
+      list-style: none;
+      margin-bottom: 1.6rem;
+    }
+
+    .article-body ul li {
+      font-size: 1rem;
+      line-height: 1.9;
+      color: var(--text-dim);
+      padding-left: 1.2rem;
+      position: relative;
+      margin-bottom: 0.4rem;
+    }
+
+    .article-body ul li::before {
+      content: '·';
+      position: absolute;
+      left: 0;
+      color: var(--eth);
+    }
+
+    .article-body a,
+    .article-body ul li a {
+      color: var(--eth);
+      text-decoration: none;
+      transition: color 0.2s;
+    }
+
+    .article-body a:hover,
+    .article-body ul li a:hover { color: var(--accent); }
+
+    .article-footer {
+      max-width: 800px;
+      margin: 0 auto;
+      padding: 3rem 3rem 6rem;
+      border-top: 1px solid var(--border);
+    }
+
+    .article-attribution {
+      font-size: 0.8rem;
+      color: var(--text-faint);
+      font-style: italic;
+      margin-bottom: 1rem;
+    }
+
+    .article-firma {
+      font-family: 'Playfair Display', serif;
+      font-style: italic;
+      font-size: 1.1rem;
+      color: var(--eth);
+    }
+
+    footer {
+      padding: 2.5rem 3rem;
+      display: flex;
+      justify-content: space-between;
+      font-size: 0.65rem;
+      color: var(--text-faint);
+      border-top: 1px solid var(--border);
+    }
+
+    footer a {
+      color: var(--text-faint);
+      text-decoration: none;
+    }
+
+    @media (max-width: 900px) {
+      nav { padding: 1rem 1.5rem; }
+      .nav-links { display: none; }
+      .article-header,
+      .article-body,
+      .article-footer { padding-left: 1.5rem; padding-right: 1.5rem; }
+    }
+  </style>
+</head>
+<body>
+
+<nav>
+  <a href="/" class="nav-logo">Ethernauta</a>
+  <ul class="nav-links">
+    <li><a href="/#temas">Temas</a></li>
+    <li><a href="/#entradas">Entradas</a></li>
+    <li><a href="/#autor">Autor</a></li>
+    <li><a href="https://x.com/saquelogarcia" target="_blank">X</a></li>
+  </ul>
+</nav>
+
+<header class="article-header">
+  <p class="article-meta">Ideas y contexto &nbsp;·&nbsp; Abril 2025</p>
+  <h1 class="article-title">Ethereum, Google, la <em>Inteligencia Artificial</em> y el plomero que no me arregló el depósito del inodoro</h1>
+</header>
+
+<article class="article-body">
+
+  <p>¿Te pasó que usaste distintas plataformas de Inteligencia Artificial y alguna te pareció más "confiable" que otra? ¿Qué pasaría si tuvieras que decidir qué herramienta de IA utilizar no solo para realizar una consulta o una redacción, sino para que ejecute tareas de manera autónoma por vos?</p>
+
+  <p>¿Cómo podrías decidir en cuál confiar?</p>
+
+  <p>La pregunta se vuelve todavía más acuciante si ese software tiene que tomar decisiones que implican gastar tu dinero. Y, aunque no lo sepamos, ya hay millones de personas en esa situación y, tarde o temprano, todos vamos a estar ahí.</p>
+
+  <p>Hago una pausa para que digas: "Y sí, es todo un tema". Ahora continúo.</p>
+
+  <h2>Primero: ¿qué está pasando en Ethereum con la IA?</h2>
+
+  <p>En Ethereum ya existen AI Agents que analizan el mercado las 24 horas, responden preguntas, ejecutan transacciones, votan en DAOs, crean contenido y manejan su propia wallet. Todo eso, on-chain. Y no duermen. Nunca.</p>
+
+  <p>Son programas de software que usan IA para tomar decisiones autónomas, aprender de datos, adaptarse a cambios, ejecutar tareas complejas y detectar oportunidades al instante. Imaginá usar Ethereum con un asistente que analiza el mercado, responde tus dudas y ejecuta transacciones por vos, sin interfaces complicadas, solo comandos en lenguaje natural. No es el futuro. Ya está pasando.</p>
+
+  <p>La diferencia con el mundo tradicional es relevante: en finanzas tradicionales, los AI Agents operan con datos limitados y poco control. En Ethereum, acceden a información transparente, ejecutan transacciones, manejan activos y colaboran entre protocolos. Automatizan DeFi, coordinan tareas, detectan riesgos.</p>
+
+  <p>Hace unos meses, ethereum.org anunció una nueva sección en su web dedicada a los AI Agents, con casos reales, recursos y proyecciones sobre cómo esta tecnología se cruza con el protocolo. También existe una <a href="https://www.youtube.com/watch?v=..." target="_blank">playlist del Agentic Ethereum 2025 Summit</a> donde distintos especialistas, incluido Vitalik Buterin, debaten el tema en profundidad.</p>
+
+  <h2>El plomero y el problema de la reputación</h2>
+
+  <p>Cuando necesité un profesional para resolver un problema en el baño de casa, consulté en los grupos de WhatsApp de mis amigos y familia. Pedir referencias parecía una decisión razonable. En el caso de necesitar un agente de IA, la lógica sería similar. Ahora bien, ¿a quién le pido referencias? ¿A dos o tres amigos? Spoiler: como en el caso del baño de casa, puede salir mal (sigue perdiendo agua).</p>
+
+  <p>En el mundo online, la reputación es un tema que se viene trabajando desde hace mucho tiempo. Miles de plataformas desarrollaron distintas formas de "reputar" apps, productos, alojamientos, choferes o vendedores. Sin embargo, hasta ahora no teníamos nada comparable para los AI Agents. Además, la mayoría de los sistemas de reputación existentes están en manos de instituciones o plataformas que median y controlan esa reputación.</p>
+
+  <h2>ERC-8004: reputación on-chain</h2>
+
+  <p>Frente a esta necesidad, los desarrolladores de Ethereum, en colaboración con Google, Coinbase y MetaMask, lanzaron un nuevo protocolo que busca convertirse en el estándar de la reputación on-chain. Una forma mediante la cual cualquier persona, o agente de IA, puede descubrir a otros agentes de manera abierta, con información pública y una reputación verificable y confiable. Se llama <strong>ERC-8004</strong>.</p>
+
+  <p>En las primeras semanas ya se registraron más de 30.000 agentes. Existe un explorador de este registro donde es posible observar agentes trending, curados y mejor calificados.</p>
+
+  <p>¿Cuál es la importancia de todo esto? En un mundo donde cada vez más cosas suceden en internet, y donde una parte creciente de esas decisiones las vamos a delegar en agentes autónomos, también va a aumentar la cantidad de ataques y fraudes realizados por agentes programados por actores maliciosos. Que la comunidad de Ethereum tome la iniciativa en este aspecto me parece fundamental.</p>
+
+  <p>¿Necesitás un agente? Verificá su reputación en ERC-8004. Cada trabajo que realiza deja una marca en su historial: pública, verificable y sin "falsos positivos". Algo que solo es posible gracias a la tecnología descentralizada de la blockchain.</p>
+
+  <h2>Fuentes</h2>
+
+  <ul>
+    <li><a href="https://ethereum.org/es/ai-agents/" target="_blank">ethereum.org — AI Agents</a></li>
+    <li><a href="https://www.8004.org/" target="_blank">8004.org</a> — el sitio oficial del protocolo</li>
+    <li><a href="https://www.8004scan.io/" target="_blank">8004scan.io</a> — explorador de agentes</li>
+    <li><a href="https://eips.ethereum.org/EIPS/eip-8004" target="_blank">EIP-8004</a> — la propuesta técnica</li>
+  </ul>
+
+</article>
+
+<div class="article-footer">
+  <p class="article-firma">El Ethernauta</p>
+</div>
+
+<footer>
+  <a href="/">Ethernauta</a>
+  <span>ethernauta.lat — Buenos Aires, 2026</span>
+</footer>
+
+</body>
+</html>
