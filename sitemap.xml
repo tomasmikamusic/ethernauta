@@ -20,5 +20,10 @@
     <loc>https://ethernauta.lat/ethereum-e-ia.html</loc>
     <priority>0.8</priority>
   </url>
+
+  <url>
+    <loc>https://ethernauta.lat/capas-de-ethereum.html</loc>
+    <priority>0.8</priority>
+  </url>
   
 </urlset>
