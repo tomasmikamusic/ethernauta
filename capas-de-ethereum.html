@@ -1,0 +1,321 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Las capas de Ethereum: Execution Layer y Consensus Layer — Ethernauta</title>
+  <meta name="description" content="Qué son la Capa de Ejecución y la Capa de Consenso de Ethereum, cómo funcionan juntas y por qué esta división existe desde The Merge.">
+  <link rel="canonical" href="https://ethernauta.lat/capas-de-ethereum.html" />
+  <meta property="og:title" content="Las capas de Ethereum: Execution Layer y Consensus Layer — Ethernauta" />
+  <meta property="og:description" content="Qué son la Capa de Ejecución y la Capa de Consenso, cómo funcionan juntas y por qué esta división existe desde The Merge." />
+  <meta property="og:type" content="article" />
+  <meta property="og:url" content="https://ethernauta.lat/capas-de-ethereum.html" />
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:ital,wght@0,400;0,700;1,400&family=DM+Mono:wght@300;400&display=swap" rel="stylesheet">
+  <style>
+    :root {
+      --bg: #0a0d0f;
+      --surface: #0f1316;
+      --border: #1c2128;
+      --eth: #627eea;
+      --text: #dde3ea;
+      --text-dim: #7a8694;
+      --text-faint: #3d4855;
+      --accent: #c8d8f0;
+    }
+
+    * { margin: 0; padding: 0; box-sizing: border-box; }
+    html { scroll-behavior: smooth; }
+
+    body {
+      background: var(--bg);
+      color: var(--text);
+      font-family: 'DM Mono', monospace;
+      font-weight: 300;
+      overflow-x: hidden;
+    }
+
+    nav {
+      position: fixed;
+      top: 0; left: 0; right: 0;
+      z-index: 100;
+      padding: 1.25rem 3rem;
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      border-bottom: 1px solid var(--border);
+      background: rgba(10,13,15,0.9);
+      backdrop-filter: blur(12px);
+    }
+
+    .nav-logo {
+      font-family: 'Playfair Display', serif;
+      font-style: italic;
+      font-size: 1.1rem;
+      color: var(--text);
+      text-decoration: none;
+    }
+
+    .nav-links {
+      display: flex;
+      gap: 2rem;
+      list-style: none;
+    }
+
+    .nav-links a {
+      font-size: 0.75rem;
+      letter-spacing: 0.12em;
+      text-transform: uppercase;
+      color: var(--text-dim);
+      text-decoration: none;
+      transition: color 0.2s;
+    }
+
+    .nav-links a:hover { color: var(--text); }
+
+    .article-header {
+      padding: 10rem 3rem 4rem;
+      border-bottom: 1px solid var(--border);
+      max-width: 800px;
+      margin: 0 auto;
+    }
+
+    .article-meta {
+      font-size: 0.65rem;
+      letter-spacing: 0.25em;
+      text-transform: uppercase;
+      color: var(--text-faint);
+      margin-bottom: 2rem;
+    }
+
+    .article-title {
+      font-family: 'Playfair Display', serif;
+      font-size: clamp(2.2rem, 5vw, 3.8rem);
+      font-weight: 700;
+      line-height: 1.05;
+      letter-spacing: -0.02em;
+      margin-bottom: 1.5rem;
+    }
+
+    .article-title em {
+      font-style: italic;
+      color: var(--eth);
+    }
+
+    .article-body {
+      max-width: 800px;
+      margin: 0 auto;
+      padding: 4rem 3rem 6rem;
+    }
+
+    .article-body p {
+      font-size: 1rem;
+      line-height: 1.9;
+      color: var(--text-dim);
+      margin-bottom: 1.6rem;
+    }
+
+    .article-body p strong {
+      color: var(--text);
+      font-weight: 400;
+    }
+
+    .article-body h2 {
+      font-family: 'Playfair Display', serif;
+      font-size: 1.6rem;
+      font-weight: 700;
+      color: var(--text);
+      margin: 3.5rem 0 1.2rem;
+      line-height: 1.2;
+    }
+
+    .article-body h3 {
+      font-size: 0.85rem;
+      letter-spacing: 0.12em;
+      text-transform: uppercase;
+      color: var(--eth);
+      margin: 2.5rem 0 1rem;
+    }
+
+    .article-body ul {
+      list-style: none;
+      margin-bottom: 1.6rem;
+    }
+
+    .article-body ul li {
+      font-size: 1rem;
+      line-height: 1.9;
+      color: var(--text-dim);
+      padding-left: 1.2rem;
+      position: relative;
+      margin-bottom: 0.4rem;
+    }
+
+    .article-body ul li::before {
+      content: '·';
+      position: absolute;
+      left: 0;
+      color: var(--eth);
+    }
+
+    .article-body a,
+    .article-body ul li a {
+      color: var(--eth);
+      text-decoration: none;
+      transition: color 0.2s;
+    }
+
+    .article-body a:hover { color: var(--accent); }
+
+    .article-footer {
+      max-width: 800px;
+      margin: 0 auto;
+      padding: 3rem 3rem 6rem;
+      border-top: 1px solid var(--border);
+    }
+
+    .article-attribution {
+      font-size: 0.8rem;
+      color: var(--text-faint);
+      font-style: italic;
+      margin-bottom: 1rem;
+    }
+
+    .article-firma {
+      font-family: 'Playfair Display', serif;
+      font-style: italic;
+      font-size: 1.1rem;
+      color: var(--eth);
+    }
+
+    footer {
+      padding: 2.5rem 3rem;
+      display: flex;
+      justify-content: space-between;
+      font-size: 0.65rem;
+      color: var(--text-faint);
+      border-top: 1px solid var(--border);
+    }
+
+    footer a {
+      color: var(--text-faint);
+      text-decoration: none;
+    }
+
+    @media (max-width: 900px) {
+      nav { padding: 1rem 1.5rem; }
+      .nav-links { display: none; }
+      .article-header,
+      .article-body,
+      .article-footer { padding-left: 1.5rem; padding-right: 1.5rem; }
+    }
+  </style>
+</head>
+<body>
+
+<nav>
+  <a href="/" class="nav-logo">Ethernauta</a>
+  <ul class="nav-links">
+    <li><a href="/#temas">Temas</a></li>
+    <li><a href="/#entradas">Entradas</a></li>
+    <li><a href="/#autor">Autor</a></li>
+    <li><a href="https://x.com/saquelogarcia" target="_blank">X</a></li>
+  </ul>
+</nav>
+
+<header class="article-header">
+  <p class="article-meta">Protocolo y consenso &nbsp;·&nbsp; Junio 2025</p>
+  <h1 class="article-title">Las capas de Ethereum: <em>¿una red o varias redes?</em></h1>
+</header>
+
+<article class="article-body">
+
+  <p>El concepto de "capas" de Ethereum es tan importante como confuso. Y como suele pasar, todo se enreda cuando usamos la misma palabra para hablar de cosas distintas.</p>
+
+  <p>Probablemente el uso más extendido del término sea el que distingue entre la Layer 1 (Ethereum, la red principal o Mainnet) y las redes de Layer 2, los famosos rollups. En ese caso se trata de capas del ecosistema: una red principal y otras redes complementarias que ejecutan transacciones de forma autónoma pero dependen de Ethereum para la seguridad, la disponibilidad de datos y la finalización de transacciones.</p>
+
+  <p>Pero el concepto de capa también se aplica cuando miramos hacia adentro de la red principal. Dentro de la Layer 1 también hay una división en dos capas fundamentales. Cada transacción o smart contract que se ejecuta en Ethereum las involucra permanentemente. Cada una tiene su propia historia, sus funciones y sus responsabilidades.</p>
+
+  <p>La primera reacción puede ser: "¿Por qué complicarlo tanto? ¿No se puede hacer todo en una sola capa?" De hecho, así era antes de The Merge, en 2022. Ethereum funcionaba con una arquitectura monolítica. Desde entonces se optó por esta división para ganar en eficiencia, escalabilidad y seguridad. Los resultados vienen siendo más que buenos.</p>
+
+  <h2>Execution Layer y Consensus Layer</h2>
+
+  <p>Nombrémoslas: la <strong>Capa de Ejecución</strong> (Execution Layer o EL) y la <strong>Capa de Consenso</strong> (Consensus Layer o CL).</p>
+
+  <h3>La Capa de Ejecución</h3>
+
+  <p>Es la más cercana a la experiencia que tenemos como usuarios. Como su nombre lo indica, es donde se verifican y ejecutan las transacciones.</p>
+
+  <p>Por ejemplo: si una persona A quiere enviarle X cantidad de ETH a una persona B, la Capa de Ejecución es la primera en intervenir. Recibe la transacción, verifica que haya saldo suficiente para el envío y para pagar el gas, y que la firma digital coincida con la clave del emisor. Si todo está en orden, actualiza los saldos de ambas cuentas.</p>
+
+  <p>Pero ejecutar no es lo mismo que registrar. Alguien tiene que encargarse de que esa transacción, junto a miles de otras, quede guardada para siempre en la cadena de bloques de manera uniforme en todos los nodos, para que haya una única versión de la red. Ahí entra la otra capa.</p>
+
+  <h3>La Capa de Consenso</h3>
+
+  <p>Esta capa se encarga de crear y validar los bloques: los paquetes de información que almacenan múltiples transacciones. Cada bloque se vincula al anterior de forma única, conformando una cadena inalterable.</p>
+
+  <p>Pero no alcanza con que un nodo proponga un bloque. Necesitamos que todos los nodos de la red estén de acuerdo con qué bloque va primero, cuál sigue y qué transacciones se aceptan. Ese es el rol de los mecanismos de consenso que operan sobre una blockchain especial: la <strong>Beacon Chain</strong>.</p>
+
+  <p>La Beacon Chain es una especie de blockchain interna de Ethereum. No almacena los detalles de cada transacción ni de cada contrato, sino información sobre los bloques, los validadores y las reglas del consenso. Existen incluso exploradores propios de la Beacon Chain, como <a href="https://beaconcha.in/" target="_blank">beaconcha.in</a>, que permiten acceder exclusivamente a la información de esta capa.</p>
+
+  <p>Desde The Merge, Ethereum dejó atrás la Prueba de Trabajo (Proof of Work) y adoptó la Prueba de Participación (Proof of Stake), lo que significó introducir una capa separada encargada exclusivamente de definir qué bloques son válidos.</p>
+
+  <h2>¿Cómo funciona la validación?</h2>
+
+  <p>Antes, los mineros competían por resolver un problema computacional. El primero en resolverlo ganaba el derecho a proponer el próximo bloque y cobraba la recompensa.</p>
+
+  <p>Hoy, ese rol lo cumplen los validadores. Para convertirse en validador, hay que depositar una cantidad de ETH y ejecutar un software específico en línea las 24 horas. Ya no importa la capacidad computacional sino la participación, el stake, en la red.</p>
+
+  <p>Cada 12 segundos (un "slot"), un validador es seleccionado al azar para proponer un nuevo bloque. Toma transacciones de la mempool (una especie de sala de espera de transacciones ya verificadas por la EL), las ordena y las agrupa hasta alcanzar el límite permitido por bloque. Luego propone ese bloque a los demás validadores. Si al menos dos tercios lo aprueban mediante los mecanismos de la Beacon Chain, se considera válido y se incorpora a la blockchain de forma permanente.</p>
+
+  <h2>¿Y los nodos?</h2>
+
+  <p>Todas estas tareas no suceden en el aire. Suceden en redes P2P distribuidas por todo el mundo, compuestas por cientos de miles de nodos. Cada nodo es una computadora con ciertos requisitos técnicos y con softwares especializados llamados clientes.</p>
+
+  <p>No todos los nodos son iguales. Hay nodos que solo ejecutan la capa de ejecución, y otros que ejecutan ambas capas y además han depositado ETH para convertirse en validadores. Dicho de otra forma: todos los validadores son nodos, pero no todos los nodos son validadores.</p>
+
+  <p>Hay clientes que cumplen funciones de Ejecución y otros de Consenso. Ambos tipos funcionan de manera complementaria intercambiando información permanentemente. Entre los más conocidos están Geth para la EL y Prysm para la CL, aunque hay muchos más — algo sobre lo que ya escribí en una <a href="/clientes-y-diversidad.html">entrada anterior</a>.</p>
+
+  <h2>¿Y si alguien intenta hacer trampa?</h2>
+
+  <p>Ethereum asegura que ningún actor malicioso pueda alterar el registro. Los miles de millones de dólares que circulan dependen de que ni una línea de ese gran libro contable digital pueda modificarse arbitrariamente. La capa de consenso lo impide.</p>
+
+  <p>Para ello, los validadores pusieron su depósito a modo de garantía. Si intentaran validar algo que el resto de la red detecta como ilegítimo, pierden parte de su depósito, o todo.</p>
+
+  <h2>La disponibilidad de los datos</h2>
+
+  <p>La ejecución y validación de las transacciones no lo es todo. Para que una red funcione de forma abierta y descentralizada, todos los nodos deben poder acceder en cualquier momento al historial completo de datos. Sin pedir permiso, sin restricciones, sin depender de nadie.</p>
+
+  <p>Hoy esos datos se almacenan en la capa de ejecución. Pero su peso y su rol en la salud del ecosistema son tan grandes que cada vez más personas hablan de una posible "subcapa" de datos. Aunque esto aún no está definido formalmente, la discusión está sobre la mesa y será central en el futuro con la posible implementación del sharding.</p>
+
+  <h2>En resumen</h2>
+
+  <p>Ethereum, tal como funciona hoy, es la integración de ambas capas en interacción constante.</p>
+
+  <p>La Capa de Ejecución procesa las transacciones. La Capa de Consenso certifica, ordena y asegura los bloques que agrupan esas transacciones. La capa de consenso garantiza que todos los nodos del mundo tengan la misma versión de la cadena, sin errores, sin duplicaciones, sin alteraciones. Esa es la "magia" de Ethereum: una red global que funciona todo el día, todos los días, sin control central, validando miles de operaciones con un margen de error prácticamente nulo.</p>
+
+  <p>Y es muy probable que muchos usuarios, incluso avanzados, nunca hayan oído hablar de la capa que más la sostiene.</p>
+
+  <h2>Fuentes</h2>
+
+  <ul>
+    <li><a href="https://epf.wiki/#/eps/week2?id=study-group-lecture-3-execution-layer" target="_blank">EPF — Execution Layer</a></li>
+    <li><a href="https://epf.wiki/#/wiki/CL/overview" target="_blank">EPF — Consensus Layer Overview</a></li>
+    <li><a href="https://beaconcha.in/" target="_blank">beaconcha.in</a> — explorador de la Beacon Chain</li>
+    <li><a href="https://ethereum.org/es/developers/docs/nodes-and-clients/" target="_blank">Ethereum.org — Nodos y clientes</a></li>
+  </ul>
+
+</article>
+
+<div class="article-footer">
+  <p class="article-attribution">Este artículo lo escribí originalmente para ETH Kipu. Lo publico aquí con su autorización.</p>
+  <p class="article-firma">El Ethernauta</p>
+</div>
+
+<footer>
+  <a href="/">Ethernauta</a>
+  <span>ethernauta.lat — Buenos Aires, 2026</span>
+</footer>
+
+</body>
+</html>
