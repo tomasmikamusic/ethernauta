@@ -169,13 +169,25 @@
       margin-bottom: 4rem;
     }
 
-    .posts-grid {
-      display: grid;
-      grid-template-columns: repeat(2, 1fr);
-      gap: 1.25rem;
+    .posts-carousel-wrapper {
+      position: relative;
     }
 
+    .posts-grid {
+      display: flex;
+      gap: 1.25rem;
+      overflow-x: auto;
+      scroll-snap-type: x mandatory;
+      -webkit-overflow-scrolling: touch;
+      scrollbar-width: none;
+      padding-bottom: 0.5rem;
+    }
+
+    .posts-grid::-webkit-scrollbar { display: none; }
+
     .post-card {
+      flex: 0 0 calc(50% - 0.625rem);
+      scroll-snap-align: start;
       display: block;
       border: 1px solid var(--border);
       background: rgba(15,19,22,0.35);
@@ -189,11 +201,16 @@
       transform: translateY(-1px);
     }
 
+    .post-card.coming-soon {
+      opacity: 0.4;
+      pointer-events: none;
+    }
+
     .post-meta {
       font-size: 0.65rem;
       letter-spacing: 0.18em;
       text-transform: uppercase;
-      color: var(--text-faint);
+      color: var(--eth);
       margin-bottom: 0.9rem;
     }
 
@@ -208,6 +225,81 @@
     .post-excerpt {
       font-size: 0.95rem;
       line-height: 1.7;
+      color: var(--text-dim);
+    }
+
+    .carousel-btn {
+      position: absolute;
+      top: 50%;
+      transform: translateY(-50%);
+      background: rgba(10,13,15,0.85);
+      border: 1px solid var(--border);
+      color: var(--text);
+      width: 2rem;
+      height: 2rem;
+      cursor: pointer;
+      font-size: 0.8rem;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      z-index: 10;
+      transition: background 0.2s, border-color 0.2s, color 0.2s;
+      backdrop-filter: blur(8px);
+    }
+
+    .carousel-btn:hover {
+      background: var(--eth);
+      border-color: var(--eth);
+      color: #fff;
+    }
+
+    #prevBtn { left: -2.5rem; }
+    #nextBtn { right: -2.5rem; }
+
+    /* BUILDERS */
+    .builders-grid {
+      display: grid;
+      grid-template-columns: repeat(3, 1fr);
+      border-top: 1px solid var(--border);
+      border-left: 1px solid var(--border);
+    }
+
+    .builder-card {
+      border-right: 1px solid var(--border);
+      border-bottom: 1px solid var(--border);
+      padding: 2rem 1.75rem;
+      text-decoration: none;
+      transition: background 0.25s;
+      display: block;
+    }
+
+    .builder-card:hover { background: var(--surface); }
+
+    .builder-card.coming-soon {
+      opacity: 0.35;
+      pointer-events: none;
+    }
+
+    .builder-tag {
+      font-size: 0.6rem;
+      letter-spacing: 0.2em;
+      text-transform: uppercase;
+      color: var(--eth);
+      margin-bottom: 0.8rem;
+      display: block;
+    }
+
+    .builder-name {
+      font-family: 'Playfair Display', serif;
+      font-size: 1.1rem;
+      color: var(--text);
+      margin-bottom: 0.5rem;
+      line-height: 1.2;
+    }
+
+    .builder-desc {
+      font-size: 0.85rem;
+      line-height: 1.65;
       color: var(--text-dim);
     }
 
@@ -318,6 +410,7 @@
   <ul class="nav-links">
     <li><a href="#temas">Temas</a></li>
     <li><a href="#entradas">Entradas</a></li>
+    <li><a href="#builders">Builders</a></li>
     <li><a href="#recursos">Recursos</a></li>
     <li><a href="#nombre">El nombre</a></li>
     <li><a href="#autor">Autor</a></li>
@@ -383,34 +476,82 @@
 <section class="section" id="entradas">
   <div class="section-inner">
     <p class="section-index">02 — Entradas</p>
-    <div class="posts-grid">
-<a class="post-card" href="/nodos-de-ethereum.html">
-  <div class="post-meta">Infraestructura real &nbsp;·&nbsp; Junio 2025</div>
-  <div class="post-title">Nodos en Ethereum</div>
-  <div class="post-excerpt">Qué son, qué tipos existen, por qué correr uno y qué necesitás para hacerlo.</div>
+    <div class="posts-carousel-wrapper">
+      <button class="carousel-btn" id="prevBtn">&#8592;</button>
+      <div class="posts-grid" id="postsCarousel">
+        <a class="post-card" href="/nodos-de-ethereum.html">
+          <div class="post-meta">Infraestructura real &nbsp;·&nbsp; Junio 2025</div>
+          <div class="post-title">Nodos en Ethereum</div>
+          <div class="post-excerpt">Qué son, qué tipos existen, por qué correr uno y qué necesitás para hacerlo.</div>
+        </a>
+        <a class="post-card" href="/clientes-y-diversidad.html">
+          <div class="post-meta">Infraestructura real &nbsp;·&nbsp; Julio 2025</div>
+          <div class="post-title">Cuando ser redundante es una virtud: los clientes de Ethereum</div>
+          <div class="post-excerpt">Qué son los clientes, cuáles existen y por qué la diversidad entre ellos es fundamental para la salud de la red.</div>
+        </a>
+        <a class="post-card" href="/ethereum-e-ia.html">
+          <div class="post-meta">Ideas y contexto &nbsp;·&nbsp; Abril 2025</div>
+          <div class="post-title">Ethereum, Google, la IA y el plomero que no me arregló el depósito</div>
+          <div class="post-excerpt">AI Agents en Ethereum, reputación on-chain y el ERC-8004.</div>
+        </a>
+        <a class="post-card" href="/capas-de-ethereum.html">
+          <div class="post-meta">Protocolo y consenso &nbsp;·&nbsp; Junio 2025</div>
+          <div class="post-title">Las capas de Ethereum: ¿una red o varias redes?</div>
+          <div class="post-excerpt">Qué son la Capa de Ejecución y la Capa de Consenso, cómo funcionan juntas y por qué esta división existe desde The Merge.</div>
+        </a>
+        <a class="post-card coming-soon" href="#">
+          <div class="post-meta">Próximamente</div>
+          <div class="post-title">Privacidad en Ethereum</div>
+          <div class="post-excerpt">ZK proofs, el roadmap de privacidad en L1 y por qué esto define qué tipo de infraestructura construimos.</div>
+        </a>
+        <a class="post-card coming-soon" href="#">
+          <div class="post-meta">Próximamente</div>
+          <div class="post-title">Gobernanza en Ethereum</div>
+          <div class="post-excerpt">Quién decide. EIPs, All Core Devs, rough consensus. La política sin política formal.</div>
+        </a>
+        <a class="post-card coming-soon" href="#">
+          <div class="post-meta">Próximamente</div>
+          <div class="post-title">Escalabilidad</div>
+          <div class="post-excerpt">Rollups, danksharding, el roadmap. Qué tipo de solución se está construyendo y qué compromisos implica.</div>
+        </a>
+        <a class="post-card coming-soon" href="#">
+          <div class="post-meta">Próximamente</div>
+          <div class="post-title">Make Ethereum Cypherpunk Again</div>
+          <div class="post-excerpt">Identidad, ethos y las tensiones filosóficas que definen el ecosistema.</div>
+        </a>
+      </div>
+      <button class="carousel-btn" id="nextBtn">&#8594;</button>
+    </div>
+  </div>
+</section>
+
+<section class="section" id="builders">
+  <div class="section-inner">
+    <p class="section-index">03 — Builders</p>
+    <p style="font-size:0.95rem;line-height:1.9;color:var(--text-dim);max-width:640px;margin-bottom:3rem;">Proyectos reales construidos en Ethereum. Entrevisto a los builders y te lo explico como nadie te lo contó. Esta es una selección arbitraria, en la que el único criterio de curaduría es mi valoración personal. Ningún artículo representa consejo financiero.</p>
+    <div class="builders-grid">
+      <a class="builder-card coming-soon" href="#">
+        <span class="builder-tag">Próximamente</span>
+        <div class="builder-name">Entrevista 001</div>
+        <div class="builder-desc">Un proyecto del ecosistema Ethereum en Latinoamérica.</div>
       </a>
-     <a class="post-card" href="/clientes-y-diversidad.html">
-  <div class="post-meta">Infraestructura real &nbsp;·&nbsp; Julio 2025</div>
-  <div class="post-title">Cuando ser redundante es una virtud: los clientes de Ethereum</div>
-  <div class="post-excerpt">Qué son los clientes, cuáles existen y por qué la diversidad entre ellos es fundamental para la salud de la red.</div>
-</a>
-<a class="post-card" href="/ethereum-e-ia.html">
-  <div class="post-meta">Ideas y contexto &nbsp;·&nbsp; Abril 2025</div>
-  <div class="post-title">Ethereum, Google, la IA y el plomero que no me arregló el depósito</div>
-  <div class="post-excerpt">AI Agents en Ethereum, reputación on-chain y el ERC-8004. Cómo decidir en qué agente autónomo confiar cuando está manejando tu dinero.</div>
-</a>      
-    <a class="post-card" href="/capas-de-ethereum.html">
-  <div class="post-meta">Protocolo y consenso &nbsp;·&nbsp; Junio 2025</div>
-  <div class="post-title">Las capas de Ethereum: ¿una red o varias redes?</div>
-  <div class="post-excerpt">Qué son la Capa de Ejecución y la Capa de Consenso, cómo funcionan juntas y por qué esta división existe desde The Merge.</div>
-</a>
-        </div>
+      <a class="builder-card coming-soon" href="#">
+        <span class="builder-tag">Próximamente</span>
+        <div class="builder-name">Entrevista 002</div>
+        <div class="builder-desc">Un proyecto del ecosistema Ethereum en Latinoamérica.</div>
+      </a>
+      <a class="builder-card coming-soon" href="#">
+        <span class="builder-tag">Próximamente</span>
+        <div class="builder-name">Entrevista 003</div>
+        <div class="builder-desc">Un proyecto del ecosistema Ethereum en Latinoamérica.</div>
+      </a>
+    </div>
   </div>
 </section>
 
 <section class="section" id="recursos">
   <div class="section-inner">
-    <p class="section-index">03 — Recursos</p>
+    <p class="section-index">04 — Recursos</p>
     <div class="resources-grid">
       <div class="resource-card">
         <div class="resource-title">Métricas</div>
@@ -458,5 +599,20 @@
   <span>ethernauta.lat — Buenos Aires, 2026</span>
 </footer>
 
+<script>
+  const carousel = document.getElementById('postsCarousel');
+  const prevBtn = document.getElementById('prevBtn');
+  const nextBtn = document.getElementById('nextBtn');
+
+  nextBtn.addEventListener('click', () => {
+    const cardWidth = carousel.querySelector('.post-card').offsetWidth + 20;
+    carousel.scrollBy({ left: cardWidth * 2, behavior: 'smooth' });
+  });
+
+  prevBtn.addEventListener('click', () => {
+    const cardWidth = carousel.querySelector('.post-card').offsetWidth + 20;
+    carousel.scrollBy({ left: -cardWidth * 2, behavior: 'smooth' });
+  });
+</script>
 </body>
 </html>
