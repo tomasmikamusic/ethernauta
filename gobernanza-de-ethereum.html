@@ -1,0 +1,340 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Gobernanza de Ethereum — Ethernauta</title>
+  <meta name="description" content="Si nadie es el dueño de Ethereum, ¿quién toma las decisiones? Cómo funciona la gobernanza de la red, qué son las EIPs y cómo participar.">
+  <link rel="canonical" href="https://ethernauta.lat/gobernanza-de-ethereum.html" />
+  <meta property="og:title" content="Gobernanza de Ethereum — Ethernauta" />
+  <meta property="og:description" content="Si nadie es el dueño de Ethereum, ¿quién toma las decisiones?" />
+  <meta property="og:type" content="article" />
+  <meta property="og:url" content="https://ethernauta.lat/gobernanza-de-ethereum.html" />
+  <link rel="icon" type="image/svg+xml" href="/favicon.svg">
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:ital,wght@0,400;0,700;1,400&family=DM+Mono:wght@300;400&display=swap" rel="stylesheet">
+  <style>
+    :root {
+      --bg: #0a0d0f;
+      --surface: #0f1316;
+      --border: #1c2128;
+      --eth: #627eea;
+      --text: #dde3ea;
+      --text-dim: #7a8694;
+      --text-faint: #3d4855;
+      --accent: #c8d8f0;
+    }
+
+    * { margin: 0; padding: 0; box-sizing: border-box; }
+    html { scroll-behavior: smooth; }
+
+    body {
+      background: var(--bg);
+      color: var(--text);
+      font-family: 'DM Mono', monospace;
+      font-weight: 300;
+      overflow-x: hidden;
+    }
+
+    nav {
+      position: fixed;
+      top: 0; left: 0; right: 0;
+      z-index: 100;
+      padding: 1.25rem 3rem;
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      border-bottom: 1px solid var(--border);
+      background: rgba(10,13,15,0.9);
+      backdrop-filter: blur(12px);
+    }
+
+    .nav-logo {
+      font-family: 'Playfair Display', serif;
+      font-style: italic;
+      font-size: 1.1rem;
+      color: var(--text);
+      text-decoration: none;
+    }
+
+    .nav-links {
+      display: flex;
+      gap: 2rem;
+      list-style: none;
+    }
+
+    .nav-links a {
+      font-size: 0.75rem;
+      letter-spacing: 0.12em;
+      text-transform: uppercase;
+      color: var(--text-dim);
+      text-decoration: none;
+      transition: color 0.2s;
+    }
+
+    .nav-links a:hover { color: var(--text); }
+
+    .article-header {
+      padding: 10rem 3rem 4rem;
+      border-bottom: 1px solid var(--border);
+      max-width: 800px;
+      margin: 0 auto;
+    }
+
+    .article-meta {
+      font-size: 0.65rem;
+      letter-spacing: 0.25em;
+      text-transform: uppercase;
+      color: var(--text-faint);
+      margin-bottom: 2rem;
+    }
+
+    .article-title {
+      font-family: 'Playfair Display', serif;
+      font-size: clamp(2.2rem, 5vw, 3.8rem);
+      font-weight: 700;
+      line-height: 1.05;
+      letter-spacing: -0.02em;
+      margin-bottom: 1.5rem;
+    }
+
+    .article-title em {
+      font-style: italic;
+      color: var(--eth);
+    }
+
+    .article-body {
+      max-width: 800px;
+      margin: 0 auto;
+      padding: 4rem 3rem 6rem;
+    }
+
+    .article-body p {
+      font-size: 1rem;
+      line-height: 1.9;
+      color: var(--text-dim);
+      margin-bottom: 1.6rem;
+    }
+
+    .article-body p strong {
+      color: var(--text);
+      font-weight: 400;
+    }
+
+    .article-body h2 {
+      font-family: 'Playfair Display', serif;
+      font-size: 1.6rem;
+      font-weight: 700;
+      color: var(--text);
+      margin: 3.5rem 0 1.2rem;
+      line-height: 1.2;
+    }
+
+    .article-body h3 {
+      font-size: 0.85rem;
+      letter-spacing: 0.12em;
+      text-transform: uppercase;
+      color: var(--eth);
+      margin: 2.5rem 0 1rem;
+    }
+
+    .article-body ul, .article-body ol {
+      list-style: none;
+      margin-bottom: 1.6rem;
+    }
+
+    .article-body ul li, .article-body ol li {
+      font-size: 1rem;
+      line-height: 1.9;
+      color: var(--text-dim);
+      padding-left: 1.2rem;
+      position: relative;
+      margin-bottom: 0.6rem;
+    }
+
+    .article-body ul li::before {
+      content: '·';
+      position: absolute;
+      left: 0;
+      color: var(--eth);
+    }
+
+    .article-body ol {
+      counter-reset: item;
+    }
+
+    .article-body ol li::before {
+      content: counter(item) ".";
+      counter-increment: item;
+      position: absolute;
+      left: 0;
+      color: var(--eth);
+      font-size: 0.85rem;
+    }
+
+    .article-body a,
+    .article-body ul li a,
+    .article-body ol li a {
+      color: var(--eth);
+      text-decoration: none;
+      transition: color 0.2s;
+    }
+
+    .article-body a:hover { color: var(--accent); }
+
+    .article-body ul li strong,
+    .article-body ol li strong {
+      color: var(--text);
+      font-weight: 400;
+    }
+
+    .article-footer {
+      max-width: 800px;
+      margin: 0 auto;
+      padding: 3rem 3rem 6rem;
+      border-top: 1px solid var(--border);
+    }
+
+    .article-attribution {
+      font-size: 0.8rem;
+      color: var(--text-faint);
+      font-style: italic;
+      margin-bottom: 1rem;
+    }
+
+    .article-firma {
+      font-family: 'Playfair Display', serif;
+      font-style: italic;
+      font-size: 1.1rem;
+      color: var(--eth);
+    }
+
+    footer {
+      padding: 2.5rem 3rem;
+      display: flex;
+      justify-content: space-between;
+      font-size: 0.65rem;
+      color: var(--text-faint);
+      border-top: 1px solid var(--border);
+    }
+
+    footer a {
+      color: var(--text-faint);
+      text-decoration: none;
+    }
+
+    @media (max-width: 900px) {
+      nav { padding: 1rem 1.5rem; }
+      .nav-links { display: none; }
+      .article-header,
+      .article-body,
+      .article-footer { padding-left: 1.5rem; padding-right: 1.5rem; }
+    }
+  </style>
+</head>
+<body>
+
+<nav>
+  <a href="/" class="nav-logo">Ethernauta</a>
+  <ul class="nav-links">
+    <li><a href="/#temas">Temas</a></li>
+    <li><a href="/#entradas">Entradas</a></li>
+    <li><a href="/#builders">Builders</a></li>
+    <li><a href="/#autor">Autor</a></li>
+    <li><a href="https://x.com/saquelogarcia" target="_blank">X</a></li>
+  </ul>
+</nav>
+
+<header class="article-header">
+  <p class="article-meta">Gobernanza &nbsp;·&nbsp; Mayo 2025</p>
+  <h1 class="article-title">Si nadie es el dueño de Ethereum, ¿quién toma las <em>decisiones</em>?</h1>
+</header>
+
+<article class="article-body">
+
+  <p>Para responder a esa pregunta hay que hablar de <strong>gobernanza</strong>: el conjunto de procesos a través de los cuales se toman decisiones en una red. A diferencia de las organizaciones tradicionales, que tienen jerarquías claras, en Ethereum las decisiones se toman de forma descentralizada. Lo que suena bien en teoría es, en la práctica, uno de los problemas más difíciles que existe.</p>
+
+  <h2>Dos distinciones que hay que tener claras</h2>
+
+  <h3>Ethereum es permissionless</h3>
+
+  <p>Nadie necesita pedir permiso para hacer algo <strong>en</strong> Ethereum. Cualquiera puede usar la red como mejor le parezca, sin autorización. Si es feriado, de noche, o si alguien no está de acuerdo con tu transacción, no importa. En lo referido al uso personal de la red, las decisiones las toma cada uno y nadie más.</p>
+
+  <p>Pero la cosa cambia cuando hablamos de hacerle algo <strong>a</strong> Ethereum. Es decir, cuando queremos modificar la red misma. En ese caso sí entra en juego la gobernanza.</p>
+
+  <h3>Gobernanza en Ethereum vs. gobernanza de Ethereum</h3>
+
+  <p>No es lo mismo tomar decisiones dentro de una dApp que tomar decisiones sobre la red en su conjunto.</p>
+
+  <p>La gobernanza <em>en</em> Ethereum se refiere a la toma de decisiones dentro de proyectos que viven sobre la red: una DAO, un exchange, una Layer 2. Muchas veces estas decisiones se ejecutan directamente on-chain con una votación.</p>
+
+  <p>La gobernanza <em>de</em> Ethereum involucra a toda la infraestructura que sostiene esos miles de proyectos. Requiere coordinación entre actores muy diversos y no se puede automatizar fácilmente. Por eso ocurre <strong>off-chain</strong>.</p>
+
+  <h2>¿Quiénes participan?</h2>
+
+  <p>Todas las personas que interactúan con Ethereum pueden participar: holders de ETH, usuarios, desarrolladores de aplicaciones, operadores de nodos, validadores y desarrolladores del protocolo. Cada uno, desde su lugar, cumple un rol en cómo evoluciona la red.</p>
+
+  <p>Un punto importante: no existe relación formal entre la cantidad de ETH que se holdea y el poder de decisión. Ethereum no es un sistema de un token, un voto.</p>
+
+  <h2>La importancia del consenso</h2>
+
+  <p>En Ethereum nadie puede obligar a nadie. Los validadores no pueden imponer decisiones a los usuarios, los desarrolladores no pueden forzar cambios a los nodos. Para aplicar un cambio es necesario lograr consensos amplios, que cada actor esté dispuesto a ejecutar la parte que le toca cuando llegue el momento.</p>
+
+  <p>Pero eso no significa que el disenso esté mal. Si las diferencias son irreconciliables, siempre existe la posibilidad de un <strong>fork</strong>. Así nacen nuevas versiones de la red, como ocurrió con Ethereum Classic después del incidente de The DAO.</p>
+
+  <h2>¿Cómo se toman decisiones?</h2>
+
+  <p>El proceso tiene una forma más o menos establecida, aunque no es rígido ni lineal.</p>
+
+  <ol>
+    <li><strong>Redacción de una EIP (Ethereum Improvement Proposal).</strong> Todo comienza con una propuesta formal que debe seguir ciertas pautas detalladas en la <a href="https://github.com/ethereum/EIPs/blob/master/EIPS/eip-1.md" target="_blank">EIP-1</a>. Se publica en el foro de <a href="https://ethereum-magicians.org/" target="_blank">Ethereum Magicians</a> y en canales como el Discord de Ethereum R&D. Cualquier persona puede crear una EIP.</li>
+    <li><strong>Debate comunitario.</strong> Una vez publicada, la EIP se discute en espacios abiertos. Se suman opiniones, críticas y sugerencias de mejora.</li>
+    <li><strong>Presentación ante desarrolladores del protocolo.</strong> Si hay interés, la propuesta se lleva a una llamada abierta con los desarrolladores core. Si hay acuerdo para avanzar, se redacta una versión revisada.</li>
+    <li><strong>Incorporación en una futura actualización.</strong> Si hay consenso, la EIP se programa para una actualización de la red. Los cambios se prueban primero en redes de prueba antes de llegar a la red principal. La reciente actualización Pectra, por ejemplo, incluyó más de diez EIPs.</li>
+  </ol>
+
+  <h2>Algunas cosas a tener en cuenta</h2>
+
+  <p>La gobernanza de Ethereum no es simple ni lineal. Aplicar cambios en la red requiere mucho cuidado por tres razones:</p>
+
+  <p>Primero, <strong>la red nunca se detiene</strong>. Cambiar Ethereum es como arreglar un auto mientras está andando. Segundo, <strong>hay miles de millones de dólares en juego</strong>. Un error podría ser gravísimo. Tercero, <strong>no hay jerarquías</strong>. La coordinación entre miles de personas sin relación formal entre sí es un desafío inmenso.</p>
+
+  <h2>¿Cómo puedo involucrarme?</h2>
+
+  <p>Cualquiera puede redactar una EIP. No se necesita permiso, cierta cantidad de tokens ni cumplir requisitos especiales. En la práctica, las propuestas no se escriben en soledad: si tenés una idea, podés compartirla en foros y canales de Discord y seguramente encontrés personas con ganas de colaborar.</p>
+
+  <p>Tampoco es necesario escribir una EIP para participar:</p>
+
+  <ul>
+    <li>Leer y opinar sobre propuestas existentes en <a href="https://ethereum-magicians.org/" target="_blank">Ethereum Magicians</a></li>
+    <li>Sumarte a llamadas abiertas y discusiones técnicas</li>
+    <li>Operar un nodo</li>
+    <li>Desarrollar aplicaciones o contribuir directamente al protocolo</li>
+    <li>Involucrarte en la gobernanza de algún proyecto dentro de Ethereum</li>
+  </ul>
+
+  <p>La descentralización no es solo una característica técnica. Es también un aspecto esencial en la identidad de la red: lo que llamamos el ethos de Ethereum. Más voces involucradas es una red más fuerte y con mayor futuro.</p>
+
+  <h2>Para seguir</h2>
+
+  <ul>
+    <li><a href="https://ethereum.org/en/governance/" target="_blank">Ethereum.org — Gobernanza</a></li>
+    <li><a href="https://ethereum-magicians.org/" target="_blank">Ethereum Magicians</a> — foro de propuestas</li>
+    <li><a href="https://vitalik.eth.limo/general/2017/12/17/voting.html" target="_blank">Vitalik Buterin sobre votación y gobernanza</a></li>
+    <li><a href="https://www.coindesk.com/learn/understanding-the-dao-attack" target="_blank">El incidente de The DAO</a></li>
+  </ul>
+
+</article>
+
+<div class="article-footer">
+  <p class="article-attribution">Este artículo lo escribí originalmente para ETH Kipu. Lo publico aquí con su autorización.</p>
+  <p class="article-firma">El Ethernauta</p>
+</div>
+
+<footer>
+  <a href="/">Ethernauta</a>
+  <span>ethernauta.lat — Buenos Aires, 2026</span>
+</footer>
+
+</body>
+</html>
