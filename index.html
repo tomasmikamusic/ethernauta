@@ -402,6 +402,108 @@
       nav { padding: 1rem 1.5rem; }
       .nav-links { display: none; }
     }
+    /* ETHxplorando */
+    .ethxplorando-grid {
+      display: grid;
+      grid-template-columns: repeat(3, 1fr);
+      gap: 1.25rem;
+      margin-bottom: 3rem;
+    }
+
+    .ethx-card {
+      border: 1px solid var(--border);
+      padding: 1.75rem 1.5rem;
+      background: rgba(15,19,22,0.35);
+    }
+
+    .ethx-status {
+      font-size: 0.6rem;
+      letter-spacing: 0.2em;
+      text-transform: uppercase;
+      color: var(--eth);
+      margin-bottom: 0.8rem;
+      display: block;
+    }
+
+    .ethx-title {
+      font-family: 'Playfair Display', serif;
+      font-size: 1.05rem;
+      color: var(--text);
+      margin-bottom: 0.6rem;
+      line-height: 1.2;
+    }
+
+    .ethx-desc {
+      font-size: 0.85rem;
+      line-height: 1.65;
+      color: var(--text-dim);
+    }
+
+    /* Formulario suscripción */
+    .subscribe-wrap {
+      border-top: 1px solid var(--border);
+      padding-top: 3rem;
+      max-width: 520px;
+    }
+
+    .subscribe-label {
+      font-size: 0.65rem;
+      letter-spacing: 0.2em;
+      text-transform: uppercase;
+      color: var(--text-faint);
+      margin-bottom: 1rem;
+      display: block;
+    }
+
+    .subscribe-text {
+      font-size: 0.9rem;
+      line-height: 1.7;
+      color: var(--text-dim);
+      margin-bottom: 1.5rem;
+    }
+
+    .subscribe-row {
+      display: flex;
+      gap: 0.75rem;
+    }
+
+    .subscribe-input {
+      flex: 1;
+      background: var(--surface);
+      border: 1px solid var(--border);
+      color: var(--text);
+      font-family: 'DM Mono', monospace;
+      font-size: 0.85rem;
+      padding: 0.75rem 1rem;
+      outline: none;
+      transition: border-color 0.2s;
+    }
+
+    .subscribe-input:focus { border-color: var(--eth); }
+    .subscribe-input::placeholder { color: var(--text-faint); }
+
+    .subscribe-btn {
+      background: var(--eth);
+      border: none;
+      color: #fff;
+      font-family: 'DM Mono', monospace;
+      font-size: 0.75rem;
+      letter-spacing: 0.1em;
+      text-transform: uppercase;
+      padding: 0.75rem 1.5rem;
+      cursor: pointer;
+      transition: opacity 0.2s;
+      white-space: nowrap;
+    }
+
+    .subscribe-btn:hover { opacity: 0.85; }
+
+    .subscribe-fine {
+      font-size: 0.7rem;
+      color: var(--text-faint);
+      margin-top: 0.75rem;
+    }
+
   </style>
 </head>
 <body>
@@ -412,6 +514,7 @@
     <li><a href="#temas">Temas</a></li>
     <li><a href="#entradas">Entradas</a></li>
     <li><a href="#builders">Builders</a></li>
+    <li><a href="#ethxplorando">ETHxplorando</a></li>
     <li><a href="#recursos">Recursos</a></li>
     <li><a href="#nombre">El nombre</a></li>
     <li><a href="#autor">Autor</a></li>
@@ -550,9 +653,46 @@
   </div>
 </section>
 
+<section class="section" id="ethxplorando">
+  <div class="section-inner">
+    <p class="section-index">04 — ETHxplorando</p>
+    <div class="ethxplorando-grid">
+      <div class="ethx-card">
+        <span class="ethx-status">Próximamente</span>
+        <div class="ethx-title">Bot de trading ETH/USDC</div>
+        <div class="ethx-desc">Estrategia de mean-reversion en Base mainnet. Node.js, contratos mock en Sepolia, doble ledger de P&L y transacciones on-chain.</div>
+      </div>
+      <div class="ethx-card">
+        <span class="ethx-status">Próximamente</span>
+        <div class="ethx-title">Correr un nodo propio</div>
+        <div class="ethx-desc">Explorando clientes de ejecución y consenso en testnet antes de pasar a mainnet. Hardware, configuración y primeras observaciones.</div>
+      </div>
+      <div class="ethx-card">
+        <span class="ethx-status">Próximamente</span>
+        <div class="ethx-title">Token social y gobernanza musical</div>
+        <div class="ethx-desc">Desplegué un token sin fines comerciales y armé una pseudo-gobernanza para mi proyecto musical. Un experimento real antes de entender bien lo que estaba haciendo.</div>
+      </div>
+    </div>
+    <div class="subscribe-wrap">
+      <span class="subscribe-label">Suscribite</span>
+      <p class="subscribe-text">Cuando publico algo nuevo te llega directo.</p>
+      <form action="https://lat.us9.list-manage.com/subscribe/post?u=90f06fd6ef77efc02413b626e&amp;id=641e6184d6&amp;f_id=0098dde1f0" method="post" target="_blank">
+        <div class="subscribe-row">
+          <input type="email" name="EMAIL" class="subscribe-input" placeholder="tu@email.com" required>
+          <div aria-hidden="true" style="position:absolute;left:-5000px;">
+            <input type="text" name="b_90f06fd6ef77efc02413b626e_641e6184d6" tabindex="-1" value="">
+          </div>
+          <button type="submit" class="subscribe-btn">Suscribirme</button>
+        </div>
+        <p class="subscribe-fine">Usamos Mailchimp. Podés darte de baja cuando quieras.</p>
+      </form>
+    </div>
+  </div>
+</section>
+
 <section class="section" id="recursos">
   <div class="section-inner">
-    <p class="section-index">04 — Recursos</p>
+    <p class="section-index">05 — Recursos</p>
     <div class="resources-grid">
       <div class="resource-card">
         <div class="resource-title">Métricas</div>
