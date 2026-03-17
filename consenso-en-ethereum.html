@@ -1,0 +1,345 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+  <link rel="icon" type="image/svg+xml" href="/favicon.svg">
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Cómo funciona el consenso en Ethereum — Ethernauta</title>
+  <meta name="description" content="Proof of stake, validadores, RANDAO, GHOST, Casper FFG y Gasper. Todo lo que pasa antes de decir 'bloque finalizado'.">
+  <link rel="canonical" href="https://ethernauta.lat/consenso-en-ethereum.html">
+  <meta property="og:title" content="Cómo funciona el consenso en Ethereum">
+  <meta property="og:description" content="Proof of stake, validadores, RANDAO, GHOST, Casper FFG y Gasper. Todo lo que pasa antes de decir 'bloque finalizado'.">
+  <meta property="og:url" content="https://ethernauta.lat/consenso-en-ethereum.html">
+  <meta property="og:type" content="article">
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:ital,wght@0,400;0,700;1,400&family=DM+Mono:wght@300;400&display=swap" rel="stylesheet">
+  <style>
+    :root {
+      --bg: #0a0d0f;
+      --surface: #0f1316;
+      --border: #1c2128;
+      --eth: #627eea;
+      --text: #dde3ea;
+      --text-dim: #7a8694;
+      --text-faint: #3d4855;
+      --accent: #c8d8f0;
+    }
+
+    * { margin: 0; padding: 0; box-sizing: border-box; }
+    html { scroll-behavior: smooth; }
+
+    body {
+      background: var(--bg);
+      color: var(--text);
+      font-family: 'DM Mono', monospace;
+      font-weight: 300;
+      overflow-x: hidden;
+    }
+
+    nav {
+      position: fixed;
+      top: 0; left: 0; right: 0;
+      z-index: 100;
+      padding: 1.25rem 3rem;
+      display: flex;
+      justify-content: space-between;
+      border-bottom: 1px solid var(--border);
+      background: rgba(10,13,15,0.9);
+      backdrop-filter: blur(12px);
+    }
+
+    .nav-logo {
+      font-family: 'Playfair Display', serif;
+      font-style: italic;
+      font-size: 1.1rem;
+      color: var(--text);
+      text-decoration: none;
+    }
+
+    .nav-links {
+      display: flex;
+      gap: 2rem;
+      list-style: none;
+    }
+
+    .nav-links a {
+      font-size: 0.75rem;
+      letter-spacing: 0.12em;
+      text-transform: uppercase;
+      color: var(--text-dim);
+      text-decoration: none;
+    }
+
+    .nav-links a:hover { color: var(--text); }
+
+    .article-wrap {
+      max-width: 720px;
+      margin: 0 auto;
+      padding: 10rem 2rem 8rem;
+    }
+
+    .article-meta {
+      font-size: 0.68rem;
+      letter-spacing: 0.2em;
+      text-transform: uppercase;
+      color: var(--eth);
+      margin-bottom: 1.5rem;
+    }
+
+    .article-title {
+      font-family: 'Playfair Display', serif;
+      font-size: clamp(2.2rem, 5vw, 3.4rem);
+      line-height: 1.1;
+      margin-bottom: 1.25rem;
+      color: var(--text);
+    }
+
+    .article-subtitle {
+      font-size: 1rem;
+      line-height: 1.8;
+      color: var(--text-dim);
+      margin-bottom: 3.5rem;
+      border-bottom: 1px solid var(--border);
+      padding-bottom: 3rem;
+    }
+
+    .article-body h2 {
+      font-family: 'Playfair Display', serif;
+      font-size: 1.5rem;
+      font-weight: 400;
+      color: var(--accent);
+      margin: 3rem 0 1.25rem;
+      line-height: 1.3;
+    }
+
+    .article-body p {
+      font-size: 1rem;
+      line-height: 1.95;
+      color: var(--text-dim);
+      margin-bottom: 1.5rem;
+    }
+
+    .article-body a {
+      color: var(--eth);
+      text-decoration: none;
+      border-bottom: 1px solid rgba(98,126,234,0.3);
+      transition: border-color 0.2s;
+    }
+
+    .article-body a:hover {
+      border-color: var(--eth);
+    }
+
+    .article-body strong {
+      color: var(--text);
+      font-weight: 400;
+    }
+
+    .concept-block {
+      border-left: 2px solid var(--eth);
+      padding: 1.25rem 1.5rem;
+      margin: 2rem 0;
+      background: rgba(98,126,234,0.04);
+    }
+
+    .concept-block p {
+      margin-bottom: 0;
+      font-size: 0.92rem;
+    }
+
+    .concept-label {
+      font-size: 0.6rem;
+      letter-spacing: 0.2em;
+      text-transform: uppercase;
+      color: var(--eth);
+      margin-bottom: 0.5rem;
+      display: block;
+    }
+
+    .refs {
+      margin-top: 4rem;
+      padding-top: 2.5rem;
+      border-top: 1px solid var(--border);
+    }
+
+    .refs-title {
+      font-size: 0.65rem;
+      letter-spacing: 0.2em;
+      text-transform: uppercase;
+      color: var(--text-faint);
+      margin-bottom: 1.25rem;
+    }
+
+    .refs ul {
+      list-style: none;
+      display: flex;
+      flex-direction: column;
+      gap: 0.6rem;
+    }
+
+    .refs li {
+      font-size: 0.82rem;
+      color: var(--text-dim);
+    }
+
+    .refs a {
+      color: var(--eth);
+      text-decoration: none;
+    }
+
+    .article-footer {
+      margin-top: 4rem;
+      padding-top: 2.5rem;
+      border-top: 1px solid var(--border);
+      font-size: 0.82rem;
+      color: var(--text-faint);
+      line-height: 1.8;
+    }
+
+    .article-footer em {
+      color: var(--text-dim);
+      font-style: italic;
+    }
+
+    footer {
+      padding: 2.5rem 3rem;
+      display: flex;
+      justify-content: space-between;
+      font-size: 0.65rem;
+      color: var(--text-faint);
+      border-top: 1px solid var(--border);
+    }
+
+    @media (max-width: 768px) {
+      nav { padding: 1rem 1.5rem; }
+      .nav-links { display: none; }
+      .article-wrap { padding: 8rem 1.5rem 5rem; }
+    }
+  </style>
+</head>
+<body>
+
+<nav>
+  <a href="/" class="nav-logo">Ethernauta</a>
+  <ul class="nav-links">
+    <li><a href="/#temas">Temas</a></li>
+    <li><a href="/#entradas">Entradas</a></li>
+    <li><a href="/#builders">Builders</a></li>
+    <li><a href="/#ethxplorando">ETHxplorando</a></li>
+    <li><a href="/#autor">Autor</a></li>
+    <li><a href="https://x.com/saquelogarcia" target="_blank">X</a></li>
+  </ul>
+</nav>
+
+<article class="article-wrap">
+  <p class="article-meta">Protocolo y consenso &nbsp;·&nbsp; Agosto 2025</p>
+  <h1 class="article-title">Cómo funciona el consenso en Ethereum</h1>
+  <p class="article-subtitle">Todo lo que pasa antes de decir "bloque finalizado". Proof of stake, validadores, RANDAO, GHOST, Casper FFG y el sistema de incentivos que sostiene la red.</p>
+
+  <div class="article-body">
+
+    <h2>Sobre el consenso</h2>
+
+    <p>El documento fundacional de Bitcoin cierra diciendo que lo que acaba de explicar es "un mecanismo de consenso". Unos años después, la palabra aparece 14 veces en el whitepaper de Ethereum.</p>
+
+    <p>¿Por qué estos documentos fundacionales hablan de consenso? Porque gran parte del valor de esta tecnología descansa ahí. Según la documentación oficial de ethereum.org, por mecanismo de consenso se entiende "todo el bloque de protocolos, incentivos e ideas que permiten a una red de nodos acordar el estado de una cadena de bloques".</p>
+
+    <p>Se podría emitir dinero digital de muchas maneras sin blockchain. De hecho se hizo, se hace y se hará. También se crean registros con saldos y datos de las cuentas. Lo que no se pudo resolver satisfactoriamente sin esta tecnología es hacerlo de manera descentralizada, no permisionada y sin censura posible. Los mecanismos de consenso, primero de Bitcoin y luego de Ethereum, lograron eso de una manera notablemente eficaz.</p>
+
+    <h2>¿Consenso sobre qué?</h2>
+
+    <p>Consenso es estar de acuerdo. En la cadena de bloques, lo principal sobre lo que necesitamos acordar es sobre los saldos de las cuentas y el uso de las monedas. Nadie debería poder gastar el saldo que no tiene, ni gastar el mismo saldo más de una vez, ni gastar el de otra persona. Para ello es indispensable que quienes guardan una copia de la información estén de acuerdo en una única versión de los datos.</p>
+
+    <p>En el mundo físico esto es natural: puedo gastar los billetes que tengo en mi poder. En el dinero digital centralizado se resuelve de forma sencilla: los bancos tienen sus bases de datos y lo que allí dice funciona como verdad. En la tecnología blockchain, ninguna entidad central define la verdad. Un mecanismo computacional permite que cada operación realizada siguiendo las reglas quede registrada fehacientemente, los saldos se actualicen y todos los nodos guarden una copia de la misma información.</p>
+
+    <p>Más precisamente, el consenso se da sobre la adhesión de nuevos bloques a la cadena. Cada bloque que se agrega es aceptado por los nodos como verdadero y válido.</p>
+
+    <h2>De proof of work a proof of stake</h2>
+
+    <p>Para lograr ese acuerdo, Satoshi Nakamoto desarrolló un mecanismo basado en la prueba de trabajo o proof of work. Para participar en la propuesta y validación de bloques era necesario ofrecer poder computacional a la red, lo que implicaba demostración de compromiso económico con el sostenimiento del sistema. Validar bloques era recompensado con criptomonedas, de donde deriva la idea del "minado".</p>
+
+    <p>Ethereum funcionó con proof of work desde su origen en 2015 hasta la actualización "The Merge" en septiembre de 2022. Esta barrera de entrada funcionaba como el principal desincentivo al fraude: estadísticamente había mucho más por perder que por ganar intentando manipular la cadena, ya que para lograrlo habría que controlar la mayoría del poder computacional de la red.</p>
+
+    <p>Desde The Merge, Ethereum opera con proof of stake. Los requisitos de hardware son mucho menores, y el poder de validación no depende de la capacidad computacional sino del capital en juego.</p>
+
+    <h2>Validadores y proof of stake</h2>
+
+    <p>En proof of stake, los validadores depositan ETH en un contrato inteligente para recibir el derecho a proponer y votar bloques. Desde The Merge el depósito requerido era de 32 ETH fijos. Desde la actualización Pectra en mayo de 2025, la suma es variable entre 32 y 2048 ETH.</p>
+
+    <div class="concept-block">
+      <span class="concept-label">Definición</span>
+      <p>Un validador es el responsable de verificar la validez de los nuevos bloques propagados por la red y, en ciertas circunstancias, de crear y propagar nuevos bloques. (ethereum.org)</p>
+    </div>
+
+    <p>Las transacciones que se realizan en la red, antes de ser incluidas en un bloque, son verificadas por los clientes de ejecución. Si todo es correcto, quedan en un espacio de espera llamado mempool. Los bloques son conjuntos de transacciones que se agrupan cada 12 segundos, periodo llamado slot. 32 slots conforman una epoch.</p>
+
+    <p>La cantidad de transacciones que puede incluir un bloque depende del gas de cada una. El protocolo establece un máximo de gas por bloque, actualmente 36 millones de unidades, límite que fue aumentado en febrero de 2025. El validador intenta llenar el bloque lo más posible para maximizar su recompensa. Los usuarios al realizar una transacción definen cuánto gas pagar: una parte es la tarifa base, que el protocolo quema; otra parte es la priority fee o tip, que va al validador.</p>
+
+    <h2>RANDAO y la propuesta de bloques</h2>
+
+    <p>Cada slot, un validador es elegido aleatoriamente a través de un mecanismo criptográfico llamado RANDAO para proponer el próximo bloque. En la práctica, la tarea de construirlo suele ser delegada a herramientas especializadas como MEV-Boost, software que permite a block builders externos armar bloques que maximizan el valor extraíble (MEV) y las propinas de las transacciones incluidas.</p>
+
+    <p>Pueden existir casos en que, por errores, fallas de red o comportamiento malicioso, se propaguen más de un bloque válido en el mismo slot. Estas situaciones generan bifurcaciones temporales: distintas versiones de la cadena que coexisten brevemente. ¿Cómo sabe la red cuál es la correcta?</p>
+
+    <h2>Gasper: GHOST y Casper FFG</h2>
+
+    <p>Para resolver ese problema, Ethereum utiliza un sistema llamado Gasper, que combina dos componentes: el protocolo GHOST y el mecanismo Casper FFG.</p>
+
+    <div class="concept-block">
+      <span class="concept-label">GHOST</span>
+      <p>Greedy Heaviest Observed SubTree. Protocolo que elige la cadena más "pesada", es decir, aquella con más bloques descendientes acumulados. Permite tomar decisiones rápidas sobre qué bloque considerar como la continuación válida de la cadena.</p>
+    </div>
+
+    <p>Una vez propuesto el bloque, el validador lo comunica al resto de los nodos a través de la Beacon Chain. Los nodos verifican todas las transacciones del bloque en sus clientes de ejecución. Si es correcto, cada nodo lo añade a su versión local de la cadena y emite un voto o attestation al resto de la red confirmando su aceptación. Es en este punto cuando en nuestra billetera vemos cómo va aumentando el número de confirmaciones.</p>
+
+    <p>La transacción se considera finalizada una vez que el bloque ha sido confirmado por las dos terceras partes de los validadores. Esta finalización no se da bloque por bloque, sino entre todos los bloques que se encuentran entre dos checkpoints, que son el primer bloque de una epoch y la siguiente. Cuando el 66% de los validadores confirma los bloques entre esos checkpoints, esa epoch queda finalizada y todas sus transacciones son definitivas.</p>
+
+    <div class="concept-block">
+      <span class="concept-label">Casper FFG</span>
+      <p>Friendly Finality Gadget. Mecanismo que regula el proceso de votación y confirmación para alcanzar la finalidad de los bloques. Combinado con GHOST forma Gasper, el sistema de consenso completo de Ethereum.</p>
+    </div>
+
+    <p>Además de los validadores, también existen nodos completos que no validan pero que ejecutan ambas capas del cliente y mantienen una copia completa del estado de la red. Estos nodos no proponen ni votan bloques, pero verifican cada bloque recibido de forma independiente. Su rol es clave para la descentralización y la seguridad del sistema.</p>
+
+    <h2>Recompensas, penalizaciones y slashing</h2>
+
+    <p>Para que el sistema funcione de forma sostenible hace falta que existan incentivos claros para comportarse correctamente y penalizaciones significativas para quienes actúen en contra de las reglas.</p>
+
+    <p>Las recompensas provienen de dos fuentes principales. Por un lado, las propinas pagadas por los usuarios que envían transacciones. Por otro, una emisión directa de ETH por parte del protocolo destinada a premiar tareas como proponer bloques válidos o votar correctamente en cada epoch. Esta emisión se ajusta dinámicamente: a mayor cantidad de validadores activos, menor es la recompensa individual.</p>
+
+    <p>Si un validador se comporta de forma incorrecta puede ser penalizado. La forma más leve ocurre cuando permanece desconectado por largos periodos, lo que reduce sus recompensas. Pero existe también una penalización más severa: el slashing. Esta ocurre cuando un validador infringe reglas críticas del consenso, como votar de forma contradictoria o proponer bloques maliciosos. En esos casos, una parte significativa de su ETH en staking es destruida y el validador es expulsado de la red. Estas sanciones no solo castigan el mal comportamiento sino que disuaden ataques coordinados contra la red.</p>
+
+    <p>Este equilibrio entre incentivos y penalizaciones es lo que sostiene el consenso en Ethereum como un sistema vivo, robusto y descentralizado.</p>
+
+    <h2>Cierre</h2>
+
+    <p>Entender cómo funciona el consenso en Ethereum permite ir más allá de las definiciones abstractas y acercarse a los fundamentos que sostienen su infraestructura técnica, política y económica. Lejos de ser un detalle de implementación, el consenso es la condición que hace posible una red abierta, verificable y sin permisos.</p>
+
+  </div>
+
+  <div class="refs">
+    <p class="refs-title">Para seguir leyendo</p>
+    <ul>
+      <li><a href="https://ethereum.org/es/developers/docs/consensus-mechanisms/pos/" target="_blank">Prueba de participación — ethereum.org</a></li>
+      <li><a href="https://vitalik.eth.limo/general/2017/12/31/pos_faq.html" target="_blank">Prueba de participación FAQ — Vitalik Buterin</a></li>
+      <li><a href="https://vitalik.eth.limo/general/2020/11/06/pos2020.html" target="_blank">Por qué existe la prueba de participación — Vitalik Buterin</a></li>
+      <li><a href="https://ethereum.org/es/developers/docs/gas/" target="_blank">Gas y tarifas — ethereum.org</a></li>
+      <li><a href="https://ethereum.org/es/developers/docs/mev/" target="_blank">MEV — ethereum.org</a></li>
+      <li><a href="https://mirror.xyz/jmcook.eth/YqHargbVWVNRQqQpVpzrqEQ8IqwNUJDIpwRP7SS5FXs" target="_blank">Ataque y defensa en PoS — jmcook.eth</a></li>
+    </ul>
+  </div>
+
+  <div class="article-footer">
+    <p>Este artículo lo escribí originalmente para ETH Kipu. Lo publico aquí con su autorización.</p>
+    <br>
+    <p><em>El Ethernauta</em></p>
+  </div>
+</article>
+
+<footer>
+  <span>Ethernauta</span>
+  <span>ethernauta.lat — Buenos Aires, 2026</span>
+</footer>
+
+</body>
+</html>
