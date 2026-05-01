@@ -1,0 +1,293 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+  <link rel="icon" type="image/svg+xml" href="/favicon.svg">
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>¿IA mata Blockchain? Lo que aprendí construyendo un agente de trading en Ethereum — Ethernauta</title>
+  <meta name="description" content="Construí un sistema de trading automatizado sobre Ethereum: un bot que ejecuta operaciones en Uniswap V3 las 24 horas, supervisado por un agente de IA.">
+  <link rel="canonical" href="https://ethernauta.lat/grid-bot-agente-trading.html">
+  <meta property="og:title" content="¿IA mata Blockchain? Lo que aprendí construyendo un agente de trading en Ethereum">
+  <meta property="og:description" content="Construí un sistema de trading automatizado sobre Ethereum: un bot que ejecuta operaciones en Uniswap V3 las 24 horas, supervisado por un agente de IA.">
+  <meta property="og:url" content="https://ethernauta.lat/grid-bot-agente-trading.html">
+  <meta property="og:type" content="article">
+  <!-- Google Analytics -->
+  <script async src="https://www.googletagmanager.com/gtag/js?id=G-SJXWGTQH22"></script>
+  <script>
+    window.dataLayer = window.dataLayer || [];
+    function gtag(){dataLayer.push(arguments);}
+    gtag("js", new Date());
+    gtag("config", "G-SJXWGTQH22");
+  </script>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:ital,wght@0,400;0,700;1,400&family=DM+Mono:wght@300;400&display=swap" rel="stylesheet">
+  <style>
+    :root {
+      --bg: #0a0d0f;
+      --surface: #0f1316;
+      --border: #1c2128;
+      --eth: #627eea;
+      --text: #dde3ea;
+      --text-dim: #7a8694;
+      --text-faint: #3d4855;
+      --accent: #c8d8f0;
+    }
+
+    * { margin: 0; padding: 0; box-sizing: border-box; }
+    html { scroll-behavior: smooth; }
+
+    body {
+      background: var(--bg);
+      color: var(--text);
+      font-family: 'DM Mono', monospace;
+      font-weight: 300;
+      overflow-x: hidden;
+    }
+
+    nav {
+      position: fixed;
+      top: 0; left: 0; right: 0;
+      z-index: 100;
+      padding: 1.25rem 3rem;
+      display: flex;
+      justify-content: space-between;
+      border-bottom: 1px solid var(--border);
+      background: rgba(10,13,15,0.9);
+      backdrop-filter: blur(12px);
+    }
+
+    .nav-logo {
+      font-family: 'Playfair Display', serif;
+      font-style: italic;
+      font-size: 1.1rem;
+      color: var(--text);
+      text-decoration: none;
+    }
+
+    .nav-links {
+      display: flex;
+      gap: 2rem;
+      list-style: none;
+    }
+
+    .nav-links a {
+      font-size: 0.75rem;
+      letter-spacing: 0.12em;
+      text-transform: uppercase;
+      color: var(--text-dim);
+      text-decoration: none;
+    }
+
+    .nav-links a:hover { color: var(--text); }
+
+    .article-wrap {
+      max-width: 720px;
+      margin: 0 auto;
+      padding: 10rem 2rem 8rem;
+    }
+
+    .article-meta {
+      font-size: 0.68rem;
+      letter-spacing: 0.2em;
+      text-transform: uppercase;
+      color: var(--eth);
+      margin-bottom: 1.5rem;
+    }
+
+    .article-title {
+      font-family: 'Playfair Display', serif;
+      font-size: clamp(2.2rem, 5vw, 3.4rem);
+      line-height: 1.1;
+      margin-bottom: 1.25rem;
+      color: var(--text);
+    }
+
+    .article-subtitle {
+      font-size: 1rem;
+      line-height: 1.8;
+      color: var(--text-dim);
+      margin-bottom: 3.5rem;
+      border-bottom: 1px solid var(--border);
+      padding-bottom: 3rem;
+    }
+
+    .article-body h2 {
+      font-family: 'Playfair Display', serif;
+      font-size: 1.5rem;
+      font-weight: 400;
+      color: var(--accent);
+      margin: 3rem 0 1.25rem;
+      line-height: 1.3;
+    }
+
+    .article-body p {
+      font-size: 1rem;
+      line-height: 1.95;
+      color: var(--text-dim);
+      margin-bottom: 1.5rem;
+    }
+
+    .article-body a {
+      color: var(--eth);
+      text-decoration: none;
+      border-bottom: 1px solid rgba(98,126,234,0.3);
+      transition: border-color 0.2s;
+    }
+
+    .article-body a:hover { border-color: var(--eth); }
+
+    .article-body strong {
+      color: var(--text);
+      font-weight: 400;
+    }
+
+    .article-body em {
+      color: var(--accent);
+      font-style: italic;
+    }
+
+    .article-footer {
+      margin-top: 4rem;
+      padding-top: 2.5rem;
+      border-top: 1px solid var(--border);
+      font-size: 0.82rem;
+      color: var(--text-faint);
+      line-height: 1.8;
+    }
+
+    .article-footer em {
+      color: var(--text-dim);
+      font-style: italic;
+    }
+
+    footer {
+      padding: 2.5rem 3rem;
+      display: flex;
+      justify-content: space-between;
+      font-size: 0.65rem;
+      color: var(--text-faint);
+      border-top: 1px solid var(--border);
+    }
+
+    @media (max-width: 768px) {
+      nav { padding: 1rem 1.5rem; }
+      .nav-links { display: none; }
+      .article-wrap { padding: 8rem 1.5rem 5rem; }
+    }
+  </style>
+</head>
+<body>
+
+<nav>
+  <a href="/" class="nav-logo">Ethernauta</a>
+  <ul class="nav-links">
+    <li><a href="/#temas">Temas</a></li>
+    <li><a href="/#entradas">Entradas</a></li>
+    <li><a href="/#builders">Builders</a></li>
+    <li><a href="/#ethxplorando">ETHxplorando</a></li>
+    <li><a href="/#autor">Autor</a></li>
+    <li><a href="https://x.com/saquelogarcia" target="_blank">X</a></li>
+  </ul>
+</nav>
+
+<article class="article-wrap">
+  <p class="article-meta">ETHxplorando &nbsp;·&nbsp; Abril 2026</p>
+  <h1 class="article-title">¿IA mata Blockchain?</h1>
+  <p class="article-subtitle">1.267 transacciones on-chain en 42 días, supervisadas por un agente de IA. Lo que aprendí construyendo este sistema sobre Ethereum.</p>
+
+  <div class="article-body">
+
+    <p>En los últimos meses se habla mucho de la convergencia entre inteligencia artificial y blockchain. Parte de esa conversación es legítima: ya vimos cómo el ERC-8004 empieza a construir infraestructura de reputación para agentes autónomos directamente en el protocolo. Parte es ruido: posteos que especulan con lo que podría pasar algún día, o que ponen títulos rimbombantes a proyectos que son una cáscara vacía.</p>
+
+    <p>Dejando de lado ese ruido, propio del hype de muchos que quieren vendernos espejos de colores, vale la pena separar la paja del trigo y empezar a vislumbrar no solo las implicancias de fondo de esta convergencia, sino también qué cambia en la práctica para los usuarios y builders de a pie.</p>
+
+    <p>La pregunta del título tiene una respuesta corta y otra larga. La corta la voy a dar al final. La larga es este artículo. Y no la respondo desde la teoría: la respondo desde un proyecto concreto que vengo construyendo estos meses. Con ayuda de Claude armé un sistema de trading automatizado sobre Ethereum (a través de Base): un bot que ejecuta operaciones en Uniswap V3 las 24 horas, supervisado por un agente de IA que analiza el mercado, detecta anomalías y ajusta parámetros.</p>
+
+    <p>Claro está que bots de trading hay miles. Agentes de IA aplicados a DeFi también. Algunos son de código abierto, otros se ofrecen como servicio en plataformas centralizadas. Pero mi idea no fue reinventar la rueda sino ver, en primera persona, hasta dónde puede llegar un simple Ethernauta, con su teclado y algunos tokens del LLM de moda a disposición. Y la verdad, humildemente, creo que llegué bastante lejos.</p>
+
+    <h2>Un poco de historia y contexto</h2>
+
+    <p>Desde 2021 vengo construyendo sobre Ethereum: con mayor o menor frecuencia y por lo general a modo de experimentación, sobre todo ligada a mi proyecto musical. He deployado tokens, smart contracts, colecciones de NFTs, experimentos de arte generativo tokenizado, experimentos de gobernanza descentralizada, etc. Para ello, en primera instancia, necesité contar con plantillas de código pre armadas y la generosidad de algún developer que planteó alguna interfaz para que los no coders personalizáramos esas plantillas con un form. Después, a partir de 2022, ya contábamos con ChatGPT para escribir y modificar contratos.</p>
+
+    <p>La cosa ahora se puso bastante distinta. Antes podía modificar un contrato existente; ahora puedo construir un sistema de varios archivos con lógica compleja que interactúa con protocolos DeFi en tiempo real. Sin equipo, sin infraestructura, sin financiamiento externo.</p>
+
+    <p>En dicho contexto es que me animé a empezar a soñar con construir algo que hace algunos meses, o pocos años, me hubiera parecido completamente inalcanzable.</p>
+
+    <p>Aclaración necesaria: esto no es un producto terminado. Seguramente tiene bugs, líneas mejorables y probablemente vulnerabilidades. Tampoco es fácil de hacer: se pueden esquivar ciertos conocimientos de programación formal, no el conocimiento técnico general. Abrir consolas, configurar variables de entorno, debuggear errores que vienen de tres capas distintas al mismo tiempo. Eso sigue siendo necesario. Dicho lo cual, vamos a ver de qué se trata.</p>
+
+    <h2>El proyecto en sí</h2>
+
+    <p>El camino para llegar al sistema actual no fue directo. El primer intento fue hacer un fork local de mainnet. La idea es razonable: Hardhat, una herramienta de desarrollo para Ethereum, permite correr una copia de la blockchain en tu propia computadora, congelada en un bloque específico. Así podés probar contratos y transacciones sin gastar gas real. El problema es que Uniswap V3 necesita pools con liquidez activa y precios que se actualicen. En una copia estática de la red eso no pasa: los pools existen pero están muertos. No había manera de simular swaps reales en ese entorno. Primer camino cerrado.</p>
+
+    <p>El segundo intento fue Sepolia, la testnet oficial de Ethereum. Acá el problema fue de otro tipo: conseguir los recursos para operar. Obtener ETH de Sepolia para pagar gas ya es un trámite, los faucets (los servicios que te dan ETH de prueba gratis) funcionan mal o tienen límites muy bajos. Pero el problema mayor fue el USDC. No había una versión confiable de USDC en Sepolia, los faucets que existían no funcionaban, y el pool de Uniswap en testnet o no estaba desplegado o no tenía precios reales. En algún momento llegué a crear un token ERC-20 falso que hiciera de USDC, intenté armar un pool desde cero, y nada funcionó como debía. Segundo camino cerrado.</p>
+
+    <p>El tercer paso fue más pragmático: simular las compras y ventas directamente en la computadora, sin transacciones reales en ningún lado. Un entorno completamente local donde el bot ejecutaba su lógica, calculaba precios y registraba posiciones, pero sin tocar ninguna blockchain. Sirvió para validar que la lógica funciona, que no hay errores de cálculo, que el flujo de compra-venta es correcto.</p>
+
+    <p>Con eso validado, la decisión fue pasar directo a producción. No a mainnet de Ethereum, sino a Base, la red de segunda capa construida sobre Ethereum. La razón es práctica: las comisiones en Base son una fracción de las de mainnet, lo que permite operar con poco capital sin que los fees se coman todo el margen. El bot arrancó con límites de seguridad bien definidos: stop loss, slippage controlado, monto mínimo por operación. La idea era que si algo salía mal, el daño fuera acotado.</p>
+
+    <p>El costo de infraestructura del proyecto es cero. La VM corre en la muestra gratis de Google Cloud y todavía no gasté ni un dólar del crédito que regalan. Las APIs de Gemini son gratuitas para el volumen del proyecto. El RPC para leer el precio del ETH desde el pool de Uniswap es público, sin oracle pago. La única limitación es que si las consultas son muy frecuentes el proveedor las bloquea por spam, pero con consultas cada 30 segundos funciona bien. Lo único que pago es Claude, que ya pagaba antes para otras cosas.</p>
+
+    <p>Acá vale una aclaración: tengo claro que Gemini no es el modelo más potente. Probablemente Claude conectado a las skills correctas razonaría mejor en este escenario. Pero no estaba en los planes levantarme una mañana con 8.000 dólares de tarjeta de crédito porque el agente se fue de joda razonando toda la noche. Por lo menos no en este proyecto.</p>
+
+    <h2>La estrategia</h2>
+
+    <p>La estrategia se llama grid trading y es una de las más básicas que existen en trading automatizado. La lógica es esta: en vez de intentar adivinar para dónde va el mercado, el bot divide el precio en una grilla y opera mecánicamente dentro de esa grilla. Compra cuando el precio baja cierta cantidad de dólares desde la última compra, vende cuando el precio sube cierta cantidad de dólares desde el precio de entrada.</p>
+
+    <p>No hay predicción. No hay análisis técnico complejo. Solo una regla: compro acá, vendo allá, repito.</p>
+
+    <p>En este caso el bot opera el par WETH/USDC en Uniswap V3, el protocolo de intercambio descentralizado más usado sobre Ethereum. Cada compra es de 10 dólares. El objetivo de ganancia por operación es de 15 dólares de suba en el precio del ETH. Cuando eso pasa, vende y la ganancia queda realizada en USDC.</p>
+
+    <p>El bot corre en una máquina virtual de Google Cloud, gestionado con una herramienta llamada pm2 que lo mantiene activo y lo reinicia automáticamente si algo falla. En 42 días procesó 1.267 transacciones on-chain, todas verificables en el explorador de bloques de Base.</p>
+
+    <h2>Y entonces, ¿para qué un agente?</h2>
+
+    <p>El bot funcionaba. Compraba en las bajas, vendía en las subas, y en mercados con oscilación normal ganaba plata. Pequeña, pero ganaba. Podría haberme quedado ahí. Pero en este proyecto el objetivo nunca fue maximizar el rendimiento del bot, sino explorar hasta dónde llega esto de combinar Ethereum con IA. Y acá es donde la pregunta del título empieza a tener sentido. Así que sumé una segunda capa: un agente supervisor.</p>
+
+    <p>El supervisor es un agente de IA construido sobre Gemini, el modelo de Google. Corre en paralelo al bot y lo revisa cada 30 minutos. Tiene acceso a datos reales: consulta el precio del ETH y del BTC, lee el índice de miedo y codicia del mercado cripto, revisa las últimas noticias sobre Ethereum, y analiza el estado interno del bot (cuántas posiciones abiertas hay, cuánto ganó o perdió, si hay inconsistencias entre lo que el bot cree que tiene y lo que realmente hay en la wallet on-chain).</p>
+
+    <p>Con todo eso, el agente toma una decisión cada ciclo y la registra con una explicación. La mayoría de las veces la decisión es no hacer nada, que en muchos contextos es exactamente la decisión correcta.</p>
+
+    <p>También me escribe por Telegram. Puedo preguntarle desde el celular cómo viene el día, cuántas posiciones tiene abiertas, qué pasó en las últimas horas. Me responde con datos reales, no inventa nada. Y cuando detecta algo raro, me avisa él primero.</p>
+
+    <p>Tiene además un circuit breaker automático: si el precio del ETH cae más del 5% en una hora, pausa el bot sin consultar a nadie. Eso está codificado directamente, sin pasar por el modelo de IA, porque hay situaciones donde no querés que un LLM razone demasiado antes de actuar.</p>
+
+    <p>En mercados con buena oscilación el sistema andaba bien. El problema apareció en mercados chatos. Imaginate posiciones abiertas que quedaron atrapadas abajo: el bot compró ETH en cierto precio, el take profit estaba 80 o 100 dólares más arriba, y el precio simplemente no llegaba. Quietas, esperando.</p>
+
+    <p>Pensé que el agente podía resolver lo de las posiciones atrapadas. Le di autonomía para tocar parámetros: por ejemplo, vender una posición con una pérdida mínima para recomprar más abajo y jugar con las pequeñas oscilaciones del nuevo piso. La intuición sonaba razonable. La ejecución fue un desastre.</p>
+
+    <p>El agente nunca recuperaba lo perdido. Y para "mover la cosa", como yo mismo le había pedido, iba achicando cada vez más el take profit. Pasamos de un sistema que ganaba en casi todos los trades a uno que perdía en casi todos. No fueron pérdidas grandes (al final eran fees y gas, centavos por operación), pero la dirección del sistema se había invertido. Y me llevó varios días entender qué estaba pasando, porque cada decisión del agente, leída sola, parecía razonable.</p>
+
+    <p>Le quité autonomía. Ahora el agente no puede bajar el take profit de 15 dólares ni abrir posiciones menores a 10 dólares. Puede ir de ahí para arriba: hacer posiciones más grandes, take profits más amplios, ser más conservador. Pero no más agresivo.</p>
+
+    <p>Lo que hace ahora, y hace bien, es estar atento. Mira el mercado. Me avisa cuando algo cambia. Me consulta antes de mover algo importante. Me responde por Telegram cuando le pregunto. Es un copiloto, no un piloto. Y eso fue exactamente lo que necesitaba aprender.</p>
+
+    <h2>Entonces, ¿la IA mata a blockchain?</h2>
+
+    <p>A esta altura del artículo ya quedó claro que yo creo que no. Pero decidí usar ese título tal vez un poco provocador para recoger el guante de algo que se está sintiendo en el ecosistema y que tiene más que ver, a mi entender, con el FOMO y el HYPE que con la realidad misma de las cosas. Todos los criptobros están (¿estamos?) desesperados por no quedarnos afuera de la hiper agentización que vemos a nuestro alrededor. En algunos casos hasta parecería que la convicción VITAL acerca de que estábamos construyendo la tecnología que cambiaría el mundo para bien, Ethereum, fue algo que nunca pasó por nuestras cabezas.</p>
+
+    <p>Claramente no voy a ser yo quien traiga las respuestas a estos temas, ni creo que las tengamos ahora. Sencillamente me conformo con aportar puntos de vista, sentires y experiencias a medida que entre todos vamos haciendo camino al andar.</p>
+
+    <p>Hoy yo elijo pararme en otro lugar. No lo voy a negar: me paso el día entre Claude, Gemini, ChatGPT y demás. Pero trato de no perder de vista la diferencia entre valor real y promesas y burbujas.</p>
+
+    <p>Blockchain sin IA ya era poderosa: transparente, sin intermediarios, ejecutable por cualquiera con una wallet. Pero tenía una limitación real: requería atención constante, conocimiento técnico para operar y presencia humana para tomar decisiones en tiempo real. Hoy nada de eso ha desaparecido, pero gracias a la IA muchas de esas barreras hoy están bastante más bajas.</p>
+
+    <h2>Para ir cerrando...</h2>
+
+    <p>Mientras escribo este artículo, el bot está abriendo una posición. Mientras lo edito, el agente está corriendo su ciclo de las 30 minutos. Mañana cuando dé clases en una escuela en Buenos Aires, el sistema va a seguir operando. No porque sea grande ni porque sea sofisticado: es chico y es imperfecto. Pero está corriendo, y nadie tuvo que darme permiso para que corra. Eso, para mí, ya es suficiente respuesta.</p>
+
+    <p>Tengo muchos más detalles para contar del proyecto, y de otros que vienen en paralelo. Pero hoy llegamos hasta acá. Me alegra que este sea el artículo con el que abrimos ETHxplorando.</p>
+
+  </div>
+
+  <div class="article-footer">
+    <p><em>El Ethernauta</em></p>
+  </div>
+</article>
+
+<footer>
+  <span>Ethernauta</span>
+  <span>ethernauta.lat — Buenos Aires, 2026</span>
+</footer>
+
+</body>
+</html>
