@@ -414,6 +414,14 @@
       border: 1px solid var(--border);
       padding: 1.75rem 1.5rem;
       background: rgba(15,19,22,0.35);
+      display: block;
+      text-decoration: none;
+      transition: border-color 0.2s, background 0.2s;
+    }
+
+    a.ethx-card:hover {
+      border-color: var(--eth);
+      background: rgba(98,126,234,0.05);
     }
 
     .ethx-status {
@@ -519,11 +527,8 @@
 <nav>
   <a href="#" class="nav-logo">Ethernauta</a>
   <ul class="nav-links">
-    <li><a href="#temas">Temas</a></li>
     <li><a href="#entradas">Entradas</a></li>
-    <li><a href="#builders">Builders</a></li>
     <li><a href="#ethxplorando">ETHxplorando</a></li>
-    <li><a href="#recursos">Recursos</a></li>
     <li><a href="#nombre">El nombre</a></li>
     <li><a href="#autor">Autor</a></li>
   </ul>
@@ -547,47 +552,9 @@
   </div>
 </section>
 
-<section class="section" id="temas">
-  <div class="section-inner">
-    <p class="section-index">01 — Temas</p>
-    <div class="temas-grid">
-      <div class="tema-item">
-        <span class="tema-num">001</span>
-        <h3 class="tema-title">Protocolo y consenso</h3>
-        <p class="tema-desc">Cómo funciona la máquina. Proof of Stake, validadores, finalidad, la Beacon Chain, Beam Chain y la discusión sobre Lean Ethereum.</p>
-      </div>
-      <div class="tema-item">
-        <span class="tema-num">002</span>
-        <h3 class="tema-title">Escalabilidad</h3>
-        <p class="tema-desc">El problema más difícil. Rollups, danksharding, el roadmap. Qué tipo de solución se está construyendo y qué compromisos implica.</p>
-      </div>
-      <div class="tema-item">
-        <span class="tema-num">003</span>
-        <h3 class="tema-title">Gobernanza</h3>
-        <p class="tema-desc">Quién decide. EIPs, All Core Devs, rough consensus.</p>
-      </div>
-      <div class="tema-item">
-        <span class="tema-num">004</span>
-        <h3 class="tema-title">Privacidad</h3>
-        <p class="tema-desc">Transparencia y privacidad no son opuestos. ZK proofs, el roadmap de privacidad en L1.</p>
-      </div>
-      <div class="tema-item">
-        <span class="tema-num">005</span>
-        <h3 class="tema-title">Infraestructura real</h3>
-        <p class="tema-desc">Nodos, clientes, diversidad, quién corre qué.</p>
-      </div>
-      <div class="tema-item">
-        <span class="tema-num">006</span>
-        <h3 class="tema-title">Ideas y contexto</h3>
-        <p class="tema-desc">Cypherpunk, bienes públicos, identidad del ecosistema. Cultura y ethos de Ethereum.</p>
-      </div>
-    </div>
-  </div>
-</section>
-
 <section class="section" id="entradas">
   <div class="section-inner">
-    <p class="section-index">02 — Entradas</p>
+    <p class="section-index">01 — Entradas</p>
     <div class="posts-carousel-wrapper">
       <button class="carousel-btn" id="prevBtn">&#8592;</button>
       <div class="posts-grid" id="postsCarousel">
@@ -637,39 +604,15 @@
   </div>
 </section>
 
-<section class="section" id="builders">
-  <div class="section-inner">
-    <p class="section-index">03 — Builders</p>
-    <p style="font-size:0.95rem;line-height:1.9;color:var(--text-dim);max-width:640px;margin-bottom:3rem;">Proyectos reales construidos en Ethereum. Entrevisto a los builders y te lo explico como nadie te lo contó. Esta es una selección arbitraria, en la que el único criterio de curaduría es mi valoración personal. Ningún artículo representa consejo financiero.</p>
-    <div class="builders-grid">
-      <a class="builder-card coming-soon" href="#">
-        <span class="builder-tag">Próximamente</span>
-        <div class="builder-name">Entrevista 001</div>
-        <div class="builder-desc">Un proyecto del ecosistema Ethereum en Latinoamérica.</div>
-      </a>
-      <a class="builder-card coming-soon" href="#">
-        <span class="builder-tag">Próximamente</span>
-        <div class="builder-name">Entrevista 002</div>
-        <div class="builder-desc">Un proyecto del ecosistema Ethereum en Latinoamérica.</div>
-      </a>
-      <a class="builder-card coming-soon" href="#">
-        <span class="builder-tag">Próximamente</span>
-        <div class="builder-name">Entrevista 003</div>
-        <div class="builder-desc">Un proyecto del ecosistema Ethereum en Latinoamérica.</div>
-      </a>
-    </div>
-  </div>
-</section>
-
 <section class="section" id="ethxplorando">
   <div class="section-inner">
-    <p class="section-index">04 — ETHxplorando</p>
+    <p class="section-index">02 — ETHxplorando</p>
     <div class="ethxplorando-grid">
-      <div class="ethx-card">
-        <span class="ethx-status">Próximamente</span>
-        <div class="ethx-title">Bot de trading ETH/USDC</div>
-        <div class="ethx-desc">Estrategia de mean-reversion en Base mainnet. Node.js, contratos mock en Sepolia, doble ledger de P&L y transacciones on-chain.</div>
-      </div>
+      <a class="ethx-card" href="/grid-bot-agente-trading.html">
+        <span class="ethx-status">Publicado &nbsp;·&nbsp; Abril 2026</span>
+        <div class="ethx-title">¿IA mata Blockchain?</div>
+        <div class="ethx-desc">Construí un sistema de trading sobre Ethereum supervisado por un agente de IA. 1.267 transacciones on-chain en 42 días.</div>
+      </a>
       <div class="ethx-card">
         <span class="ethx-status">Próximamente</span>
         <div class="ethx-title">Correr un nodo propio</div>
@@ -694,26 +637,6 @@
         </div>
         <p class="subscribe-fine">Usamos Mailchimp. Podés darte de baja cuando quieras.</p>
       </form>
-    </div>
-  </div>
-</section>
-
-<section class="section" id="recursos">
-  <div class="section-inner">
-    <p class="section-index">05 — Recursos</p>
-    <div class="resources-grid">
-      <div class="resource-card">
-        <div class="resource-title">Métricas</div>
-        <div class="resource-desc">Charts, APIs, dashboards y series históricas. Próximamente.</div>
-      </div>
-      <div class="resource-card">
-        <div class="resource-title">Lecturas</div>
-        <div class="resource-desc">Textos, artículos y referencias comentadas. Próximamente.</div>
-      </div>
-      <div class="resource-card">
-        <div class="resource-title">Mapas</div>
-        <div class="resource-desc">Sitios, repos y rutas útiles para navegar el ecosistema. Próximamente.</div>
-      </div>
     </div>
   </div>
 </section>
