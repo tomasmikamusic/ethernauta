@@ -1,0 +1,342 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+  <link rel="icon" type="image/svg+xml" href="/favicon.svg">
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Introducción a Lean Ethereum | Ethernauta</title>
+  <meta name="description" content="De Beam Chain a Lean Ethereum: una introducción a la reforma profunda que Ethereum empieza a imaginar para su consenso, sus datos y su capa de ejecución.">
+  <link rel="canonical" href="https://ethernauta.lat/lean-ethereum.html">
+  <meta property="og:title" content="Introducción a Lean Ethereum">
+  <meta property="og:description" content="De Beam Chain a Lean Ethereum: una introducción a la reforma profunda que Ethereum empieza a imaginar para su consenso, sus datos y su capa de ejecución.">
+  <meta property="og:url" content="https://ethernauta.lat/lean-ethereum.html">
+  <meta property="og:type" content="article">
+  <!-- Google Analytics -->
+  <script async src="https://www.googletagmanager.com/gtag/js?id=G-SJXWGTQH22"></script>
+  <script>
+    window.dataLayer = window.dataLayer || [];
+    function gtag(){dataLayer.push(arguments);}
+    gtag("js", new Date());
+    gtag("config", "G-SJXWGTQH22");
+  </script>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:ital,wght@0,400;0,700;1,400&family=DM+Mono:wght@300;400&display=swap" rel="stylesheet">
+  <style>
+    :root {
+      --bg: #0a0d0f;
+      --surface: #0f1316;
+      --border: #1c2128;
+      --eth: #627eea;
+      --text: #dde3ea;
+      --text-dim: #7a8694;
+      --text-faint: #3d4855;
+      --accent: #c8d8f0;
+    }
+
+    * { margin: 0; padding: 0; box-sizing: border-box; }
+    html { scroll-behavior: smooth; }
+
+    body {
+      background: var(--bg);
+      color: var(--text);
+      font-family: 'DM Mono', monospace;
+      font-weight: 300;
+      overflow-x: hidden;
+    }
+
+    nav {
+      position: fixed;
+      top: 0; left: 0; right: 0;
+      z-index: 100;
+      padding: 1.25rem 3rem;
+      display: flex;
+      justify-content: space-between;
+      border-bottom: 1px solid var(--border);
+      background: rgba(10,13,15,0.9);
+      backdrop-filter: blur(12px);
+    }
+
+    .nav-logo {
+      font-family: 'Playfair Display', serif;
+      font-style: italic;
+      font-size: 1.1rem;
+      color: var(--text);
+      text-decoration: none;
+    }
+
+    .nav-links {
+      display: flex;
+      gap: 2rem;
+      list-style: none;
+    }
+
+    .nav-links a {
+      font-size: 0.75rem;
+      letter-spacing: 0.12em;
+      text-transform: uppercase;
+      color: var(--text-dim);
+      text-decoration: none;
+    }
+
+    .nav-links a:hover { color: var(--text); }
+
+    .article-wrap {
+      max-width: 720px;
+      margin: 0 auto;
+      padding: 10rem 2rem 8rem;
+    }
+
+    .article-meta {
+      font-size: 0.68rem;
+      letter-spacing: 0.2em;
+      text-transform: uppercase;
+      color: var(--eth);
+      margin-bottom: 1.5rem;
+    }
+
+    .article-title {
+      font-family: 'Playfair Display', serif;
+      font-size: clamp(2.2rem, 5vw, 3.4rem);
+      line-height: 1.1;
+      margin-bottom: 1.25rem;
+      color: var(--text);
+    }
+
+    .article-subtitle {
+      font-size: 1rem;
+      line-height: 1.8;
+      color: var(--text-dim);
+      margin-bottom: 3.5rem;
+      border-bottom: 1px solid var(--border);
+      padding-bottom: 3rem;
+    }
+
+    .article-body h2 {
+      font-family: 'Playfair Display', serif;
+      font-size: 1.5rem;
+      font-weight: 400;
+      color: var(--accent);
+      margin: 3rem 0 1.25rem;
+      line-height: 1.3;
+    }
+
+    .article-body p {
+      font-size: 1rem;
+      line-height: 1.95;
+      color: var(--text-dim);
+      margin-bottom: 1.5rem;
+    }
+
+    .article-body a {
+      color: var(--eth);
+      text-decoration: none;
+      border-bottom: 1px solid rgba(98,126,234,0.3);
+      transition: border-color 0.2s;
+    }
+
+    .article-body a:hover { border-color: var(--eth); }
+
+    .article-body strong {
+      color: var(--text);
+      font-weight: 400;
+    }
+
+    .article-body em {
+      color: var(--accent);
+      font-style: italic;
+    }
+
+    .article-footer {
+      margin-top: 4rem;
+      padding-top: 2.5rem;
+      border-top: 1px solid var(--border);
+      font-size: 0.82rem;
+      color: var(--text-faint);
+      line-height: 1.8;
+    }
+
+    .article-footer em {
+      color: var(--text-dim);
+      font-style: italic;
+    }
+
+    footer {
+      padding: 2.5rem 3rem;
+      display: flex;
+      justify-content: space-between;
+      font-size: 0.65rem;
+      color: var(--text-faint);
+      border-top: 1px solid var(--border);
+    }
+
+    @media (max-width: 768px) {
+      nav { padding: 1rem 1.5rem; }
+      .nav-links { display: none; }
+      .article-wrap { padding: 8rem 1.5rem 5rem; }
+    }
+  </style>
+</head>
+<body>
+
+<nav>
+  <a href="/" class="nav-logo">Ethernauta</a>
+  <ul class="nav-links">
+    <li><a href="/#entradas">Entradas</a></li>
+    <li><a href="/#ethxplorando">ETHxplorando</a></li>
+    <li><a href="/#builders">Builders</a></li>
+    <li><a href="/#recursos">Recursos</a></li>
+    <li><a href="/#autor">Autor</a></li>
+    <li><a href="https://x.com/saquelogarcia" target="_blank" rel="noopener">X</a></li>
+  </ul>
+</nav>
+
+<article class="article-wrap">
+  <p class="article-meta">Protocolo y consenso &nbsp;·&nbsp; Mayo 2026</p>
+  <h1 class="article-title">Introducción a Lean Ethereum</h1>
+  <p class="article-subtitle">De Beam Chain a Lean Ethereum: una introducción a la reforma profunda que Ethereum empieza a imaginar para su consenso, sus datos y su capa de ejecución.</p>
+
+  <div class="article-body">
+
+    <p>Imagina que hace 5 años construiste tu casa. Lo que hiciste en ese momento estuvo bastante bien, considerando lo que sabías, los recursos que tenías y las necesidades de entonces. Hoy entiendes muchas cosas con mayor profundidad, y además el contexto cambió tanto que te das cuenta de que necesitas reformar profundamente esa casa que construiste con tanta dedicación. Cumple funciones, pero ya no es suficiente.</p>
+
+    <p>Probablemente, al construirla privilegiaste la seguridad y la fortaleza. Pero las circunstancias actuales exigen más confort y mejores prestaciones.</p>
+
+    <p>Podrías reformarla poco a poco. Primero tiras una pared, después amplías una habitación, luego mejoras la instalación eléctrica... Es sensato, requiere conciencia, recursos y tiempo. Pero en ese ritmo, siempre llega algo nuevo que el arreglo actual ya no alcanza a cubrir.</p>
+
+    <p>Podemos decir que algo parecido sucede con Ethereum.</p>
+
+    <p>Desde su lanzamiento en diciembre de 2020, la Beacon Chain ha recibido actualizaciones graduales, aproximadamente una por año. Hoy, esas mejoras ya no alcanzan a satisfacer la velocidad de evolución del ecosistema. Nuevas necesidades tecnológicas surgen antes de que las reformas estén completas.</p>
+
+    <p>Esto es aún más notable en un contexto tecnológico como el de Ethereum, donde el ritmo de cambio se acelera.</p>
+
+    <p>En noviembre de 2024, en Devcon 7, Justin Drake presentó una propuesta llamada Beam Chain. En aquel momento, la idea era rediseñar la capa de consenso de Ethereum y reemplazar la Beacon Chain por una arquitectura nueva. La propuesta buscaba compactar en una sola gran actualización múltiples mejoras que estaban en la hoja de ruta, en lugar de dispersarlas en forks anuales.</p>
+
+    <p>Pero la conversación siguió avanzando.</p>
+
+    <p>En julio de 2025, el blog oficial de Ethereum presentó Lean Ethereum como una visión más amplia para los próximos diez años. Dentro de esa visión, lo que antes se conocía como Beam Chain pasó a aparecer como lean consensus, o Beacon Chain 2.0. Y ese cambio de nombre no es un detalle menor: Lean Ethereum ya no habla solamente del consenso, sino también de datos y ejecución. Consenso, blobs y EVM empiezan a pensarse como partes de una misma reforma de largo plazo.</p>
+
+    <h2>Una nueva forma de mirar la casa</h2>
+
+    <p>Con Ethereum ocurre algo parecido a esa casa que mencionábamos al principio. Hoy la red funciona y sostiene miles de aplicaciones en todo el mundo. Pero en los próximos años surgirán nuevos escenarios tecnológicos que podrían requerir una arquitectura más simple, más eficiente y más resistente.</p>
+
+    <p>La discusión empezó con fuerza alrededor de la capa de consenso. Allí estaba Beam Chain. Pero Lean Ethereum amplía el plano.</p>
+
+    <p>En el <a href="https://blog.ethereum.org/2025/07/31/lean-ethereum" target="_blank" rel="noopener">post oficial</a> se habla de tres frentes: lean consensus, lean data y lean execution. El primero retoma buena parte de lo que se venía discutiendo con Beam Chain: una Beacon Chain 2.0 endurecida para seguridad y descentralización, con finalidad en segundos. El segundo apunta a blobs 2.0, con blobs post-cuánticos y tamaños más granulares. El tercero propone una EVM 2.0, más mínima y más amigable para pruebas SNARK, posiblemente apoyada en RISC-V, pero preservando la compatibilidad y los efectos de red de la EVM actual.</p>
+
+    <p>El cambio, entonces, no es solo cosmético. Beam Chain quedó como una parte de una conversación más grande.</p>
+
+    <h2>¿Por qué esto es tan importante?</h2>
+
+    <p>Porque no se trata solo de “mejorar Ethereum”. Lo que está en juego es cómo diseñamos una red que esté preparada para durar décadas en un entorno donde todo cambia vertiginosamente.</p>
+
+    <p>Hoy, validar un bloque y alcanzar su finalidad puede tardar varios minutos. Con las ideas que venían de Beam Chain y ahora aparecen dentro de lean consensus, ese proceso podría suceder en pocos segundos. Pasaríamos de esperar a simplemente saber, con certeza matemática, que un bloque es definitivo.</p>
+
+    <p>Hoy, para participar como validador necesitas tener 32 ETH. Una de las discusiones que aparecía en Beam Chain era bajar ese umbral a 1 solo ETH, haciendo que la validación deje de ser un juego para unos pocos y se abra a muchas más personas y contextos.</p>
+
+    <p>Y mientras el mundo todavía discute si la computación cuántica es una amenaza real o una preocupación lejana, Ethereum se prepara con resistencia criptográfica post-cuántica, integrando nuevas firmas que puedan soportar un ataque incluso si las máquinas del futuro llegan antes de lo esperado.</p>
+
+    <p>Todo esto no son solo mejoras técnicas. Son señales claras de hacia dónde podría avanzar Ethereum como infraestructura pública global: más rápida, más segura, más abierta.</p>
+
+    <p>Y sobre todo, diseñada no solo para responder al presente, sino para anticiparse al futuro.</p>
+
+    <h2>Los cambios que Beam puso sobre la mesa</h2>
+
+    <p>Gran parte de esta conversación se puede entender mirando los cambios que Beam Chain había ordenado originalmente alrededor del consenso. Algunos eran incrementales. Otros eran bastante más profundos.</p>
+
+    <p>Uno de los primeros temas era la resistencia a la censura. Hoy Ethereum es resistente a la censura, pero la producción de bloques todavía presenta riesgos de concentración. La mayor parte de los bloques son construidos por actores especializados en maximizar MEV, lo que genera inquietudes en torno a quién decide qué transacciones entran primero.</p>
+
+    <p>Beam Chain introducía un mecanismo llamado Inclusion Lists. En cada slot, un grupo de validadores seleccionaría transacciones directamente desde el mempool y formaría una lista que los block builders deberían respetar. Esto significa que, aunque siga existiendo optimización por MEV, ya no sería tan sencillo excluir arbitrariamente una transacción.</p>
+
+    <p>Otro punto importante era la separación entre validadores y constructores de bloques. En el modelo actual, la construcción de bloques está mediada por relayers como Flashbots, que conectan validadores con block builders. Este esquema funciona, pero introduce puntos de centralización.</p>
+
+    <p>La propuesta buscaba enshrinar esa separación de manera nativa y descentralizada, a través de execution auctions. Así, cualquiera podría pujar por el derecho a construir un bloque, sin depender de un relayer central. No reemplazaría todo el sistema actual de un día para otro, pero sí lo empujaría hacia una arquitectura más abierta y resistente.</p>
+
+    <p>También aparecía la idea de faster slots. Los slots son las ventanas de tiempo en las que los validadores proponen y acuerdan bloques. Actualmente duran 12 segundos. Beam Chain proponía reducirlos a 4 segundos, acelerando la propagación de bloques y aumentando el throughput de la red.</p>
+
+    <p>Menos tiempo por slot implica más fluidez y, combinado con mejoras en la finalidad, podría transformar radicalmente la experiencia del usuario: pasar de esperar minutos a contar con confirmaciones prácticamente inmediatas.</p>
+
+    <h2>Staking, finalidad y participación</h2>
+
+    <p>El staking también era una parte central de la propuesta.</p>
+
+    <p>Ethereum ajusta dinámicamente su emisión y quema de ETH. Según la actividad, puede volverse inflacionaria o deflacionaria en distintos periodos. Esto hoy es estable, pero se exploran formas de hacer que las recompensas sean más predecibles en el tiempo.</p>
+
+    <p>Beam Chain contemplaba introducir un stake cap: un límite máximo a la cantidad de ETH que puede ser validado. Esto permitiría equilibrar la seguridad de la red con una emisión controlada y potencialmente más deflacionaria.</p>
+
+    <p>A eso se sumaba una discusión todavía más visible: reducir la barrera de entrada para convertirse en validador. Hoy se necesitan 32 ETH. Esa barrera empuja a muchos usuarios a delegar su participación a pools o plataformas centralizadas.</p>
+
+    <p>La propuesta de smaller validators apuntaba a reducir ese umbral a 1 ETH, ampliando la base de validadores y favoreciendo la descentralización. Además, se discutía habilitar rangos de staking más amplios, con sistemas como Orbit Staking, para distribuir recompensas de manera proporcional entre grandes y pequeños validadores.</p>
+
+    <p>Y después está la finalidad.</p>
+
+    <p>Hoy, la finalidad, es decir, la certeza matemática de que un bloque no será revertido, tarda varios minutos. Con Beam Chain se discutía una versión mejorada del esquema de finality gadgets que permitiría alcanzar finalidad en segundos.</p>
+
+    <p>Esto es especialmente relevante para aplicaciones DeFi, protocolos cross-chain y cualquier servicio que dependa de la seguridad de L1.</p>
+
+    <h2>La zk-era del consenso</h2>
+
+    <p>Ethereum ya explora pruebas de conocimiento cero en la capa de ejecución. Beam Chain proponía llevar esas técnicas al propio consenso.</p>
+
+    <p>Esto incluye agregar firmas de validadores dentro de pruebas ZK y compilar implementaciones de consenso a bytecode verificable. El objetivo: hacer más eficientes las verificaciones, aumentar la seguridad criptográfica y reducir costos de validación.</p>
+
+    <p>Acá aparece uno de los puentes más claros con Lean Ethereum.</p>
+
+    <p>Porque Lean ya no piensa las pruebas solamente como una herramienta para escalar aplicaciones o rollups. Las empieza a mirar como parte del diseño general de Ethereum. Consenso, datos y ejecución podrían volverse más verificables, más simples de auditar y más preparados para el largo plazo.</p>
+
+    <p>La parte de lean execution va justamente en esa dirección: una EVM más mínima, más amigable para SNARKs, posiblemente basada en RISC-V, pero sin romper la compatibilidad con el mundo EVM que ya existe.</p>
+
+    <h2>Seguridad cuántica y aleatoriedad fuerte</h2>
+
+    <p>Aunque todavía no sabemos cuándo llegarán computadoras cuánticas capaces de romper criptografía actual, los investigadores de Ethereum consideran prudente adelantarse.</p>
+
+    <p>Beam Chain integraría firmas seguras post-cuánticas, como hash-based signatures, preparándose para un escenario en el que las tecnologías actuales podrían volverse vulnerables.</p>
+
+    <p>La aleatoriedad también ocupa un lugar importante. Es clave en Ethereum, por ejemplo, para seleccionar validadores. Hoy se logra con mecanismos seguros, pero en el futuro podrían necesitarse fuentes más fuertes y verificables.</p>
+
+    <p>Beam Chain buscaba introducir VDFs, Verifiable Delay Functions, que generan aleatoriedad pública, verificable y resistente a manipulaciones. Esto no solo beneficiaría al consenso, sino también a aplicaciones que requieran acceso nativo a randomness on-chain.</p>
+
+    <p>En Lean Ethereum, esa preocupación por el futuro aparece todavía más marcada. El post oficial habla explícitamente de seguridad post-cuántica, y no solo para el consenso: también para la capa de datos, con blobs post-cuánticos.</p>
+
+    <h2>Lo que cambió con Lean Ethereum</h2>
+
+    <p>Cuando escribí las primeras versiones de este artículo, se hablaba mucho de Beam Chain. Era lógico: la propuesta era concreta, potente y fácil de ubicar. Una nueva capa de consenso para Ethereum.</p>
+
+    <p>Hoy la conversación está un poco corrida.</p>
+
+    <p>Lean Ethereum toma buena parte de esas ideas, pero las ubica dentro de una visión más general. La pregunta ya no parece ser solamente cómo reformar el consenso, sino cómo hacer que Ethereum sea más simple, más verificable y más robusta en todas sus capas principales.</p>
+
+    <p>Ese cambio importa porque Ethereum no puede pensar cada parte de su arquitectura como si viviera aislada. El consenso afecta a la ejecución. La ejecución afecta a cómo se verifican los estados. Los blobs afectan a los rollups. Los rollups afectan a la experiencia del usuario. Y todo eso, tarde o temprano, vuelve a la pregunta inicial: qué tipo de infraestructura queremos que sea Ethereum dentro de diez, veinte o treinta años.</p>
+
+    <p>Lean Ethereum todavía no es una especificación cerrada ni una actualización lista para activarse. Es una conversación viva. Hay repositorios, discusiones abiertas, propuestas técnicas y una hoja de ruta que se sigue moviendo.</p>
+
+    <p>Pero la dirección general ya se puede leer: menos complejidad innecesaria, más seguridad, más verificabilidad y una red preparada para sobrevivir a cambios tecnológicos que todavía no terminaron de llegar.</p>
+
+    <h2>¿Y ahora qué?</h2>
+
+    <p>Este artículo cumple una función de presentación: introduce el concepto, muestra razones y ordena un poco el mapa.</p>
+
+    <p>Si querés seguir explorando, lo mejor es ir directo a las fuentes. El repositorio abierto de Lean Ethereum en GitHub reúne materiales técnicos y discusiones en curso: <a href="https://github.com/leanEthereum" target="_blank" rel="noopener">github.com/leanEthereum</a>. El post publicado en el blog oficial de Ethereum en julio de 2025 ayuda a entender cómo se presenta esta visión desde adentro del ecosistema: <a href="https://blog.ethereum.org/2025/07/31/lean-ethereum" target="_blank" rel="noopener">Lean Ethereum en el blog de Ethereum</a>. Y la cuenta de Lean Ethereum en X sirve para seguir novedades, debates y avances a medida que aparecen: <a href="https://x.com/leanEthereum" target="_blank" rel="noopener">@leanEthereum</a>.</p>
+
+    <p>También sigue siendo útil volver a la <a href="https://youtu.be/lRqnFrqpq4k?si=gCQUZjBDOlcv0aws" target="_blank" rel="noopener">presentación original de Justin Drake sobre Beam Chain en Devcon 7</a>, porque ahí aparece el germen de varias discusiones que después terminaron entrando en Lean.</p>
+
+    <p>Lo que hemos visto no es un listado de parches para el presente, sino una visión de largo plazo. Ethereum hoy funciona, pero investigadores como Justin Drake y otras personas de la comunidad creen que en los próximos años será necesario repensar partes profundas de su arquitectura.</p>
+
+    <p>La conversación ya está abierta.</p>
+
+    <p>Y si Ethereum sigue siendo Ethereum, probablemente no se cierre nunca del todo.</p>
+
+  </div>
+
+  <div class="article-footer">
+    <p><em>Este artículo se basa en una versión anterior que escribí originalmente para ETH Kipu. Lo publico aquí con su autorización.</em></p>
+    <p><em>El Ethernauta</em></p>
+  </div>
+</article>
+
+<footer>
+  <span>Ethernauta</span>
+  <span>ethernauta.lat · Buenos Aires, 2026</span>
+</footer>
+
+</body>
+</html>
