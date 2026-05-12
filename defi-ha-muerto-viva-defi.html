@@ -1,0 +1,273 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+  <link rel="icon" type="image/svg+xml" href="/favicon.svg">
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>DeFi ha muerto... Viva DeFi (?) — Ethernauta</title>
+  <meta name="description" content="Vitalik, el DeFi de bajo riesgo y la pregunta por lo que todavía puede sostener a Ethereum después del desencanto, los hacks y la caída de los rendimientos fáciles.">
+  <link rel="canonical" href="https://ethernauta.lat/defi-ha-muerto-viva-defi.html">
+  <meta property="og:title" content="DeFi ha muerto... Viva DeFi (?)">
+  <meta property="og:description" content="Vitalik, el DeFi de bajo riesgo y la pregunta por lo que todavía puede sostener a Ethereum después del desencanto, los hacks y la caída de los rendimientos fáciles.">
+  <meta property="og:url" content="https://ethernauta.lat/defi-ha-muerto-viva-defi.html">
+  <meta property="og:type" content="article">
+  <!-- Google Analytics -->
+  <script async src="https://www.googletagmanager.com/gtag/js?id=G-SJXWGTQH22"></script>
+  <script>
+    window.dataLayer = window.dataLayer || [];
+    function gtag(){dataLayer.push(arguments);}
+    gtag("js", new Date());
+    gtag("config", "G-SJXWGTQH22");
+  </script>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:ital,wght@0,400;0,700;1,400&family=DM+Mono:wght@300;400&display=swap" rel="stylesheet">
+  <style>
+    :root {
+      --bg: #0a0d0f;
+      --surface: #0f1316;
+      --border: #1c2128;
+      --eth: #627eea;
+      --text: #dde3ea;
+      --text-dim: #7a8694;
+      --text-faint: #3d4855;
+      --accent: #c8d8f0;
+    }
+
+    * { margin: 0; padding: 0; box-sizing: border-box; }
+    html { scroll-behavior: smooth; }
+
+    body {
+      background: var(--bg);
+      color: var(--text);
+      font-family: 'DM Mono', monospace;
+      font-weight: 300;
+      overflow-x: hidden;
+    }
+
+    nav {
+      position: fixed;
+      top: 0; left: 0; right: 0;
+      z-index: 100;
+      padding: 1.25rem 3rem;
+      display: flex;
+      justify-content: space-between;
+      border-bottom: 1px solid var(--border);
+      background: rgba(10,13,15,0.9);
+      backdrop-filter: blur(12px);
+    }
+
+    .nav-logo {
+      font-family: 'Playfair Display', serif;
+      font-style: italic;
+      font-size: 1.1rem;
+      color: var(--text);
+      text-decoration: none;
+    }
+
+    .nav-links {
+      display: flex;
+      gap: 2rem;
+      list-style: none;
+    }
+
+    .nav-links a,
+    .nav-soon {
+      font-size: 0.75rem;
+      letter-spacing: 0.12em;
+      text-transform: uppercase;
+      color: var(--text-dim);
+      text-decoration: none;
+    }
+
+    .nav-links a:hover { color: var(--text); }
+
+    .nav-soon {
+      color: rgba(122,134,148,0.45);
+      cursor: not-allowed;
+    }
+
+    .article-wrap {
+      max-width: 720px;
+      margin: 0 auto;
+      padding: 10rem 2rem 8rem;
+    }
+
+    .article-meta {
+      font-size: 0.68rem;
+      letter-spacing: 0.2em;
+      text-transform: uppercase;
+      color: var(--eth);
+      margin-bottom: 1.5rem;
+    }
+
+    .article-title {
+      font-family: 'Playfair Display', serif;
+      font-size: clamp(2.2rem, 5vw, 3.4rem);
+      line-height: 1.1;
+      margin-bottom: 3.5rem;
+      color: var(--text);
+      border-bottom: 1px solid var(--border);
+      padding-bottom: 3rem;
+    }
+
+    .article-body h2 {
+      font-family: 'Playfair Display', serif;
+      font-size: 1.5rem;
+      font-weight: 400;
+      color: var(--accent);
+      margin: 3rem 0 1.25rem;
+      line-height: 1.3;
+    }
+
+    .article-body p {
+      font-size: 1rem;
+      line-height: 1.95;
+      color: var(--text-dim);
+      margin-bottom: 1.5rem;
+    }
+
+    .article-body a {
+      color: var(--eth);
+      text-decoration: none;
+      border-bottom: 1px solid rgba(98,126,234,0.3);
+      transition: border-color 0.2s;
+    }
+
+    .article-body a:hover { border-color: var(--eth); }
+
+    .article-body strong {
+      color: var(--text);
+      font-weight: 400;
+    }
+
+    .article-body em {
+      color: var(--accent);
+      font-style: italic;
+    }
+
+    .article-body blockquote {
+      margin: 2rem 0;
+      padding: 1.25rem 1.5rem;
+      border-left: 2px solid var(--eth);
+      background: rgba(98,126,234,0.04);
+      color: var(--accent);
+      font-family: 'Playfair Display', serif;
+      font-size: 1.18rem;
+      line-height: 1.7;
+      font-style: italic;
+    }
+
+    .article-footer {
+      margin-top: 4rem;
+      padding-top: 2.5rem;
+      border-top: 1px solid var(--border);
+      font-size: 0.82rem;
+      color: var(--text-faint);
+      line-height: 1.8;
+    }
+
+    .article-footer em {
+      color: var(--text-dim);
+      font-style: italic;
+    }
+
+    footer {
+      padding: 2.5rem 3rem;
+      display: flex;
+      justify-content: space-between;
+      font-size: 0.65rem;
+      color: var(--text-faint);
+      border-top: 1px solid var(--border);
+    }
+
+    @media (max-width: 768px) {
+      nav { padding: 1rem 1.5rem; }
+      .nav-links { display: none; }
+      .article-wrap { padding: 8rem 1.5rem 5rem; }
+    }
+  </style>
+</head>
+<body>
+
+<nav>
+  <a href="/" class="nav-logo">Ethernauta</a>
+  <ul class="nav-links">
+    <li><a href="/#entradas">Entradas</a></li>
+    <li><a href="/#ethxplorando">ETHxplorando</a></li>
+    <li><span class="nav-soon" title="Próximamente">Builders</span></li>
+    <li><span class="nav-soon" title="Próximamente">Recursos</span></li>
+    <li><a href="/#nombre">El nombre</a></li>
+    <li><a href="/#autor">Autor</a></li>
+    <li><a href="https://x.com/saquelogarcia" target="_blank" rel="noopener">X</a></li>
+  </ul>
+</nav>
+
+<article class="article-wrap">
+  <p class="article-meta">Entradas &nbsp;·&nbsp; Mayo 2026</p>
+  <h1 class="article-title">DeFi ha muerto... Viva DeFi (?)</h1>
+
+  <div class="article-body">
+
+    <p>“DeFi muriendo cada día un poco más. Por los APY actuales, ¿vale la pena tener activos invertidos en protocolos? Si no es un protocolo, es un puente y así estamos hace tiempo. Cada día que pasa pienso más en eso: lo mejor parece ser hacer hold en mainnet y olvidarme.”</p>
+
+    <p>Eso escribió hace un par de semanas @DiegoDeFi, un miembro muy activo de la comunidad de Ethereum y blockchain en general en redes sociales, especialmente en Twitter (sí, me resisto a decirle X). Alguien que día a día es un entusiasta y profundo conocedor y difundidor de las más variadas estrategias de DeFi, de repente nos tira ese mensaje al que, a modo de cierre, le agrega un “Totalmente pesimista”.</p>
+
+    <p>Que lo hubiera dicho un “gordo TradFi”, vaya y pase. Hay gente tirando hate, como dirían los jóvenes, 24x7 a todo lo que vino desde Satoshi Nakamoto para acá. Pero Diego, por ponerlo de ejemplo entre tantos otros expertos en el tema, ha sido un convencido y casi hasta un misionero incansable de las finanzas descentralizadas, o aquello que haya sido lo que conocimos con ese nombre.</p>
+
+    <p>Su mensaje, totalmente pesimista, caía en medio del terremoto por el hackeo multimillonario a KelpDAO, que hizo temblar desde los pies hasta la cabeza al principal protocolo de DeFi del mundo, es decir, Aave.</p>
+
+    <p>Si bien es solo un tweet, y después el mismo usuario rápidamente retomó sus tweets degen habituales, quise detenerme en él porque me parece un síntoma bastante claro de los tiempos que nos tocan vivir: ya no parece quedar casi nada del entusiasmo, que supo ser euforia, alrededor de las diversas estrategias de DeFi. No solo cuesta encontrar gente que esté entrando, sino que cada día se ven más personas que están saliendo. Estoy hablando desde la percepción. De lo que percibo en la gente con la que me relaciono y especialmente de lo que no se ve en las redes sociales que solían ser un hervidero de emocionantes novedades del mundo de las finanzas en cripto.</p>
+
+    <p>Si bien hubo grandes momentos, también fueron años de promesas imposibles, farms absurdos, cacería desenfrenada de dudosos puntos, airdrops, vaults que nadie terminaba de entender, bridges que parecían seguros hasta que dejaban de serlo y protocolos interconectados al punto de que el problema de uno se convertía en el problema de todos.</p>
+
+    <p>¿Entonces qué hacemos? ¿Armamos las maletas y nos volvemos a casa? Podría ser... pero tal vez es cuestión de empezar a entender que la cosa va por otro lado. Y si nos referimos a pensar por afuera de la caja o a salir del laberinto por arriba, quien nos suele traer luz es el mismísimo fundador de Ethereum: Vitalik Buterin.</p>
+
+    <p>Hace aproximadamente seis meses publicó un artículo llamado <a href="https://vitalik.eth.limo/general/2025/09/21/low_risk_defi.html" target="_blank" rel="noopener">“Low-risk DeFi can be for Ethereum what search was for Google”</a>, en el que planteaba que hay sobrados motivos para que DeFi sea realmente adoptado masivamente. ¿Pero cómo? Acá va una pista: no será a través de protocolos recontra intrincados en los que tenés que hacer 14 bridges, 16 swaps, autorizar 45 tokens y firmar 983 contratos. Parece que la cosa va por otro lado: DeFi de bajo riesgo.</p>
+
+    <p>Tal vez, y solo tal vez, valga acordarse de Pablo Raúl Trullenque, el poeta santiagueño: “tanto correr pa’ llegar a ningún lado”.</p>
+
+    <p>Los viejos y queridos enviar, recibir, comprar, vender y holdear pueden ser nuestros mejores aliados.</p>
+
+    <h2>Low-risk DeFi puede ser para Ethereum lo que el motor de búsqueda fue para Google</h2>
+
+    <p>La comparación puede sonar extraña al principio, pero nos ayuda a ordenar las ideas. Google tiene una enorme diversidad de productos y áreas de desarrollo. Algunos se volvieron casi básicos, como su buscador, y otros parecen más futuristas, como los últimos avances en inteligencia artificial. Lo mismo pasa en Ethereum: desde lo más elemental, como enviar una transacción, hasta protocolos sofisticados con inteligencia artificial, flashbots o estrategias complejas de DeFi.</p>
+
+    <p>Ambos extremos son parte del mismo ecosistema, necesarios y valiosos. Pero, ¿dónde está el verdadero corazón que sostiene todo? Según Vitalik, en Google lo básico, el buscador y la publicidad asociada, es lo que genera los ingresos que permiten sostener los demás proyectos. En Ethereum, ese rol lo podría cumplir el DeFi de bajo riesgo: pagos y ahorro, las funciones más simples y universales, pero también otras un poco más complejas y ya probadas, como los préstamos totalmente colateralizados o los activos sintéticos.</p>
+
+    <p>Vitalik plantea que conviene prestar más atención a estas opciones. No quedarse únicamente con las promesas de rendimientos altos ni con las aplicaciones más experimentales, porque tal vez lo que realmente sostenga a Ethereum, tanto desde lo económico como desde lo social, sea lo más sencillo: enviar dinero, guardarlo de manera segura y acceder a instrumentos financieros básicos sin pedir permiso ni estar a merced de regulaciones arbitrarias.</p>
+
+    <blockquote>“Crypto does not have magic secret sauce for sustainably creating much higher yields.”</blockquote>
+
+    <p>Lo interesante es que, aunque parezca elemental, este uso de Ethereum sigue teniendo un valor inmenso. Pagos y ahorros en la blockchain son globales, incensurables, accesibles las 24 horas. Para quienes viven en contextos de exclusión financiera, inflación o burocracias que complican la vida cotidiana, esta “magia simple” puede ser transformadora. Y, al mismo tiempo, genera el volumen económico suficiente para sostener al ecosistema y darle espacio a que florezcan las propuestas más innovadoras: identidad con privacidad, gobernanza transparente, trazabilidad, investigación, educación.</p>
+
+    <p>Esta posibilidad tan sencilla, pero tan mágica, como dice el propio Vitalik, para millones de personas que viven en los márgenes del sistema, debería ser y ya está en camino de convertirse en la opción que impulse la adopción masiva de Ethereum. No solo puede sostener su modelo económico, sino también dar aire al desarrollo de áreas mucho más experimentales, muchas de ellas incluso más importantes para la humanidad y para Ethereum, pero con menos posibilidades de generar ingresos sostenibles. Redes sociales descentralizadas, protocolos de identidad con privacidad, mecanismos de gobernanza y votación transparentes, cadenas de suministro con trazabilidad, certificación de documentos, sistemas de salud con historias clínicas on chain, validación de papers o financiamiento de investigaciones por fuera de las grandes corporaciones. Todo eso puede tener un impacto profundo, quizás mayor que el simple hecho de poder enviar dinero de un lugar a otro, aunque eso ya sea un enorme avance. El problema es que a muchas de estas propuestas les costará encontrar un modelo de negocio que garantice su permanencia en el tiempo y su verdadero impacto.</p>
+
+    <blockquote>“Low-risk defi is naturally synergistic with, or can evolve into, a number of more interesting future applications.”</blockquote>
+
+    <p>Vitalik también recuerda que este recorrido no se detiene aquí. Un ecosistema sólido de pagos y ahorro puede dar lugar a opciones más avanzadas: préstamos con menor colateral basados en reputación, mercados de predicción que funcionen como coberturas, o nuevas formas de dinero estable como las llamadas “flatcoins”. Todas esas posibilidades dependen de que primero consolidemos lo básico.</p>
+
+    <p>Así como una búsqueda en Google sobre cómo hacer una pizza, acompañada por el aviso de una marca de levadura, termina financiando desarrollos avanzados en inteligencia artificial, en Ethereum las transacciones cotidianas y el uso de stablecoins podrían ser la base que financie el resto. No quiere decir que lo experimental no importe. Al contrario, esos desarrollos son vitales para imaginar futuros más justos y creativos. Pero tal vez tengamos que aceptar que el motor silencioso que hace posible todo lo demás está en lo más simple y estable.</p>
+
+    <p>Una idea más que se desprende del <a href="https://vitalik.eth.limo/general/2025/09/21/low_risk_defi.html" target="_blank" rel="noopener">texto de Vitalik</a>: Google, con el tiempo, se volvió una corporación centrada en maximizar beneficios, perdiendo parte de su espíritu inicial. Ethereum no puede caer en ese error. La descentralización, y el hecho de que las reglas estén escritas en código abierto, son la garantía de que el crecimiento económico se alinee con un propósito social más amplio. Y a esto se suma un obstáculo externo: la regulación, que muchas veces castiga más a quienes ofrecen transparencia que a quienes especulan sin aportar valor. Ese contexto explica por qué ciertas formas de DeFi tardaron más en madurar.</p>
+
+    <blockquote>“Low-risk defi is already supporting the Ethereum economy.”</blockquote>
+
+    <p>El post de Vitalik no cambia la realidad de un día para otro, y mucho menos borra lo que pasó después con hacks, puentes, préstamos que nunca se devolvían o protocolos demasiado enredados entre sí. Pero sí funciona como recordatorio: Ethereum ya tiene en sus manos una solución concreta y poderosa, tan simple como enviar o guardar dinero sin permiso, y tan valiosa como abrir esa posibilidad a miles de millones de personas.</p>
+
+    <p>Ese puede ser el piloto automático que sostenga la adopción, los ingresos y, a la vez, la credibilidad del ecosistema. Todo lo demás seguirá creciendo sobre esa base.</p>
+
+  </div>
+
+  <div class="article-footer">
+    <p><em>Este artículo se basa en una versión anterior que escribí originalmente para ETH Kipu. Lo publico aquí con su autorización.</em></p>
+    <p><em>El Ethernauta</em></p>
+  </div>
+</article>
+
+<footer>
+  <span>Ethernauta</span>
+  <span>ethernauta.lat — Buenos Aires, 2026</span>
+</footer>
+
+</body>
+</html>
