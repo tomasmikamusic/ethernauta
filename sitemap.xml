@@ -50,5 +50,10 @@
   <loc>https://ethernauta.lat/lean-ethereum.html</loc>
   <lastmod>2026-05-02</lastmod>
 </url>
+
+  <url>
+    <loc>https://ethernauta.lat/defi-ha-muerto-viva-defi.html</loc>
+    <priority>0.8</priority>
+  </url>
   
 </urlset>
