@@ -1,0 +1,348 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+  <link rel="icon" type="image/svg+xml" href="/favicon.svg">
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Ethereum en las nubes — Ethernauta</title>
+  <meta name="description" content="Cómo monté mi propio nodo de Ethereum usando Google Cloud. Workshop, DappNode, Reth, Lighthouse, Hoodi y un proyecto suspendido a mitad de camino.">
+  <link rel="canonical" href="https://ethernauta.lat/monte-un-nodo-google-cloud.html">
+  <meta property="og:title" content="Ethereum en las nubes">
+  <meta property="og:description" content="Cómo monté mi propio nodo de Ethereum usando Google Cloud.">
+  <meta property="og:url" content="https://ethernauta.lat/monte-un-nodo-google-cloud.html">
+  <meta property="og:type" content="article">
+  <!-- Google Analytics -->
+  <script async src="https://www.googletagmanager.com/gtag/js?id=G-SJXWGTQH22"></script>
+  <script>
+    window.dataLayer = window.dataLayer || [];
+    function gtag(){dataLayer.push(arguments);}
+    gtag("js", new Date());
+    gtag("config", "G-SJXWGTQH22");
+  </script>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:ital,wght@0,400;0,700;1,400&family=DM+Mono:wght@300;400&display=swap" rel="stylesheet">
+  <style>
+    :root {
+      --bg: #0a0d0f;
+      --surface: #0f1316;
+      --border: #1c2128;
+      --eth: #627eea;
+      --text: #dde3ea;
+      --text-dim: #7a8694;
+      --text-faint: #3d4855;
+      --accent: #c8d8f0;
+    }
+
+    * { margin: 0; padding: 0; box-sizing: border-box; }
+    html { scroll-behavior: smooth; }
+
+    body {
+      background: var(--bg);
+      color: var(--text);
+      font-family: 'DM Mono', monospace;
+      font-weight: 300;
+      overflow-x: hidden;
+    }
+
+    nav {
+      position: fixed;
+      top: 0; left: 0; right: 0;
+      z-index: 100;
+      padding: 1.25rem 3rem;
+      display: flex;
+      justify-content: space-between;
+      border-bottom: 1px solid var(--border);
+      background: rgba(10,13,15,0.9);
+      backdrop-filter: blur(12px);
+    }
+
+    .nav-logo {
+      font-family: 'Playfair Display', serif;
+      font-style: italic;
+      font-size: 1.1rem;
+      color: var(--text);
+      text-decoration: none;
+    }
+
+    .nav-links {
+      display: flex;
+      gap: 2rem;
+      list-style: none;
+    }
+
+    .nav-links a {
+      font-size: 0.75rem;
+      letter-spacing: 0.12em;
+      text-transform: uppercase;
+      color: var(--text-dim);
+      text-decoration: none;
+    }
+
+    .nav-links a:hover { color: var(--text); }
+
+    .article-wrap {
+      max-width: 840px;
+      margin: 0 auto;
+      padding: 10rem 2rem 8rem;
+    }
+
+    .article-meta {
+      font-size: 0.68rem;
+      letter-spacing: 0.2em;
+      text-transform: uppercase;
+      color: var(--eth);
+      margin-bottom: 1.5rem;
+    }
+
+    .article-title {
+      font-family: 'Playfair Display', serif;
+      font-size: clamp(2.2rem, 5vw, 3.4rem);
+      line-height: 1.1;
+      margin-bottom: 2rem;
+      color: var(--text);
+      border-bottom: 1px solid var(--border);
+      padding-bottom: 1.5rem;
+    }
+
+    .article-body h2 {
+      font-family: 'Playfair Display', serif;
+      font-size: 1.5rem;
+      font-weight: 400;
+      color: var(--accent);
+      margin: 3rem 0 1.25rem;
+      line-height: 1.3;
+    }
+
+    .article-body p {
+      font-size: 1rem;
+      line-height: 1.95;
+      color: var(--text-dim);
+      margin-bottom: 1.5rem;
+    }
+
+    .article-body a {
+      color: var(--eth);
+      text-decoration: none;
+      border-bottom: 1px solid rgba(98,126,234,0.3);
+      transition: border-color 0.2s;
+    }
+
+    .article-body a:hover { border-color: var(--eth); }
+
+    .article-body strong {
+      color: var(--text);
+      font-weight: 400;
+    }
+
+    .article-body em {
+      color: var(--accent);
+      font-style: italic;
+    }
+
+    .article-body code {
+      font-family: 'DM Mono', monospace;
+      font-size: 0.85rem;
+      background: rgba(98,126,234,0.08);
+      padding: 0.15em 0.4em;
+      color: var(--accent);
+    }
+
+    .concept-block {
+      border-left: 2px solid var(--eth);
+      padding: 1.25rem 1.5rem;
+      margin: 2rem 0;
+      background: rgba(98,126,234,0.04);
+    }
+
+    .concept-block p { margin-bottom: 0; font-size: 0.92rem; }
+
+    .concept-label {
+      font-size: 0.6rem;
+      letter-spacing: 0.2em;
+      text-transform: uppercase;
+      color: var(--eth);
+      margin-bottom: 0.5rem;
+      display: block;
+    }
+
+    figure {
+      margin: 2.5rem 0;
+    }
+
+    figure img {
+      width: 100%;
+      height: auto;
+      display: block;
+      border: 1px solid var(--border);
+      border-radius: 0.5rem;
+    }
+
+    figcaption {
+      font-size: 0.78rem;
+      color: var(--text-faint);
+      margin-top: 0.75rem;
+      text-align: center;
+      letter-spacing: 0.02em;
+      line-height: 1.5;
+    }
+
+    .article-footer {
+      margin-top: 4rem;
+      padding-top: 2.5rem;
+      border-top: 1px solid var(--border);
+      font-size: 0.82rem;
+      color: var(--text-faint);
+      line-height: 1.8;
+    }
+
+    .article-footer em { color: var(--text-dim); font-style: italic; }
+
+    footer {
+      padding: 2.5rem 3rem;
+      display: flex;
+      justify-content: space-between;
+      font-size: 0.65rem;
+      color: var(--text-faint);
+      border-top: 1px solid var(--border);
+    }
+
+    @media (max-width: 768px) {
+      nav { padding: 1rem 1.5rem; }
+      .nav-links { display: none; }
+      .article-wrap { padding: 8rem 1.5rem 5rem; }
+    }
+  </style>
+</head>
+<body>
+
+<nav>
+  <a href="/" class="nav-logo">Ethernauta</a>
+  <ul class="nav-links">
+    <li><a href="/#entradas">Entradas</a></li>
+    <li><a href="/#ethxplorando">ETHxplorando</a></li>
+    <li><a href="/#nombre">El nombre</a></li>
+    <li><a href="/#autor">Autor</a></li>
+    <li><a href="https://x.com/saquelogarcia" target="_blank">X</a></li>
+  </ul>
+</nav>
+
+<article class="article-wrap">
+  <p class="article-meta">ETHxplorando &nbsp;·&nbsp; Mayo 2026</p>
+  <h1 class="article-title">Ethereum en las nubes</h1>
+  <p style="font-size:0.95rem;color:var(--text-dim);font-style:italic;margin-bottom:2rem;margin-top:-1.5rem;">(o sobre cómo monté mi propio nodo usando Google Cloud)</p>
+
+  <div class="article-body">
+
+
+    <p>No soy Alicia, pero hace algunos meses me caí en un rabbit hole. Empecé haciendo un par de preguntas sobre nodos en Ethereum y terminé corriendo mi propio nodo. En el camino escribí varios artículos, entre ellos sobre <a href="/capas-de-ethereum.html">capas</a>, <a href="/nodos-de-ethereum.html">nodos</a>, <a href="/clientes-y-diversidad.html">clientes</a> y <a href="/consenso-en-ethereum.html">consenso</a>. Cuanto más aprendía, más cuenta me daba de lo que no sabía. Y cuanto más aprendía de lo que no sabía, el ciclo se volvía a repetir.</p>
+
+    <p>Ahora considero que sé muchísimo más que hace uno o dos años sobre qué es Ethereum y cómo funciona. Pero eso no me sacó del loop. Al contrario: me dejó en ese umbral móvil de "todavía no sé lo que no sé". Y todo eso, justamente eso, quiero y necesito aprenderlo.</p>
+
+    <p>Antes de seguir yéndonos por las ramas, vamos a la historia que nos convoca hoy: cómo monté mi propio nodo de Ethereum con conocimientos previos bastante limitados, equipamiento muy sencillo, presupuesto cero, y cómo Google Cloud me bajó el proyecto a mitad de camino por estar trabajando con blockchain.</p>
+
+    <p>Claro que nada de esto hubiera sido posible sin <em>a little help from my friends</em>. Mención especial a Enti de Lido, Chuy García de DappNode, Lorenzo Hardoy y la comunidad de Club de Nodos en general. No hubiera hecho absolutamente nada sin su ayuda.</p>
+
+    <h2>El problema</h2>
+
+    <p>Si estamos en Ethereum, salvo que seamos parte de la runfla de extractivistas que todos conocemos, es porque en algún punto estamos enamorados de la libertad y de todo lo que creemos que las tecnologías descentralizadas, o descentralizadoras, pueden aportarle a ese hermoso ideal.</p>
+
+    <p>Por eso me parece bastante natural que, tarde o temprano, a cualquier usuario que permanece el tiempo suficiente en Ethereum, se haya convertido en builder o no, se le cruce por la cabeza la idea de montar su propio nodo. Cuando empezamos a entender cómo funciona la cosa, y vemos que en nuestro uso diario del protocolo todavía lidiamos con varias instancias que se alejan del ideal descentralizado, es normal que un día nos paremos y digamos: "pará, ¿por qué no tengo mi propio nodo? O todavía mejor: ¿por qué no tengo un nodo validador?".</p>
+
+    <p>Después viene la primera respuesta lógica: porque no tenés 32 ETH, ni una máquina con el disco y la RAM suficientes, y probablemente también te esté costando pagar la boleta de la electricidad.</p>
+
+    <p>Pero esperen: hay vida después de esa trompada. No es el paraíso, pero quedan signos vitales.</p>
+
+    <h2>El workshop</h2>
+
+    <p>Hace aproximadamente un año me anoté en un workshop que dio Enti, de Lido Finance, para montar un nodo, según decía la propuesta, de una manera fácil y sin necesidad de grandes recursos. El problema de la falta de hardware se resolvía usando una virtual machine en Google Cloud. Eso mismo resolvía, al menos por un rato, el problema de la factura de la luz. El problema de los 32 ETH se resolvía deployando en testnet.</p>
+
+    <p>Para muchos puede ser una obviedad, pero para mí no lo era. Sé bien que muchísimos nodos y validadores de Ethereum corren en infraestructura cloud, con AWS como caso arquetípico. Pero la verdad es que lo veía como algo ajeno. No pensaba que se pudiera configurar de manera relativamente sencilla y que, encima, hubiera opciones gratis para pasar del estudio a la acción y vivenciar en primera persona cómo late el corazón de Ethereum entre esa diástole y sístole perfectamente coordinadas de ejecución y consenso.</p>
+
+    <p>La solución estaba ahí nomás: un nodo en testnet usando los créditos gratuitos de Google Cloud. La propuesta era atractiva. No hacía falta hardware propio. No hacía falta una conexión estable de casa. Solo una máquina virtual gratuita en la nube, una guía bien hecha y unas horas para seguirla con atención. Al final del proceso, si todo salía bien, uno terminaba siendo operador de un nodo validador en testnet.</p>
+
+    <h2>El stack</h2>
+
+    <p>Lo que armamos en el workshop era esto. Una máquina virtual en Google Cloud con Debian 12, 16 GB de RAM y 300 GB de disco. Encima, <strong>DappNode</strong>, una distribución que orquesta clientes de Ethereum y otros servicios on-chain con una interfaz visual amigable. Como cliente de ejecución, <strong>Reth</strong>, escrito en Rust y relativamente joven dentro del menú de clientes disponibles. Como cliente de consenso, <strong>Lighthouse</strong>. Como signer, <strong>Web3Signer</strong>. Y como capa final, <strong>MEV-Boost</strong> conectado a relays validados por Lido.</p>
+
+    <p>Para conectarse a la interfaz de DappNode, una VPN con <strong>WireGuard</strong>. Aunque suene raro, era mi primera vez con una VPN. No era el corazón del workshop, pero sí una pieza que tuve que entender mientras avanzaba.</p>
+
+    <p>La testnet elegida fue <strong>Hoodi</strong>. Para generar las keys del validador se usa una herramienta llamada Wagyu, que arma el keystore y los datos del depósito apuntando a la bóveda de retiros de Lido en Hoodi.</p>
+
+    <figure>
+      <img src="/images/nodo-dashboard.png" alt="Dashboard de DappNode mostrando Hoodi Reth y Lighthouse Hoodi sincronizados con 100 peers cada uno">
+      <figcaption>El nodo corriendo en la VM: Hoodi Reth y Lighthouse Hoodi sincronizados, 100 peers en cada cliente, uptime de más de una semana.</figcaption>
+    </figure>
+
+    <h2>Google Cloud me bajó el proyecto</h2>
+
+    <p>El nodo levantó. Empezó a sincronizar. Los bloques empezaron a llegar y los logs de Reth eran un río continuo de hashes y números de bloque. Ver en mi pantalla los bloques de Ethereum llegando a mi propia copia del estado de la red, verificados por mi propia máquina, no lo voy a negar, fue bastante emocionante.</p>
+
+    <p>Era, por fin, pasar del artículo a la experiencia. De leer sobre clientes, consenso y nodos a ver cómo esa maquinaria empezaba a moverse en una VM que yo había levantado siguiendo una guía, preguntando, equivocándome y volviendo a probar.</p>
+
+    <figure>
+      <img src="/images/nodo-logs-reth.png" alt="Logs de Reth mostrando bloques siendo procesados">
+      <figcaption>Los logs de Reth. Cada línea es un bloque agregado a mi copia local de la cadena.</figcaption>
+    </figure>
+
+    <p>Hasta que un día llegó un e-mail de Google Cloud informándome que mi proyecto había sido suspendido. Motivo: "minar criptomonedas".</p>
+
+    <p>Apelé. Mandé una nota explicando que se trataba de un proyecto educativo en testnet, que el nodo no estaba validando ni recibiendo recompensas, y que no había actividad económica de ningún tipo.</p>
+
+    <p>Menos de una semana después, llegó la confirmación de reactivación.</p>
+
+    <figure>
+      <img src="/images/nodo-google-cloud-mail.png" alt="Mail de Google Cloud notificando la reactivación del proyecto">
+      <figcaption>El mail de Google Cloud confirmando la reactivación. El nombre del proyecto, "astute-cumulus-463801-p3", lo genera Google solo. Astuto cúmulo. Vaya uno a saber.</figcaption>
+    </figure>
+
+    <h2>El bug del Web3Signer</h2>
+
+    <p>El nodo seguía sincronizado, los clientes en verde, los peers a 100. Lo único que faltaba era el paso final: importar las keys del validador al Web3Signer para empezar a validar en la testnet.</p>
+
+    <p>Ahí me trabé. Cada vez que intentaba importar el keystore, la interfaz me devolvía un error genérico que decía literalmente "Error: [object Object]". Un mensaje que aparentemente significa que algo en el código serializó un objeto donde tendría que haber serializado un texto, y el resultado es que no sabés qué pasó. No puedo dar fe de esto, pues vibecoder y etc.</p>
+
+    <figure>
+      <img src="/images/nodo-error-keystore.png" alt="Error 'Not imported' del Staking Brain de DappNode al intentar importar el keystore">
+      <figcaption>El error que me acompañó durante días. "Not imported. Error: [object Object]". Imposible de googlear, imposible de resolver sin ayuda.</figcaption>
+    </figure>
+
+    <p>El problema con el Web3Signer nunca se terminó de resolver en esa instancia. No por falta de ayuda de los mentores, que tuvieron paciencia infinita y respondieron cada vez que escribí, sino porque la combinación específica de mi setup tenía algún detalle que se nos escapaba.</p>
+
+    <p>Terminé sin haber validado. El nodo corrió, sincronizó, los clientes funcionaron. Pero la última milla, la de efectivamente firmar bloques en la testnet como validador, no la crucé.</p>
+
+    <p>Un par de meses después tuve que apagar la máquina virtual y, en consecuencia, el nodo. No lo indiqué antes, pero la prueba gratuita de Google Cloud, como toda prueba gratuita, en algún momento llega a su fin. En ese momento, no había presupuesto para seguir sosteniéndolo.</p>
+
+    <h2>Lo que aprendí igual</h2>
+
+    <p>Aunque no haya validado, el ejercicio sirvió para entender un montón de cosas que antes solo conocía en abstracto. Cómo se levanta una VM. Qué es, para qué sirve y cómo se usa una VPN. Cómo conviven los clientes de ejecución y consenso en una misma máquina. Qué tipo de hardware requiere un nodo. Cuánto disco consume. Cuántos peers se conectan. Qué pinta tiene un log de un cliente real cuando está procesando bloques.</p>
+
+    <p>También entendí algo más político: que correr un nodo, incluso en testnet, sigue teniendo fricciones inesperadas.</p>
+
+    <p>Por último, la paradoja o contradicción: las herramientas de cloud pueden democratizar el acceso a los nodos para gente de a pie como uno, pero por otro lado, como quedó demostrado en tan corto experimento, no ser dueño de los equipos tiene un precio, que no es monetario: la última palabra sigue quedando en la boca del que tiene la palanca de apagar en la mano. Por eso dije al principio, no vengo a predicarles el paraíso ni la panacea en este artículo, pero sí a contarles de una herramienta que bien entendida y en determinadas circunstancias puede aportar, con sus limitaciones, a la descentralización de Ethereum. Y específicamente, en casos como el mío, puede aportar aún mucho más a la formación y capacitación del ethernauta empedernido.</p>
+
+    <h2>La espina en el ojo</h2>
+
+    <p>Este año lo voy a retomar. Por dos razones. Una: nadie le va a decir a un argentino que una prueba gratuita se terminó. Buscaremos la forma de gozar de otra... y otra... y otra... Bromas aparte, hoy sostener una VM para un proyecto como este no sería para nada caro, en un mundo en el que ya nos acostumbramos a pagar distintos servicios en internet: suscripciones a apps, plataformas de streaming, plataformas de IA y un largo etcétera.</p>
+
+    <p>Ahora quiero llegar a la etapa de validación, y como soñar no cuesta nada, por qué no, el día de mañana pasar a mainnet.</p>
+
+    <p>Hoy sé bastante más que cuando arranqué, pero también sé bastante más de lo que no sé. Vendrá Web3Signer, vendrá staking, vendrá MEV, vendrá correr algo fuera de la nube, vendrán cosas que ni siquiera todavía aparecen en mi radar.</p>
+
+    <p>Y está bien que sea así. Es lo que tiene caerse en un rabbit hole: que el fondo siempre está más abajo. Pero cada tanto, mientras uno cae, puede agarrarse de una rama, mirar alrededor y decir: pucha, qué lindo es enterarme de que existe todo esto de lo que hasta recién ni sabía que no sabía.</p>
+
+  
+
+  </div>
+
+  <div class="article-footer">
+    <p><em>El Ethernauta</em></p>
+  </div>
+</article>
+
+<footer>
+  <span>Ethernauta</span>
+  <span>ethernauta.lat — Buenos Aires, 2026</span>
+</footer>
+
+</body>
+</html>
