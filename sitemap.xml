@@ -55,5 +55,10 @@
     <loc>https://ethernauta.lat/defi-ha-muerto-viva-defi.html</loc>
     <priority>0.8</priority>
   </url>
+
+<url>
+    <loc>https://ethernauta.lat/monte-un-nodo-google-cloud.html</loc>
+    <priority>0.8</priority>
+  </url>
   
 </urlset>
