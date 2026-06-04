@@ -1,0 +1,265 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+  <link rel="icon" type="image/svg+xml" href="/favicon.svg">
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Ethereum se hunde... Make Ethereum Cypherpunk Again - Ethernauta</title>
+  <meta name="description" content="Una ola de FUD sacude Ethereum. Salidas, debates, precio cayendo. Pero desde la tribuna se escucha un grito: Make Ethereum Cypherpunk Again.">
+  <link rel="canonical" href="https://ethernauta.lat/make-ethereum-cypherpunk-again.html">
+  <meta property="og:title" content="Ethereum se hunde... Make Ethereum Cypherpunk Again">
+  <meta property="og:description" content="Una ola de FUD sacude Ethereum. Salidas, debates, precio cayendo. Pero desde la tribuna se escucha un grito: Make Ethereum Cypherpunk Again.">
+  <meta property="og:url" content="https://ethernauta.lat/make-ethereum-cypherpunk-again.html">
+  <meta property="og:type" content="article">
+  <script async src="https://www.googletagmanager.com/gtag/js?id=G-SJXWGTQH22"></script>
+  <script>
+    window.dataLayer = window.dataLayer || [];
+    function gtag(){dataLayer.push(arguments);}
+    gtag("js", new Date());
+    gtag("config", "G-SJXWGTQH22");
+  </script>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:ital,wght@0,400;0,700;1,400&family=DM+Mono:wght@300;400&display=swap" rel="stylesheet">
+  <style>
+    :root {
+      --bg: #0a0d0f;
+      --surface: #0f1316;
+      --border: #1c2128;
+      --eth: #627eea;
+      --text: #dde3ea;
+      --text-dim: #7a8694;
+      --text-faint: #3d4855;
+      --accent: #c8d8f0;
+    }
+    * { margin: 0; padding: 0; box-sizing: border-box; }
+    html { scroll-behavior: smooth; }
+    body {
+      background: var(--bg);
+      color: var(--text);
+      font-family: 'DM Mono', monospace;
+      font-weight: 300;
+      overflow-x: hidden;
+    }
+    nav {
+      position: fixed;
+      top: 0; left: 0; right: 0;
+      z-index: 100;
+      padding: 1.25rem 3rem;
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      border-bottom: 1px solid var(--border);
+      background: rgba(10,13,15,0.9);
+      backdrop-filter: blur(12px);
+    }
+    .nav-logo {
+      font-family: 'Playfair Display', serif;
+      font-style: italic;
+      font-size: 1.1rem;
+      color: var(--text);
+      text-decoration: none;
+    }
+    .nav-links {
+      display: flex;
+      gap: 2rem;
+      list-style: none;
+    }
+    .nav-links a {
+      font-size: 0.75rem;
+      letter-spacing: 0.12em;
+      text-transform: uppercase;
+      color: var(--text-dim);
+      text-decoration: none;
+    }
+    .nav-links a:hover { color: var(--text); }
+    .article-wrap {
+      max-width: 840px;
+      margin: 0 auto;
+      padding: 10rem 2rem 8rem;
+    }
+    .article-meta {
+      font-size: 0.68rem;
+      letter-spacing: 0.2em;
+      text-transform: uppercase;
+      color: var(--eth);
+      margin-bottom: 1.5rem;
+    }
+    .article-title {
+      font-family: 'Playfair Display', serif;
+      font-size: clamp(2.2rem, 5vw, 3.4rem);
+      line-height: 1.1;
+      margin-bottom: 0.75rem;
+      color: var(--text);
+    }
+    .article-subtitle {
+      font-family: 'Playfair Display', serif;
+      font-style: italic;
+      font-size: clamp(1.1rem, 2.5vw, 1.4rem);
+      line-height: 1.3;
+      color: var(--text-dim);
+      margin-bottom: 2rem;
+      padding-bottom: 1.5rem;
+      border-bottom: 1px solid var(--border);
+    }
+    .article-body h2 {
+      font-family: 'Playfair Display', serif;
+      font-size: 1.5rem;
+      font-weight: 400;
+      color: var(--accent);
+      margin: 3rem 0 1.25rem;
+      line-height: 1.3;
+    }
+    .article-body p {
+      font-size: 1rem;
+      line-height: 1.95;
+      color: var(--text-dim);
+      margin-bottom: 1.5rem;
+    }
+    .article-body a {
+      color: var(--eth);
+      text-decoration: none;
+      border-bottom: 1px solid rgba(98,126,234,0.3);
+      transition: border-color 0.2s;
+    }
+    .article-body a:hover { border-color: var(--eth); }
+    .article-body strong { color: var(--text); font-weight: 400; }
+    .article-body em { color: var(--accent); font-style: italic; }
+    .pullquote {
+      border-left: 2px solid var(--eth);
+      padding: 0.5rem 0 0.5rem 1.5rem;
+      margin: 2rem 0;
+      font-family: 'Playfair Display', serif;
+      font-style: italic;
+      font-size: 1.2rem;
+      line-height: 1.5;
+      color: var(--accent);
+    }
+    .article-footer {
+      margin-top: 4rem;
+      padding-top: 2.5rem;
+      border-top: 1px solid var(--border);
+      font-size: 0.82rem;
+      color: var(--text-faint);
+      line-height: 1.8;
+    }
+    .article-footer em { color: var(--text-dim); font-style: italic; }
+    footer {
+      padding: 2.5rem 3rem;
+      display: flex;
+      justify-content: space-between;
+      font-size: 0.65rem;
+      color: var(--text-faint);
+      border-top: 1px solid var(--border);
+    }
+    @media (max-width: 768px) {
+      nav { padding: 1rem 1.5rem; }
+      .nav-links { display: none; }
+      .article-wrap { padding: 8rem 1.5rem 5rem; }
+    }
+  </style>
+</head>
+<body>
+
+<nav>
+  <a href="/" class="nav-logo">Ethernauta</a>
+  <ul class="nav-links">
+    <li><a href="/#entradas">Entradas</a></li>
+    <li><a href="/#ethxplorando">ETHxplorando</a></li>
+    <li><a href="/#nombre">El nombre</a></li>
+    <li><a href="/#autor">Autor</a></li>
+    <li><a href="https://x.com/saquelogarcia" target="_blank">X</a></li>
+  </ul>
+</nav>
+
+<article class="article-wrap">
+  <p class="article-meta">Entradas &nbsp;·&nbsp; Junio 2026</p>
+  <h1 class="article-title">Ethereum se hunde...</h1>
+  <p class="article-subtitle">Make Ethereum Cypherpunk Again</p>
+
+  <div class="article-body">
+
+    <p>En las últimas semanas se vivió (se vive) una ola especialmente ruidosa de FUD alrededor de Ethereum. El precio de ETH no para de caer y varias salidas de actores centrales en la Ethereum Foundation son el eje de acalorados debates y suspicacias en redes sociales y foros especializados (bueno, ponele... Reddit). Las inversiones más "institucionales" tampoco atraviesan un buen momento. Para muchos parecería que el sentimiento se asemeja al de nuestro querido Ned Flanders parado sobre las ruinas de su casa gritando: se acabó todo, todo, todillo.</p>
+
+    <p>El caso David Hoffman es bastante representativo del momento que se vive. Durante años fue una de las voces más visibles de Bankless y de la narrativa pública de Ethereum. Hace pocos días anunció que había vendido el resto de sus ETH. No soy quien, ni tengo los elementos suficientes para juzgar su accionar, sin embargo sí fue notable la polémica que se generó alrededor.</p>
+
+    <p>Ciertamente su persona no está exenta de polémicas, sin embargo lo que acá nos atañe es lo simbólico, la fuerza innegable que tiene el hecho de que una de las principales caras visibles en cuanto a difusión de Ethereum, fundador y líder de uno de los principales medios del ecosistema: el podcast Bankless, salió públicamente a decir: Vaffanculo (!?)... no holdeo más. Si a esto le sumamos la salida en fila de directivos e investigadores de primer nivel de la Fundación Ethereum (EF), <em>drama intensifies</em>.</p>
+
+    <p>De ahí para abajo, ¿qué podemos esperar? ¿Hay motivos para inversores, usuarios y builders para seguir creyendo en Ethereum, o como Hoffman tenemos que tirarnos todos por la borda de cabeza al agua fría del Atlántico?</p>
+
+    <p>No hay nadie que pueda negar que hace bastantes meses, tal vez un par de años, Ethereum viene acumulando preguntas incómodas. ¿Está demasiado fragmentado entre L2s? ¿La Fundación comunica mal? ¿La experiencia de usuario sigue siendo demasiado difícil? ¿La red se volvió tan amplia que ya nadie sabe bien cuál es el centro? ¿Las actualizaciones son un laberinto? ¿Seguimos construyendo infraestructura pública o solamente una maquinaria financiera cada vez más abstracta? Y como si todo eso fuera poco, en el fondo de la olla también hierven otras preguntas más inquietantes: ¿está Ethereum preparada para el avance de la computación cuántica? ¿Puede mantenerse relevante en un mundo donde la IA redefine todo a una velocidad que marea y donde la geopolítica global parece más inestable que nunca? La peor de todas: ¿juega Seba Acero?</p>
+
+    <p>Bueno... ya que se viene el mundial, usaremos analogía futbolera. Cuando el reloj te corre y vas perdiendo el partido, a veces tirar centros a lo pavote y jugar a lo "a la carga barracas" sirve... pero muchas otras veces, lo más sensato es, tal vez, parar la pelota. Parar la pelota, pisarla y levantar la mirada, tratar de ver más allá (claro, siempre con cuidado de que no venga ningún rústico con patada voladora por detrás).</p>
+
+    <p>Es momento tal vez de entender el partido para poder decidir las jugadas más inteligentes. Pero, sobre todo, tratar de recordar qué partido estamos jugando, para qué lo jugamos y quiénes somos. Si hacemos eso, tal vez podemos empezar a distinguir una voz en la tribuna entre tantas otras, que nos puede orientar un poco sobre dónde encontrar algo de luz entre tanto caos. Esa voz, medio disfónica de tanto gritar hace años, entre tantos otros cantos que la tapan, dice: <em>Make Ethereum Cypherpunk Again</em>.</p>
+
+    <h2>Más Food, menos FUD</h2>
+
+    <p>La grave crisis que atraviesa Ethereum es, en mi humildísimo entender, totalmente razonable y esperable. Estamos hablando de un proyecto que, si bien claramente no es 100% descentralizado, presenta un nivel de descentralización tecnológica y humana que probablemente solo pueda compararse con Bitcoin, aunque hay enormes diferencias entre ambos protocolos. Así que desde el vamos, es una misión titánica coordinar semejante "computadora mundial", y es imposible que no nos toque afrontar miles de problemas en el camino. Dicho eso, admito también que nuestro equipo carga en sus espaldas con más "errores no forzados" de los que nos gustaría.</p>
+
+    <p>Por eso no creo que sea buena estrategia taparse los oídos y gritar "acá no pasó nada", o solo responder con frases marketineras vacías como "Ethereum will win"... bueno, primero no sé a quién o qué tenemos que ganarle. Pero si aclaramos eso, tenemos que tener en claro que para ganar hay que hacer la tarea. Y hay que hacerla bien.</p>
+
+    <p>¿Quién carajo soy yo para decir cuál es el camino que tiene que seguir Ethereum? Claro, nadie, un simple Ethernauta como mucho. Y no solo eso, la cantidad de elementos que hay que considerar para poder dar respuestas novedosas a esta pregunta es tal que creo que a muy pocos en el mundo les da la talla.</p>
+
+    <p>Dicho eso, Ethereum no solo es tecnología, es también comunidad. Sé que es una palabra bastardeada y que durante muchos años cualquier vendehúmo se plantó como protagonista en la construcción de Ethereum cuando no hacía mucho más que formar grupos de Telegram donde se decía GM. Been there, done that. Lo que no puedo negar es el valor de la comunidad real. De los millones de usuarios, estudiosos, profesionales, entusiastas, que siguiéndolo desde adentro o no, día tras día tejen con sus manos, muchas veces en silencio, el corazón de una red que LATE. Y esa comunidad tiene sabiduría. Y sobre los hombros de este gigante me quiero parar.</p>
+
+    <p>Ethereum surgió con espíritu cypherpunk, un espíritu que lo antecedía y lo excedía. Por eso, frente a la crisis real que atravesamos, mi propuesta (que no es mía) es aunque sea tomarnos un rato para pensar en esos grandes ejes ideológicos, éticos, morales y conceptuales que nos reunieron detrás de una red de computadoras emitiendo líneas en una consola mundial: descentralización, soberanía individual, seguridad, privacidad, transparencia, y con todo el respeto que no se le da últimamente a esta palabra... LIBERTAD.</p>
+
+    <h2>Estaba donde nací lo que buscaba por ahí</h2>
+
+    <p>Resulta que los ideales que Ethereum necesita recuperar no son nuevos. Estaban ahí desde antes de que Ethereum existiera.</p>
+
+    <p>En 1993, cuando internet todavía era una promesa en construcción, Eric Hughes publicó el Manifiesto Cypherpunk. En él planteaba una idea que hoy sigue vigente: la privacidad no es un lujo, sino un componente esencial para una sociedad abierta en la era digital. No era una pose. No era una estética de hacker con fondo negro y letras verdes. Era una forma bastante concreta de mirar el poder: si las instituciones concentran información, vigilan, censuran o administran permisos, la respuesta no puede ser solamente pedirles que sean buenas. Hay que construir sistemas donde no haga falta confiar tanto en ellas.</p>
+
+    <div class="pullquote">"No podemos esperar que los gobiernos, las corporaciones y otras grandes organizaciones sin rostro nos garanticen la privacidad."</div>
+
+    <p>Software libre. Criptografía. Privacidad. Resistencia a la censura. Infraestructura abierta. Autonomía individual. Ese es el suelo cultural del que viene buena parte de lo que después terminó alimentando Bitcoin, Ethereum y muchas otras cosas.</p>
+
+    <p>Ethereum nació de ese suelo. Y durante años construyó sobre esa base. Pero construir tiene su costo: en algún momento del camino, la capa financiera empezó a tapar las raíces. A fines de 2023, Vitalik lo puso en palabras.</p>
+
+    <p>El mismo Vitalik Buterin, cofundador de Ethereum, publicó el artículo <a href="https://vitalik.eth.limo/general/2023/12/28/cypherpunk.html" target="_blank">"Make Ethereum Cypherpunk Again"</a>, donde hace un repaso sobre el rumbo que había tomado la red. Sostiene que, desde 2017, el foco creciente en el aspecto financiero del ecosistema debilitó algunos de los ideales fundacionales. Propone reorientar el desarrollo hacia principios como participación global y abierta, descentralización, resistencia a la censura, auditabilidad, neutralidad creíble y colaboración entre pares.</p>
+
+    <div class="pullquote">"No estamos aquí simplemente para crear herramientas y juegos aislados, sino para construir hacia una sociedad y una economía más libres y abiertas."</div>
+
+    <p>Desde ese artículo, muchas voces retomaron y ampliaron el llamado. En abril de 2024, el desarrollador pcaversaccio publicó el Manifiesto Cypherpunk de Ethereum, arrancando con que la privacidad atraviesa una crisis severa, que la seguridad nunca fue tan frágil y que la resistencia a la censura está en juego. Lo inscribió en la propia blockchain via una transacción que cargaba un blob. Durante Devcon 7 (Bangkok, 2024), el colectivo Web3Privacy organizó el primer Congreso Cypherpunk de Ethereum, con Chelsea Manning y el propio Vitalik entre los oradores. En 2025, durante Devconnect Buenos Aires, esa conversación tuvo su capítulo local. Y en 2026 sigue: el Ethereum Cypherpunk Congress se reúne en Mumbai, en la previa de Devcon.</p>
+
+    <p>¿Qué dicen las voces más oficiales? En Ethereum no hay voces oficiales. Pero las hay. Dicho eso, el 13 de marzo de 2026, la Ethereum Foundation publicó su Mandate, una declaración sobre su propio rol que se presenta como parte constitución, parte manifiesto y parte guía de trabajo. La idea central: la EF no debería funcionar como el centro de Ethereum sino como un nodo más dentro de un ecosistema que ya la excede. Aya Miyaguchi, presidenta de la fundación, escribió que los principios listados en el Mandate no son nuevos, pero que hubo momentos en que fueron demasiado implícitos. Vitalik lo llevó al mismo lugar: la EF es un nodo con un propósito definido, junto a otros nodos.</p>
+
+    <p>En ese marco aparece CROPS. Censorship resistance, open source, privacy, security. Cuatro propiedades que la Fundación define como indivisibles, que ninguna prioridad de desarrollo puede pasar por encima. Un guiño lindo al margen: <em>crops</em> es cultivos.</p>
+
+    <p><em>Make Ethereum Cypherpunk Again</em>, leído así, deja de ser una frase vintage. Pasa a ser una vara de medición. Si Ethereum se vuelve más rápido pero más capturable, si gana adopción pero pierde privacidad, si escala pero obliga a confiar en intermediarios, entonces tal vez crece, pero se aleja de aquello que lo hacía distinto.</p>
+
+    <h2>Avances reales</h2>
+
+    <p>Mientras la crisis ocupa los titulares, resulta interesante ver qué se está haciendo en lo concreto desde el desarrollo de la tecnología, que es lo que nos convoca, ¿no?</p>
+
+    <p>En julio de 2025, OpenZeppelin y Zama publicaron ERC-7984, un borrador de estándar para tokens fungibles confidenciales. La idea: que los balances y montos de transferencia sean texto cifrado en lugar de números legibles. En marzo de 2026, se ejecutó el primer trade OTC confidencial en Ethereum usando este protocolo. No es una promesa. Es privacidad real, usable, sobre la capa de ejecución.</p>
+
+    <p>En paralelo, la EF estableció en enero de 2026 un equipo dedicado a seguridad post-quantum. El riesgo cuántico no es para mañana, pero Vitalik publicó en febrero un roadmap concreto con cuatro áreas de vulnerabilidad identificadas. EIP-8141 está en consideración para el hard fork Hegotá: daría a cada cuenta la posibilidad de migrar a firmas quantum-seguras sin esperar una migración a nivel de protocolo. Target de la EF: infraestructura post-quantum completa para 2029.</p>
+
+    <p>Estos temas técnicos requieren un artículo aparte, pero no quería dejar de mencionar que mientras por un lado todo vuela por el aire, por el otro, tremendos hackers están desarrollando infraestructura real, con ingeniería computacional de la más avanzada de la historia, para caminar un poco más en este camino.</p>
+
+    <h2>Para ir cerrando algunas ideas...</h2>
+
+    <p>Volver al cypherpunk hoy no puede ser solo nostalgia retro (que no voy a negar... me alimento de ella periódicamente, porque millenial y coso). Tiene que significar cosas concretas. En un mundo cada vez más complejo, con esa Unsicherheit baumaniana que ya no es coyuntura sino estado permanente, sigamos trabajando por una Ethereum que, aparte de resolver los problemas técnicos específicos de escalabilidad, TPS, quantum resistance, verificación formal y un largo etcétera, se use para brindar soluciones a los problemas reales de los humanos reales:</p>
+
+    <p>Acceso a herramientas financieras para sectores excluidos o perseguidos. Herramientas de identidad digital con privacidad. Recursos para la trazabilidad y transparencia de procesos productivos. Registro real y verificable de propiedad de activos digitales, financieros o no: artísticos, científicos, culturales, y por qué no bienes físicos también. Herramientas de gatekeeping para acceso curado a redes sociales por criterio de humanidad, frente a la avalancha de contenido generado y manipulado por ejércitos de IA al servicio de quién sabe quién.</p>
+
+    <p>No inventó la pólvora si digo que las crisis son una oportunidad, pero lo son. Toda buena crisis nos obliga a distinguir las cuestiones esenciales versus las accidentales. Si seguimos dándole el escenario y las luces a los reyes del oportunismo, del extractivismo, del casino, de la obsesión con capturar valor sin construir nada valioso, la crisis no habrá servido de nada. Pero si lo que queda es gente construyendo privacidad, verificación, mejores nodos, mejor UX, mejores herramientas para no depender de corporaciones, bancos o plataformas cerradas, entonces la crisis no es el fin, sino más bien todo lo contrario.</p>
+
+    <p>Disclaimer antes de la despedida: en relación al título del artículo, en lo personal, si bien no puedo afirmarlo con certeza, no siento ni creo que Ethereum se hunda. Tal vez veamos saltar algunas ratas por la borda, pero está bien. Mejor así.</p>
+
+  </div>
+
+  <div class="article-footer">
+    <p>Este artículo se basa en una versión anterior que escribí originalmente para ETH Kipu. Lo publico aquí con su autorización.</p>
+    <p><em>El Ethernauta</em></p>
+  </div>
+</article>
+
+<footer>
+  <span>Ethernauta</span>
+  <span>ethernauta.lat - Buenos Aires, 2026</span>
+</footer>
+
+</body>
+</html>
