@@ -1,0 +1,388 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+  <link rel="icon" type="image/svg+xml" href="/favicon.svg">
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>El Loco Pacha: diseño, UX y producto desde las cuatro esquinas de Ethereum - Ethernauta</title>
+  <meta name="description" content="Franco «Loco Pacha» Zuppone inaugura Huma(nos): diseño y producto en Buenbit, Defiant, SEED Latam y ETH Kipu, y por qué la cultura no se fabrica.">
+  <link rel="canonical" href="https://ethernauta.lat/cuatro-esquinas-ethereum.html">
+  <meta property="og:title" content="El Loco Pacha: las cuatro esquinas de Ethereum">
+  <meta property="og:description" content="Franco «Loco Pacha» Zuppone inaugura Huma(nos): diseño y producto en Buenbit, Defiant, SEED Latam y ETH Kipu, y por qué la cultura no se fabrica.">
+  <meta property="og:url" content="https://ethernauta.lat/cuatro-esquinas-ethereum.html">
+  <meta property="og:type" content="article">
+  <script async src="https://www.googletagmanager.com/gtag/js?id=G-SJXWGTQH22"></script>
+  <script>
+    window.dataLayer = window.dataLayer || [];
+    function gtag(){dataLayer.push(arguments);}
+    gtag("js", new Date());
+    gtag("config", "G-SJXWGTQH22");
+  </script>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:ital,wght@0,400;0,700;1,400&family=DM+Mono:wght@300;400&display=swap" rel="stylesheet">
+  <style>
+    :root {
+      --bg: #0a0d0f;
+      --surface: #0f1316;
+      --border: #1c2128;
+      --eth: #627eea;
+      --eth-glow: #8aa0f5;
+      --text: #dde3ea;
+      --text-dim: #7a8694;
+      --text-faint: #3d4855;
+      --accent: #c8d8f0;
+    }
+    * { margin: 0; padding: 0; box-sizing: border-box; }
+    html { scroll-behavior: smooth; }
+    body {
+      background: var(--bg);
+      color: var(--text);
+      font-family: 'DM Mono', monospace;
+      font-weight: 300;
+      overflow-x: hidden;
+    }
+    nav {
+      position: fixed;
+      top: 0; left: 0; right: 0;
+      z-index: 100;
+      padding: 1.25rem 3rem;
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      border-bottom: 1px solid var(--border);
+      background: rgba(10,13,15,0.9);
+      backdrop-filter: blur(12px);
+    }
+    .nav-logo {
+      font-family: 'Playfair Display', serif;
+      font-style: italic;
+      font-size: 1.1rem;
+      color: var(--text);
+      text-decoration: none;
+    }
+    .nav-links {
+      display: flex;
+      gap: 2rem;
+      list-style: none;
+    }
+    .nav-links a {
+      font-size: 0.75rem;
+      letter-spacing: 0.12em;
+      text-transform: uppercase;
+      color: var(--text-dim);
+      text-decoration: none;
+    }
+    .nav-links a:hover { color: var(--text); }
+    .nos { color: var(--eth-glow); }
+    .article-wrap {
+      max-width: 840px;
+      margin: 0 auto;
+      padding: 10rem 2rem 8rem;
+    }
+    .article-meta {
+      font-size: 0.68rem;
+      letter-spacing: 0.2em;
+      text-transform: uppercase;
+      color: var(--eth);
+      margin-bottom: 1.5rem;
+    }
+    .article-title {
+      font-family: 'Playfair Display', serif;
+      font-size: clamp(2.2rem, 5vw, 3.4rem);
+      line-height: 1.1;
+      margin-bottom: 0.75rem;
+      color: var(--text);
+    }
+    .article-subtitle {
+      font-family: 'Playfair Display', serif;
+      font-style: italic;
+      font-size: clamp(1.1rem, 2.5vw, 1.4rem);
+      line-height: 1.3;
+      color: var(--text-dim);
+      margin-bottom: 2rem;
+      padding-bottom: 1.5rem;
+      border-bottom: 1px solid var(--border);
+    }
+    .article-byline {
+      font-size: 0.78rem;
+      letter-spacing: 0.08em;
+      color: var(--text-dim);
+      margin-bottom: 2rem;
+      padding-bottom: 1.5rem;
+      border-bottom: 1px solid var(--border);
+    }
+    .article-byline span { color: var(--accent); }
+    .article-body h2 {
+      font-family: 'Playfair Display', serif;
+      font-size: 1.5rem;
+      font-weight: 400;
+      color: var(--accent);
+      margin: 3rem 0 1.25rem;
+      line-height: 1.3;
+    }
+    .article-body p {
+      font-size: 1rem;
+      line-height: 1.95;
+      color: var(--text-dim);
+      margin-bottom: 1.5rem;
+    }
+    .article-body a {
+      color: var(--eth);
+      text-decoration: none;
+      border-bottom: 1px solid rgba(98,126,234,0.3);
+      transition: border-color 0.2s;
+    }
+    .article-body a:hover { border-color: var(--eth); }
+    .article-body strong { color: var(--text); font-weight: 400; }
+    .article-body em { color: var(--accent); font-style: italic; }
+    .pullquote {
+      border-left: 2px solid var(--eth);
+      padding: 0.5rem 0 0.5rem 1.5rem;
+      margin: 2rem 0;
+      font-family: 'Playfair Display', serif;
+      font-style: italic;
+      font-size: 1.2rem;
+      line-height: 1.5;
+      color: var(--accent);
+    }
+    .article-figure { margin: 2.75rem 0; }
+    .article-figure img {
+      width: 100%;
+      height: auto;
+      display: block;
+      border-radius: 8px;
+      border: 1px solid var(--border);
+    }
+    .article-figure figcaption {
+      font-size: 0.72rem;
+      letter-spacing: 0.04em;
+      color: var(--text-faint);
+      margin-top: 0.7rem;
+      text-align: center;
+      line-height: 1.5;
+    }
+    .article-figure.compact img { max-width: 380px; margin-left: auto; margin-right: auto; }
+    .article-figure.medium img { max-width: 520px; margin-left: auto; margin-right: auto; }
+    .article-footer {
+      margin-top: 4rem;
+      padding-top: 2.5rem;
+      border-top: 1px solid var(--border);
+      font-size: 0.82rem;
+      color: var(--text-faint);
+      line-height: 1.8;
+    }
+    .article-footer em { color: var(--text-dim); font-style: italic; }
+    footer {
+      padding: 2.5rem 3rem;
+      display: flex;
+      justify-content: space-between;
+      font-size: 0.65rem;
+      color: var(--text-faint);
+      border-top: 1px solid var(--border);
+    }
+    @media (max-width: 768px) {
+      nav { padding: 1rem 1.5rem; }
+      .nav-links { display: none; }
+      .article-wrap { padding: 8rem 1.5rem 5rem; }
+    }
+  </style>
+</head>
+<body>
+
+<nav>
+  <a href="/" class="nav-logo">Ethernauta</a>
+  <ul class="nav-links">
+    <li><a href="/#entradas">Entradas</a></li>
+    <li><a href="/#ethxplorando">ETHxplorando</a></li>
+    <li><a href="/#humanos">Huma<span class="nos">(nos)</span></a></li>
+    <li><a href="/#nombre">El nombre</a></li>
+    <li><a href="/#autor">Autor</a></li>
+    <li><a href="https://x.com/saquelogarcia" target="_blank">X</a></li>
+  </ul>
+</nav>
+
+<article class="article-wrap">
+  <p class="article-meta">Huma<span class="nos">(nos)</span> &nbsp;·&nbsp; Junio 2026</p>
+  <h1 class="article-title">Las cuatro esquinas de Ethereum</h1>
+  <p class="article-subtitle">Historias de diseño, UX y producto, por el Loco Pacha</p>
+
+  <div class="article-body">
+
+    <p>Acá en Córdoba me dicen El Loco Pacha desde que tengo unos 13, 14 años, pero me llamo Franco Zuppone.</p>
+
+    <p>De chiquito no me bautizaron. Pero mi vieja me enseñó a rezar igual, por las dudas. Un día me encontró, a los cinco años, rezando con los ojos cerrados. Cuando me preguntó qué le estaba pidiendo a Dios, le dije que le estaba pidiendo que me enseñe a hacer willy con la bici.</p>
+
+    <p>El ciclismo me acompaña desde siempre. Fue lo que me ayudó a salir de un episodio de burn-out, fue el culpable de que hoy tenga las dos clavículas de titanio y llenas de tornillos, y es también lo que entreno y hago todos los fines de semana en la montaña.</p>
+
+    <p>Durante varios años trabajé en Ethereum. Pasé por proyectos muy distintos entre sí, aportando soluciones de diseño y producto en Buenbit, Defiant, DeFi Latam / SEED Latam, ETH Kipu y ETH Latam.</p>
+
+    <p>Antes de Ethereum también hubo bastante. Estudié Diseño Industrial en la hermosa Universidad Nacional de Córdoba. Tuve una marca de indumentaria urbana que vendí en su mejor momento, cosa que recomiendo. Tuve un estudio de diseño. Hice freelance durante años: identidad visual, editorial, señalética, indumentaria, packaging, de todo.</p>
+
+    <p>En tiempos de carrera desenfrenada por ver quién postea la solución más mágica del último agente para el último problema que aún no se inventó, hoy me paro acá para contarte algunas cosas que fui aprendiendo en estos años. Cosas que se me fueron acomodando con el tiempo, y que tienen más que ver con cómo se trabaja, y con quiénes, que con qué se construye.</p>
+
+    <h2>Las cuatro esquinas</h2>
+
+    <p>Una cosa que recién ahora, escribiendo esto, terminé de ver con claridad es que en estos años me moví en dos grandes ámbitos del ecosistema Ethereum.</p>
+
+    <p>Por un lado, el ámbito privado: startups, empresas, corpos. Por otro, el ámbito comunitario y de public goods: comunidades, fundaciones, grantees de la Ethereum Foundation, proyectos que muchas veces existen antes como movimiento que como estructura formal.</p>
+
+    <p>Y dentro de cada ámbito trabajé en experiencias bastante distintas: desde lo más institucional y formal hasta lo más informal, radical o cypherpunk, si se quiere.</p>
+
+    <p>Las dos trayectorias se cruzan en el medio y forman una X. Cuatro esquinas. Como el diamante de Ethereum, si se me permite el guiño.</p>
+
+    <p>La diferencia más profunda entre esas esquinas no es solo el modelo de negocio ni la estructura legal. Es para qué diseñás.</p>
+
+    <p>En el ámbito privado diseñás para que una empresa entregue valor al segmento de mercado que captura. En el ámbito comunitario y de public goods diseñás para que un movimiento, un proyecto o una comunidad exista, se entienda, se reconozca y pueda convocar a otros.</p>
+
+    <p>Son oficios distintos dentro del mismo oficio. Pero hay algo que el trabajo en ambos ámbitos tuvo en común para mí: el diseño de productos no es arte. Es una herramienta de resolución de problemas.</p>
+
+    <h2>Buenbit: donde me recibí de Product Designer</h2>
+
+    <p>A Buenbit me recomendó Romina Sejas, de ahora en adelante La Romi. A La Romi le voy a estar agradecido toda la vida porque básicamente junto a ella empecé y construí mi carrera en cripto.</p>
+
+    <p>Yo ya venía experimentando de modo autodidacta con Bitcoin, Ethereum y DeFi, así también como con NFTs en aquella época. Ellos estaban empezando a crecer, abrieron una postulación y quedé.</p>
+
+    <p>La entrevista para entrar la hice con Paloma, del departamento que en Buenbit se llamaba People. Algo que capaz nunca supo ella es que esa fue la primera entrevista laboral de mi vida. También fue la primera persona, de muchas, que no me preguntó de qué me había recibido. Solo se encargó de saber que yo sabía hacer lo que decía que sabía hacer.</p>
+
+    <p>Buenbit era un CEX y fue uno de los precursores de DAI en Argentina, del que yo ya era usuario mucho antes de entrar a trabajar ahí. En contexto: estábamos en una época donde la inflación era brutal y comprar dólares estaba virtualmente prohibido. Buenbit fue una gran solución para muchísima gente que no tenía cómo proteger sus ahorros. Un problema real, urgente, masivo. De libro de texto.</p>
+
+    <p>Yo arranqué haciendo diseño gráfico. En ese momento Buenbit estaba por lanzar su app nativa y para eso crearon el área de UX, con Maxi Catani a la cabeza, que junto con Maxi Passarelli me enseñaron el oficio: cómo pensar un producto, cómo defender una decisión de diseño con datos pero también con criterio, cómo trabajar con devs, cómo no enamorarte de tus propias soluciones, cómo leer métricas. Realmente fue mi facultad de UX.</p>
+
+    <p>Yo era el único diseñador del equipo que tenía background real en cripto. Cripto salvaje, digo. De manejarte tu propia wallet, de configurarte el RPC, de haber perdido plata por hacer una transacción mal y de aprender a la fuerza.</p>
+
+    <p>Yo aprendí de ellos a diseñar productos. Ellos, a través mío, entendieron mejor el mundo para el que estaban diseñando. Y entre todos, sin proponérnoslo, fue brotando una cultura de equipo que después extrañaría siempre.</p>
+
+    <p>El final de Buenbit es historia bastante conocida. Fue el primer layoff grande del ecosistema cripto argentino en el bear market de 2022. Maxi Catani, como buen capitán, armó una lista con los nombres de todo su equipo para circularla por LinkedIn. Al lado de mi nombre leí claramente el título “Ssr. Product Designer”, y ahí entendí que me había egresado.</p>
+
+    <h2>Defiant: desaprender la UX como la conocía</h2>
+
+    <p>De Buenbit pasé a Defiant. A algunos del equipo ya los conocía de la comunidad de DeFi Latam, así que nuestra relación empezó por ahí. Si Buenbit fue donde aprendí el oficio, Defiant fue donde entendí lo que era trabajar con un equipo que jugaba en la liga que a uno le gusta jugar.</p>
+
+    <p>Defiant era una wallet self-custodial. Si Buenbit era una especie de cripto-neo-banco, Defiant era todo lo opuesto. Era absolutamente punk, en el mejor sentido de la palabra. Hacíamos las cosas porque creíamos en hacerlas, no porque estuvieran en un roadmap firmado por alguien arriba.</p>
+
+    <p>Nos encolumnábamos tras el concepto de self-custodial no tanto como feature, sino porque realmente creíamos que si hacíamos lo que pensábamos, Defiant y sus usuarios iban a triunfar. Una wallet custodial te guarda las llaves; una self-custodial te dice: las llaves son tuyas, hacete cargo, esto es lo que cripto vino a hacer.</p>
+
+    <p>Diseñar dentro de una wallet self-custodial es un oficio raro, casi contraintuitivo respecto a lo que te enseñan en cualquier curso de UX. La regla de oro de la UX moderna es reducir barreras, esconder complejidad, que el usuario no tenga que pensar. En una self-custodial muchas veces tenés que hacer exactamente lo contrario: tenés que diseñar para que el usuario sí piense, para que entienda qué está por hacer, para que sepa que del otro lado de ese botón no hay un equipo de soporte que le va a revertir la operación si se equivoca.</p>
+
+    <p>Tenés que diseñar para que la gente entienda que después de cierto punto no hay vuelta atrás, y que eso no es un bug del producto: es el producto. Así es blockchain.</p>
+
+    <p>Otro problema real, distinto al de Buenbit pero igual de concreto: cómo ayudar a la gente a hacerse cargo de su propia plata sin convertir la app en un laberinto.</p>
+
+    <p>El equipo siempre se mantuvo chico en cantidad pero enorme en calidad. Acá quiero nombrar especialmente a Bruno e Iván, CEO y CTO. Mi crecimiento profesional y personal ahí fue exponencial, y no es una palabra que use livianamente.</p>
+
+    <p>Ahí también, sin manuales de marca ni offsites de team building, brotó una cultura. La de un grupo chico que creía en lo mismo.</p>
+
+    <figure class="article-figure compact">
+      <img src="img/defiant-hellfish.webp" alt="Parche circular de Defiant con un pez punk verde fumando un habano y la leyenda Selfcustodial Hellfish hasta el final, 2023.">
+      <figcaption>Defiant: «Selfcustodial Hellfish hasta el final» (2023).</figcaption>
+    </figure>
+
+    <h2>DeFi Latam / SEED Latam: la banda de rock independiente</h2>
+
+    <p>DeFi Latam fue mi primera experiencia diseñando para algo que no era una empresa: era una comunidad digital. Yo formaba parte activa de la comunidad como aprendiz y aportante desde aproximadamente el año 2020. 2019 había sido para aprender de Bitcoin y Ethereum, y en 2020 el paso natural era DeFi.</p>
+
+    <p>Fue la primera vez que diseñé dentro de una estructura que no tenía forma de startup, no tenía forma de DAO, no tenía forma de empresa, no tenía forma de ONG. Tenía un poco de cada una y a la vez ninguna. Para mí siempre fue lo más parecido a una banda de rock independiente en lo que laburé. Y cuando digo banda de rock independiente no me refiero a una banda indie palermitana con hipoglucemia. Me refiero a Los Redondos.</p>
+
+    <p>Si en algún lugar fue evidente que la cultura no se fabrica, fue acá: nadie había pedido permiso para que existiera, y existía.</p>
+
+    <p>En un momento, dados los cambios en el ecosistema, decidimos que necesitábamos un rebranding. Y fue ahí donde por primera vez mis diseños tenían un mensaje expresa y abiertamente político. Hablábamos directamente de ethos e ideales políticos que creíamos que tenían que ser la guía para afrontar aquella web3 incipiente, con una visión fuertemente basada en los creadores y usuarios latinoamericanos de cripto.</p>
+
+    <p>El nombre con el que presenté el rebranding fue BUIDLERS. Gustó, pero convenció poco. Hasta que en un momento el amigo Jean propuso SEED. No solo por la evidente relación con una seed phrase: era una sigla que condensaba los conceptos que veníamos tratando de poner en agenda. Soberanía, Educación, Evolución, Descentralización.</p>
+
+    <p>Hay una pieza específica que para mí ancló todo el contenido político de aquel momento. Un collage. Adentro había un trono prendido fuego, frases de Los Redondos grafiteadas, la cara de Favaloro, fotos de los ahorristas estafados en el quilombo del 2001 acá en Argentina, grafitis de Cromañón.</p>
+
+    <figure class="article-figure medium">
+      <img src="img/seed-collage.webp" alt="Collage político de SEED Latam en blanco y negro: Sol de Mayo, un trono, una frase de Los Redondos grafiteada, ahorristas del 2001 con pancartas y la cara de Favaloro.">
+      <figcaption>El collage político de SEED Latam.</figcaption>
+    </figure>
+
+    <p>En aquella época SEED Latam andaba mucho por los foros de gobernanza de protocolos y de L2s, y yo quise instalar una idea que me parecía importante: la calle y los grafitis fueron los primeros foros de gobernanza en los que estuvimos metidos todos los humanos, aunque no nos hayamos dado cuenta. Mucho antes de que existiera Snapshot, mucho antes de que existiera un quorum on-chain, la gente ya votaba con aerosol sobre la pared.</p>
+
+    <p>El problema acá no era de una app. Era cómo hacer que un ecosistema entienda de dónde viene y para qué.</p>
+
+    <p>De SEED me voy porque a esa altura estaba experimentando un serio burn-out, y yo ya no coincidía con los nuevos ideales y visiones de producto que planteaban para el futuro inmediato las personas que quedaron a cargo del proyecto.</p>
+
+    <h2>ETH Kipu y ETH Latam: cuando el mensaje político se institucionaliza</h2>
+
+    <p>De SEED pasé a ETH Kipu. Acá hay que contar bien el orden de las cosas, porque es contraintuitivo: ETH Latam nació primero. Era el evento sobre Ethereum más grande de Latinoamérica. Y a raíz del éxito de la primera edición de ETH Latam en Buenos Aires, y con la Ethereum Foundation alucinada con todo lo que habíamos logrado desde Latinoamérica, se decidió crear ETH Kipu. O sea, el hijo nació antes que la madre. Cosas de cripto.</p>
+
+    <p>En ETH Kipu fue donde el mensaje político tomó otra forma. Ahora teníamos que mostrar que estábamos alineados con algo más grande que nosotros, y que a su vez los seres humanos eran los protagonistas del producto. Eso cambia mucho el laburo de diseño. No te quita lo político, pero te obliga a articularlo con más capas y en otro registro.</p>
+
+    <figure class="article-figure">
+      <img src="img/kipu-proceso.webp" alt="Lámina del proceso de identidad de ETH Kipu: el quipu andino, la paleta de colores, texturas de cestería de palma caranday y pictografías del Cerro Colorado, y la fundamentación del logo.">
+      <figcaption>Proceso de identidad de ETH Kipu: del quipu andino a la cestería de palma caranday y las pictografías del Cerro Colorado, en Córdoba.</figcaption>
+    </figure>
+
+    <p>ETH Latam fue otra bestia. Cada edición era un país distinto, un concepto distinto: Buenos Aires, Bogotá, San Pedro Sula, San Pablo. Diseñar para cuatro países distintos te obliga a ponerte en la piel de cuatro culturas distintas. Y es un recordatorio constante de la primera tesis: la cultura no se inventa desde afuera, hay que ir a buscarla donde está.</p>
+
+    <p>Yo tenía la convicción muy clara de que necesitaba de la gente de cada país para que me avalen y para que hagan curaduría de mis ideas. Sacando el evento de Argentina, siempre en la previa de la creación del branding de cada edición era obligatorio para mí ponerme en contacto con los locales, invitarlos al proceso, que me cuenten historias, que me conviden de la cultura. ¿Qué gaseosas toman los tacheros?, solía preguntar yo. Quería tratar de condensar un poquito el alma de cada país en cada edición.</p>
+
+    <p>Para mi último año dentro de ETH Kipu, co-creé con Ludmi, la Kipu Explorer, dos proyectos grandes. Uno de ellos fue rebrandear Kipu hacia una experiencia más madura y más actualizada a la realidad del ecosistema y del propio producto, que ya tenía que sentarse a charlar mano a mano con gobiernos, ministerios y rectorados de universidades públicas.</p>
+
+    <p>También presentamos un proyecto que yo venía empezando a delinear un año antes. En noviembre de 2024, mientras ETH Kipu tenía su nave insignia llamada Ethereum Developer Pack, que enseñaba a devs no cripto a programar en Solidity para Ethereum, yo propuse dejar asentado que lo que venía para el futuro era otra cosa: el Ethereum Product Pack.</p>
+
+    <p>La idea era educar a personas para que aprendan a pensar, desarrollar y ejecutar productos relacionados a Ethereum y a IA, porque ya era visible que la generación de código, en su gran mayoría, no iba a pasar tanto por los humanos. Si los devs son cada vez más asistidos por modelos, lo escaso pasa a ser otra cosa: criterio de producto, visión, decisiones, ética del diseño del producto.</p>
+
+    <p>Me fui de Kipu dejando esa propuesta asentada. Para mí, ese es el legado del que más orgulloso me siento.</p>
+
+    <figure class="article-figure">
+      <img src="img/kipu-logo.webp" alt="Logo de ETH Kipu, un rombo violeta con un nudo central, teselado en un patrón fractal.">
+      <figcaption>El logo de ETH·KIPU.</figcaption>
+    </figure>
+
+    <h2>Sacando en limpio algunas ideas</h2>
+
+    <p>Durante estos años me moví entre cuatro esquinas bastante distintas de Ethereum. En el ámbito privado, pasé del CEX con sueño corporativo a la wallet self-custodial más punk. De diseñar para una empresa que custodiaba la plata de la gente y abstraía al usuario de la mayor cantidad de riesgo posible, a diseñar para una empresa que enseñaba a la gente a no necesitar que nadie le custodie la plata.</p>
+
+    <p>En el ámbito comunitario y de public goods hice el recorrido inverso: empecé en lo más radical, una comunidad autoconvocada haciendo collages políticos, y terminé en lo más institucional, una Fundación alineada con la Ethereum Foundation organizando el evento itinerante más grande del ecosistema cripto en la región.</p>
+
+    <p>Los dos recorridos fueron distintos. Los dos fueron necesarios. Y los dos me mostraron algo parecido: no hay una sola manera de diseñar en Ethereum. Hay problemas distintos, culturas distintas y grados distintos de institucionalidad. Pero el oficio, en el fondo, sigue siendo el mismo: entender para qué estás diseñando, para quién, con quién y qué tipo de mundo estás ayudando a poner en práctica.</p>
+
+    <p>El diseño de productos no es arte. Es una herramienta de resolución de problemas. A veces se resuelve con una app, como en Buenbit o Defiant. A veces con un POAP, una pieza para un foro de gobernanza o un collage político, como en SEED. A veces con la identidad visual de un evento que recorre cuatro países, como ETH Latam. A veces con una propuesta de programa educativo, como el Ethereum Product Pack.</p>
+
+    <p>Pero esa idea sola se queda corta.</p>
+
+    <p>Porque si el diseño fuera solamente resolución de problemas, alcanzaría con encontrar la solución más eficiente, implementarla y pasar a otra cosa. Y estos años me mostraron que no alcanza. En Ethereum, y probablemente en cualquier lugar donde haya personas tratando de construir algo que dure más que una campaña, el problema nunca es solamente técnico. También es cultural.</p>
+
+    <p>Importa qué problema elegís resolver. Importa para quién lo resolvés. Importa con quién lo resolvés. Importa qué tipo de autonomía habilitás, qué tipo de comunidad convocás, qué tipo de confianza construís y qué tipo de mundo, aunque sea chiquito, ayudás a imaginar.</p>
+
+    <p>Por eso para mí el diseño también es un vector de creación de cultura. Uno no puede falsear o fingir una cultura de la que no es parte. Quizás durante un tiempo algunos pueden, pero tarde o temprano la conexión empieza a fallar y se le empiezan a ver los hilos a las cosas.</p>
+
+    <p>La cultura se va formando día a día entre las personas, mientras estás resolviendo otros problemas. Se cuela, brota. Aparece cuando hacés bien tu laburo y estás en comunión con tus compañeros, no cuando intentás hacerla aparecer a la fuerza.</p>
+
+    <p>Si estás resolviendo un problema real, para una organización que cree en algo, con un equipo que cree en algo, la cultura aparece sola. Si estás resolviendo un problema inventado para una organización que no cree en nada, podés meterle todos los manuales de marca que quieras y una UI perfecta, pero no va a aparecer cultura por ningún lado.</p>
+
+    <h2>Lo que viene</h2>
+
+    <p>Hace unos meses, después de irme de Kipu, me tomé un descanso profesional. Bastante merecido, creo. Y ahora estoy arrancando una etapa nueva: voy a empezar a construir algunos MVPs relacionados al ciclismo. Por algo este artículo empezó hablando de eso.</p>
+
+    <p>No lo vivo como un abandono de lo anterior, sino como un movimiento natural después de varios años de aprendizaje intenso. Ethereum me enseñó mucho más que una tecnología. Me enseñó una forma de mirar los problemas: buscar dónde hay una necesidad real, entender qué tipo de autonomía puede habilitar una herramienta, trabajar cerca de la gente que va a usarla, y no separar nunca producto, cultura y comunidad como si fueran mundos distintos.</p>
+
+    <p>Ahora quiero llevar esa forma de mirar a otro ámbito que me acompaña desde antes de saber cómo nombrarlo. El ciclismo tiene cuerpo, territorio, riesgo, comunidad, códigos, objetos, mapas, rutas, talleres, entrenamiento, frustraciones, pequeñas victorias y una cultura propia que tampoco se puede fabricar desde afuera. Hay que estar ahí. Hay que pedalearla.</p>
+
+    <p>Sigo siendo un convencido del potencial que tienen Ethereum y la tecnología blockchain para transformar realidades concretas cuando se aplican sobre problemas reales. Buenbit supo ser una solución para una época donde la inflación era brutal y el dólar estaba prohibido. Defiant era una gran solución para una época donde había que enseñar que las llaves de tu plata podían ser tuyas. SEED y Kipu eran movimientos donde había que pelear por educación abierta y gratuita.</p>
+
+    <p>Diseñé para todas esas cosas porque donde más cómodo me siento es trabajando para cosas en las que creo y me apasionan.</p>
+
+    <p>Por eso siento que ahora me toca el ciclismo. No porque sea más importante que cripto, ni porque lo anterior haya dejado de importarme, sino porque es algo que me acompaña hace toda la vida y que considero importante para los humanos. Y porque tal vez, más adelante, algunas de las cosas que aprendí en Ethereum encuentren ahí una forma nueva. No necesito spoilear nada todavía.</p>
+
+    <p>Esa es mi motivación política para diseñar: ir adonde están las cosas en las que creo, y diseñar ahí.</p>
+
+    <p>Si la cultura aparece, aparece. Y si no, por lo menos voy a haber tratado de resolver algunos problemas.</p>
+
+    <p>Si me querés escribir, estoy en todos lados como Loco Pacha, aunque esta vez firmo como Franco.</p>
+
+  </div>
+
+  <div class="article-footer">
+    <p><em>Franco “Loco Pacha” Zuppone</em></p>
+  </div>
+</article>
+
+<footer>
+  <span>Ethernauta</span>
+  <span>ethernauta.lat - Buenos Aires, 2026</span>
+</footer>
+
+</body>
+</html>
