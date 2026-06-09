@@ -76,6 +76,7 @@
     .nav-links { display: flex; gap: 1.8rem; list-style: none; align-items: center; }
     .nav-links a { font-size: 0.7rem; letter-spacing: 0.18em; text-transform: uppercase; color: var(--text-dim); text-decoration: none; transition: color 0.2s; }
     .nav-links a:hover { color: var(--eth); }
+    .nos { color: var(--eth-glow); }
     .nav-soon { font-size: 0.7rem; letter-spacing: 0.18em; text-transform: uppercase; color: rgba(122,134,148,0.4); cursor: not-allowed; display: inline-flex; align-items: center; gap: 0.4rem; }
     .nav-soon::before { content: ""; width: 4px; height: 4px; border-radius: 50%; background: rgba(98,126,234,0.5); animation: twinkle 2.5s ease-in-out infinite; }
     .hero { position: relative; z-index: 1; min-height: 100vh; padding: 0 3rem 6rem; display: flex; align-items: center; overflow: hidden; border-bottom: 1px solid var(--border); }
@@ -191,7 +192,7 @@
   <ul class="nav-links">
     <li><a href="#entradas">Entradas</a></li>
     <li><a href="#ethxplorando">ETHxplorando</a></li>
-    <li><span class="nav-soon" title="Próximamente">Builders</span></li>
+    <li><a href="#humanos">Huma<span class="nos">(nos)</span></a></li>
     <li><span class="nav-soon" title="Próximamente">Recursos</span></li>
     <li><a href="#nombre">El nombre</a></li>
     <li><a href="#autor">Autor</a></li>
@@ -344,6 +345,21 @@
         <p class="subscribe-fine">Usamos Mailchimp. Podés darte de baja cuando quieras.</p>
       </form>
     </div>
+  </div>
+</section>
+<section class="section" id="humanos">
+  <div class="section-inner">
+    <div class="section-header">
+      <span class="section-index">03</span>
+      <span class="section-title">Huma<span class="nos">(nos)</span></span>
+      <span class="section-line"></span>
+    </div>
+    <a class="featured-post" href="/cuatro-esquinas-ethereum.html">
+      <div class="post-meta">Huma<span class="nos">(nos)</span> &nbsp;·&nbsp; Junio 2026 &nbsp;·&nbsp; Artículo inaugural</div>
+      <div class="featured-title">Las cuatro esquinas de Ethereum</div>
+      <div class="featured-excerpt">El Loco Pacha (Franco Zuppone) repasa su paso por Buenbit, Defiant, SEED Latam y ETH Kipu: diseño, producto y por qué la cultura no se fabrica.</div>
+      <div class="featured-link">Leer entrada <span>→</span></div>
+    </a>
   </div>
 </section>
 <section class="section" id="nombre">
