@@ -6,6 +6,12 @@
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <title>Ethernauta</title>
   <meta name="description" content="Divulgación independiente sobre Ethereum. Protocolo, gobernanza y escalabilidad explicados con claridad.">
+  <link rel="canonical" href="https://ethernauta.lat/">
+  <meta property="og:title" content="Ethernauta — Ethereum, el héroe colectivo">
+  <meta property="og:description" content="Divulgación independiente sobre Ethereum. Protocolo, gobernanza y escalabilidad explicados con claridad.">
+  <meta property="og:url" content="https://ethernauta.lat/">
+  <meta property="og:type" content="website">
+  <meta property="og:image" content="https://ethernauta.lat/img/og-cover.jpg">
   <meta name="google-site-verification" content="8NiWnPYwIExoYH1wO9Gt1iavvXK0ATwD8qMACkVNxPg" />
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:ital,wght@0,400;0,700;1,400&family=DM+Mono:wght@300;400&display=swap" rel="stylesheet">
@@ -172,6 +178,21 @@
       .carousel-btn { display: none; }
       footer { flex-direction: column; gap: 0.5rem; padding: 2rem 1.5rem; }
     }
+  
+    #postsCarousel { scroll-snap-type: x mandatory; }
+    #postsCarousel .post-card { scroll-snap-align: start; }
+  
+    .carousel-footer { display: flex; justify-content: space-between; align-items: center; margin-top: 1.2rem; }
+    .carousel-counter { font-family: 'DM Mono', monospace; font-size: 0.68rem; letter-spacing: 0.18em; color: var(--text-faint); }
+    .archive-link { font-family: 'DM Mono', monospace; font-size: 0.72rem; letter-spacing: 0.14em; text-transform: uppercase; color: var(--text-dim); text-decoration: none; transition: color 0.2s; }
+    .archive-link:hover { color: var(--eth); }
+    .archive-link span { display: inline-block; transition: transform 0.2s; }
+    .archive-link:hover span { transform: translateX(4px); }
+  
+    footer .footer-inner { display: flex; justify-content: space-between; align-items: center; gap: 1.5rem; flex-wrap: wrap; width: 100%; }
+    .footer-links { display: flex; gap: 1.4rem; flex-wrap: wrap; }
+    .footer-links a { color: var(--text-dim); text-decoration: none; font-size: 0.65rem; letter-spacing: 0.12em; text-transform: uppercase; transition: color 0.2s; }
+    .footer-links a:hover { color: var(--eth); }
   </style>
   <!-- Google Analytics -->
   <script async src="https://www.googletagmanager.com/gtag/js?id=G-SJXWGTQH22"></script>
@@ -193,7 +214,6 @@
     <li><a href="#entradas">Entradas</a></li>
     <li><a href="#ethxplorando">ETHxplorando</a></li>
     <li><a href="#humanos">Huma<span class="nos">(nos)</span></a></li>
-    <li><span class="nav-soon" title="Próximamente">Recursos</span></li>
     <li><a href="#nombre">El nombre</a></li>
     <li><a href="#autor">Autor</a></li>
   </ul>
@@ -209,7 +229,7 @@
       </h1>
       <div class="hero-text">
         <p>En un mundo cada vez más complejo, cambiante y desafiante, Ethereum se nos presenta como la mejor herramienta para construir una internet más justa y segura.</p>
-        <p>Esta no es una web oficial ni un manual técnico. Es el diario de alguien que intenta entender el protocolo en profundidad: sus fundamentos, sus actualizaciones y por sobre todo lo que se viene.</p>
+        <p>Esto es el diario de alguien que intenta entender el protocolo en profundidad: sus fundamentos, sus actualizaciones y, por sobre todo, lo que se viene.</p>
         <p>Escribo desde Buenos Aires, pero con la mirada puesta en una red global. Si algo acá te resulta útil, discutible o mejorable, la conversación está abierta. En medio de la tormenta, nadie se salva solo.</p>
       </div>
       <div class="hero-cta">
@@ -227,15 +247,21 @@
       <span class="section-title">Entradas</span>
       <span class="section-line"></span>
     </div>
-    <a class="featured-post" href="/make-ethereum-cypherpunk-again.html">
-      <div class="post-meta">Entradas &nbsp;·&nbsp; Junio 2026 &nbsp;·&nbsp; Última publicación</div>
-      <div class="featured-title">Ethereum se hunde... Make Ethereum Cypherpunk Again</div>
-      <div class="featured-excerpt">Una ola de FUD sacude Ethereum. Salidas, debates, precio cayendo. Pero desde la tribuna se escucha un grito: Make Ethereum Cypherpunk Again.</div>
+    <a class="featured-post" href="/cuatro-esquinas-ethereum.html">
+      <div class="post-meta">Huma<span class="nos">(nos)</span> &nbsp;·&nbsp; Junio 2026 &nbsp;·&nbsp; Última publicación</div>
+      <div class="featured-title">Las cuatro esquinas de Ethereum</div>
+      <div class="featured-excerpt">El Loco Pacha (Franco Zuppone) inaugura Huma(nos): su paso por Buenbit, Defiant, SEED Latam y ETH Kipu, y por qué la cultura no se fabrica.</div>
       <div class="featured-link">Leer entrada <span>→</span></div>
     </a>
     <div class="posts-carousel-wrapper">
       <button class="carousel-btn" id="prevBtn" aria-label="Anterior">&#8592;</button>
       <div class="posts-grid" id="postsCarousel">
+        <a class="post-card" href="/make-ethereum-cypherpunk-again.html">
+          <div class="post-meta">Entradas &nbsp;·&nbsp; Junio 2026</div>
+          <div class="post-title">Make Ethereum Cypherpunk Again</div>
+          <div class="post-excerpt">Una ola de FUD sacude Ethereum. Salidas, debates, precio cayendo. Pero desde la tribuna se escucha un grito.</div>
+          <div class="post-link">Leer <span>→</span></div>
+        </a>
         <a class="post-card" href="/monte-un-nodo-google-cloud.html">
           <div class="post-meta">ETHxplorando &nbsp;·&nbsp; Mayo 2026</div>
           <div class="post-title">Ethereum en las nubes</div>
@@ -305,6 +331,10 @@
       </div>
       <button class="carousel-btn" id="nextBtn" aria-label="Siguiente">&#8594;</button>
     </div>
+    <div class="carousel-footer">
+      <span class="carousel-counter" id="carouselCounter">1 / 11</span>
+      <a class="archive-link" href="/archivo.html">Ver todas las entradas <span>→</span></a>
+    </div>
   </div>
 </section>
 <section class="section" id="ethxplorando">
@@ -331,6 +361,26 @@
         <div class="ethx-desc">Desplegué un token sin fines comerciales y armé una pseudo-gobernanza para mi proyecto musical. Un experimento real antes de entender bien lo que estaba haciendo.</div>
       </div>
     </div>
+  </div>
+</section>
+<section class="section" id="humanos">
+  <div class="section-inner">
+    <div class="section-header">
+      <span class="section-index">03</span>
+      <span class="section-title">Huma<span class="nos">(nos)</span></span>
+      <span class="section-line"></span>
+    </div>
+    <div class="ethxplorando-grid">
+      <a class="ethx-card" href="/cuatro-esquinas-ethereum.html">
+        <span class="ethx-status">Artículo inaugural &nbsp;·&nbsp; Junio 2026</span>
+        <div class="ethx-title">Las cuatro esquinas de Ethereum</div>
+        <div class="ethx-desc">El Loco Pacha (Franco Zuppone) repasa su paso por Buenbit, Defiant, SEED Latam y ETH Kipu: diseño, producto y por qué la cultura no se fabrica.</div>
+      </a>
+    </div>
+  </div>
+</section>
+<section class="section" id="suscribite">
+  <div class="section-inner">
     <div class="subscribe-wrap">
       <span class="subscribe-label">Suscribite</span>
       <p class="subscribe-text">Cuando publico algo nuevo te llega directo.</p>
@@ -345,21 +395,6 @@
         <p class="subscribe-fine">Usamos Mailchimp. Podés darte de baja cuando quieras.</p>
       </form>
     </div>
-  </div>
-</section>
-<section class="section" id="humanos">
-  <div class="section-inner">
-    <div class="section-header">
-      <span class="section-index">03</span>
-      <span class="section-title">Huma<span class="nos">(nos)</span></span>
-      <span class="section-line"></span>
-    </div>
-    <a class="featured-post" href="/cuatro-esquinas-ethereum.html">
-      <div class="post-meta">Huma<span class="nos">(nos)</span> &nbsp;·&nbsp; Junio 2026 &nbsp;·&nbsp; Artículo inaugural</div>
-      <div class="featured-title">Las cuatro esquinas de Ethereum</div>
-      <div class="featured-excerpt">El Loco Pacha (Franco Zuppone) repasa su paso por Buenbit, Defiant, SEED Latam y ETH Kipu: diseño, producto y por qué la cultura no se fabrica.</div>
-      <div class="featured-link">Leer entrada <span>→</span></div>
-    </a>
   </div>
 </section>
 <section class="section" id="nombre">
@@ -377,8 +412,7 @@
   <div class="section-inner two-col">
     <h2 class="sticky-title">Sobre el<br><em>Autor</em></h2>
     <div class="body-text">
-      <p>No soy desarrollador. No soy core dev. No tengo un PhD en sistemas distribuidos.</p>
-      <p>Vengo de las ciencias sociales y la educación. Llegué a Ethereum por la música y los NFTs, y terminé viéndolo como sistema: cómo coordina, cómo escala, cómo decide.</p>
+      <p>No vengo del código: vengo de las ciencias sociales y la educación. Llegué a Ethereum por la música y los NFTs, y terminé viéndolo como sistema: cómo coordina, cómo escala, cómo decide.</p>
       <p>Me interesa Ethereum como infraestructura viva. Qué compromisos hace. Qué tensiones soporta. Qué valores preserva.</p>
       <p>Escribo para pensar. Si algo no entiendo, lo trabajo hasta entenderlo mejor. Si creo entenderlo, escribir me obliga a medir cuánto realmente entiendo.</p>
       <p>No tengo todas las respuestas. Pero sé hacer preguntas y sé cómo buscar. En un ecosistema donde abundan certezas rápidas, eso ya es algo.</p>
@@ -386,8 +420,18 @@
   </div>
 </section>
 <footer>
-  <span>Ethernauta</span>
-  <span>ethernauta.lat — Buenos Aires, 2026</span>
+  <div class="footer-inner">
+    <span>Ethernauta</span>
+    <nav class="footer-links">
+      <a href="/#entradas">Entradas</a>
+      <a href="/#ethxplorando">ETHxplorando</a>
+      <a href="/#humanos">Huma<span class="nos">(nos)</span></a>
+      <a href="/archivo.html">Archivo</a>
+      <a href="/#autor">Autor</a>
+      <a href="https://x.com/saquelogarcia" target="_blank">X</a>
+    </nav>
+    <span>ethernauta.lat — Buenos Aires, 2026</span>
+  </div>
 </footer>
 <script>
   const nav = document.getElementById('mainNav');
@@ -408,6 +452,16 @@
   };
   nextBtn.addEventListener('click', () => scrollByCard(1));
   prevBtn.addEventListener('click', () => scrollByCard(-1));
+  const counter = document.getElementById('carouselCounter');
+  const cards = carousel.querySelectorAll('.post-card');
+  const updateCounter = () => {
+    const card = cards[0];
+    if (!card || !counter) return;
+    const idx = Math.min(cards.length, Math.round(carousel.scrollLeft / (card.offsetWidth + 20)) + 1);
+    counter.textContent = idx + ' / ' + cards.length;
+  };
+  updateCounter();
+  carousel.addEventListener('scroll', updateCounter, { passive: true });
 </script>
 </body>
 </html>
