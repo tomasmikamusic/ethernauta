@@ -1,1 +1,4 @@
-https://ethernauta.lat/robots.txt
+User-agent: *
+Allow: /
+
+Sitemap: https://ethernauta.lat/sitemap.xml

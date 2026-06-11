@@ -1,70 +1,18 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">
-
-  <url>
-    <loc>https://ethernauta.lat/</loc>
-    <priority>1.0</priority>
-  </url>
-
-  <url>
-    <loc>https://ethernauta.lat/nodos-de-ethereum.html</loc>
-    <priority>0.8</priority>
-  </url>
-
- <url>
-    <loc>https://ethernauta.lat/clientes-y-diversidad.html</loc>
-    <priority>0.8</priority>
-  </url>
-
-<url>
-    <loc>https://ethernauta.lat/ethereum-e-ia.html</loc>
-    <priority>0.8</priority>
-  </url>
-
-  <url>
-    <loc>https://ethernauta.lat/capas-de-ethereum.html</loc>
-    <priority>0.8</priority>
-  </url>
-
- <url>
-    <loc>https://ethernauta.lat/gobernanza-de-ethereum.html</loc>
-    <priority>0.8</priority>
-  </url>
-
- <url>
-    <loc>https://ethernauta.lat/consenso-en-ethereum.html</loc>
-    <priority>0.8</priority>
-  </url>
-
-    <url>
-    <loc>https://ethernauta.lat/risc-v-evm-ethereum.html</loc>
-    <priority>0.8</priority>
-  </url>
-
-  <url>
-    <loc>https://ethernauta.lat/grid-bot-agente-trading.html</loc>
-    <priority>0.8</priority>
-  </url>
-
-  <url>
-  <loc>https://ethernauta.lat/lean-ethereum.html</loc>
-  <lastmod>2026-05-02</lastmod>
-</url>
-
-  <url>
-    <loc>https://ethernauta.lat/defi-ha-muerto-viva-defi.html</loc>
-    <priority>0.8</priority>
-  </url>
-
-<url>
-    <loc>https://ethernauta.lat/monte-un-nodo-google-cloud.html</loc>
-    <priority>0.8</priority>
-  </url>
-
-  <url>
-  <loc>https://ethernauta.lat/make-ethereum-cypherpunk-again.html</loc>
-  <lastmod>2026-06-04</lastmod>
-</url>
-  
-  
+  <url><loc>https://ethernauta.lat/</loc></url>
+  <url><loc>https://ethernauta.lat/archivo.html</loc></url>
+  <url><loc>https://ethernauta.lat/cuatro-esquinas-ethereum.html</loc></url>
+  <url><loc>https://ethernauta.lat/make-ethereum-cypherpunk-again.html</loc></url>
+  <url><loc>https://ethernauta.lat/monte-un-nodo-google-cloud.html</loc></url>
+  <url><loc>https://ethernauta.lat/defi-ha-muerto-viva-defi.html</loc></url>
+  <url><loc>https://ethernauta.lat/lean-ethereum.html</loc></url>
+  <url><loc>https://ethernauta.lat/grid-bot-agente-trading.html</loc></url>
+  <url><loc>https://ethernauta.lat/risc-v-evm-ethereum.html</loc></url>
+  <url><loc>https://ethernauta.lat/consenso-en-ethereum.html</loc></url>
+  <url><loc>https://ethernauta.lat/clientes-y-diversidad.html</loc></url>
+  <url><loc>https://ethernauta.lat/capas-de-ethereum.html</loc></url>
+  <url><loc>https://ethernauta.lat/nodos-de-ethereum.html</loc></url>
+  <url><loc>https://ethernauta.lat/gobernanza-de-ethereum.html</loc></url>
+  <url><loc>https://ethernauta.lat/ethereum-e-ia.html</loc></url>
 </urlset>

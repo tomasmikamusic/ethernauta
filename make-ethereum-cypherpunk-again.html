@@ -4,13 +4,14 @@
   <link rel="icon" type="image/svg+xml" href="/favicon.svg">
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>Ethereum se hunde... Make Ethereum Cypherpunk Again - Ethernauta</title>
+  <title>Ethereum se hunde... Make Ethereum Cypherpunk Again — Ethernauta</title>
   <meta name="description" content="Una ola de FUD sacude Ethereum. Salidas, debates, precio cayendo. Pero desde la tribuna se escucha un grito: Make Ethereum Cypherpunk Again.">
   <link rel="canonical" href="https://ethernauta.lat/make-ethereum-cypherpunk-again.html">
   <meta property="og:title" content="Ethereum se hunde... Make Ethereum Cypherpunk Again">
   <meta property="og:description" content="Una ola de FUD sacude Ethereum. Salidas, debates, precio cayendo. Pero desde la tribuna se escucha un grito: Make Ethereum Cypherpunk Again.">
   <meta property="og:url" content="https://ethernauta.lat/make-ethereum-cypherpunk-again.html">
   <meta property="og:type" content="article">
+  <meta property="og:image" content="https://ethernauta.lat/img/og-cover.jpg">
   <script async src="https://www.googletagmanager.com/gtag/js?id=G-SJXWGTQH22"></script>
   <script>
     window.dataLayer = window.dataLayer || [];
@@ -156,6 +157,24 @@
       .nav-links { display: none; }
       .article-wrap { padding: 8rem 1.5rem 5rem; }
     }
+  
+    .nos { color: var(--eth-glow, #8aa0f5); }
+    .article-end { max-width: 840px; margin: 0 auto; padding: 0 2rem 5rem; }
+    .article-end-box { border: 1px solid var(--border); border-radius: 10px; padding: 2rem; background: var(--surface); }
+    .article-end-label { font-size: 0.68rem; letter-spacing: 0.2em; text-transform: uppercase; color: var(--eth); margin-bottom: 0.6rem; }
+    .article-end-text { font-size: 0.92rem; color: var(--text-dim); margin-bottom: 1.2rem; line-height: 1.7; }
+    .article-end-row { display: flex; gap: 0.6rem; flex-wrap: wrap; }
+    .article-end-input { flex: 1; min-width: 200px; background: var(--bg); border: 1px solid var(--border); border-radius: 6px; padding: 0.7rem 0.9rem; color: var(--text); font-family: inherit; font-size: 0.85rem; }
+    .article-end-btn { background: var(--eth); color: #fff; border: none; border-radius: 6px; padding: 0.7rem 1.3rem; font-family: inherit; font-size: 0.8rem; letter-spacing: 0.08em; cursor: pointer; }
+    .article-end-btn:hover { background: var(--eth-glow, #8aa0f5); }
+    .article-back { display: inline-block; margin-top: 1.6rem; font-size: 0.78rem; letter-spacing: 0.1em; text-transform: uppercase; color: var(--text-dim); text-decoration: none; }
+    .article-back:hover { color: var(--eth); }
+
+  
+    footer .footer-inner { display: flex; justify-content: space-between; align-items: center; gap: 1.5rem; flex-wrap: wrap; width: 100%; }
+    .footer-links { display: flex; gap: 1.4rem; flex-wrap: wrap; }
+    .footer-links a { color: var(--text-dim); text-decoration: none; font-size: 0.65rem; letter-spacing: 0.12em; text-transform: uppercase; transition: color 0.2s; }
+    .footer-links a:hover { color: var(--eth); }
   </style>
 </head>
 <body>
@@ -165,6 +184,7 @@
   <ul class="nav-links">
     <li><a href="/#entradas">Entradas</a></li>
     <li><a href="/#ethxplorando">ETHxplorando</a></li>
+    <li><a href="/#humanos">Huma<span class="nos">(nos)</span></a></li>
     <li><a href="/#nombre">El nombre</a></li>
     <li><a href="/#autor">Autor</a></li>
     <li><a href="https://x.com/saquelogarcia" target="_blank">X</a></li>
@@ -254,9 +274,35 @@
   </div>
 </article>
 
+<div class="article-end">
+  <div class="article-end-box">
+    <div class="article-end-label">Suscribite</div>
+    <p class="article-end-text">Cuando publico algo nuevo te llega directo.</p>
+    <form action="https://lat.us9.list-manage.com/subscribe/post?u=90f06fd6ef77efc02413b626e&amp;id=641e6184d6&amp;f_id=0098dde1f0" method="post" target="_blank">
+      <div class="article-end-row">
+        <input type="email" name="EMAIL" class="article-end-input" placeholder="tu@email.com" required>
+        <div aria-hidden="true" style="position:absolute;left:-5000px;">
+          <input type="text" name="b_90f06fd6ef77efc02413b626e_641e6184d6" tabindex="-1" value="">
+        </div>
+        <button type="submit" class="article-end-btn">Suscribirme</button>
+      </div>
+    </form>
+  </div>
+  <a class="article-back" href="/">&#8592; Volver al inicio</a>
+</div>
 <footer>
-  <span>Ethernauta</span>
-  <span>ethernauta.lat - Buenos Aires, 2026</span>
+  <div class="footer-inner">
+    <span>Ethernauta</span>
+    <nav class="footer-links">
+      <a href="/#entradas">Entradas</a>
+      <a href="/#ethxplorando">ETHxplorando</a>
+      <a href="/#humanos">Huma<span class="nos">(nos)</span></a>
+      <a href="/archivo.html">Archivo</a>
+      <a href="/#autor">Autor</a>
+      <a href="https://x.com/saquelogarcia" target="_blank">X</a>
+    </nav>
+    <span>ethernauta.lat — Buenos Aires, 2026</span>
+  </div>
 </footer>
 
 </body>
