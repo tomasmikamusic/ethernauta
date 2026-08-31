@@ -1,0 +1,474 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+  <link rel="icon" type="image/svg+xml" href="/favicon.svg">
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Educación sin cadenas — Ethernauta</title>
+  <meta name="description" content="Hicimos una blockchain educativa con estudiantes de una escuela pública de Buenos Aires. La excusa para hablar de cómo el ecosistema enseña tecnología, para quién, y para qué sirve de verdad.">
+  <link rel="canonical" href="https://ethernauta.lat/educhain-blockchain-sin-internet.html">
+  <meta property="og:title" content="Educación sin cadenas">
+  <meta property="og:description" content="Una blockchain hecha con pibes de una escuela pública, y todo lo que hay alrededor: a quién le enseñamos tecnología, cómo, y para qué.">
+  <meta property="og:url" content="https://ethernauta.lat/educhain-blockchain-sin-internet.html">
+  <meta property="og:type" content="article">
+  <meta property="og:image" content="https://ethernauta.lat/img/og-educhain.jpg">
+  <script async src="https://www.googletagmanager.com/gtag/js?id=G-SJXWGTQH22"></script>
+  <script>
+    window.dataLayer = window.dataLayer || [];
+    function gtag(){dataLayer.push(arguments);}
+    gtag("js", new Date());
+    gtag("config", "G-SJXWGTQH22");
+  </script>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:ital,wght@0,400;0,700;1,400&family=DM+Mono:wght@300;400&display=swap" rel="stylesheet">
+  <style>
+    :root {
+      --bg: #0a0d0f;
+      --surface: #0f1316;
+      --border: #1c2128;
+      --eth: #627eea;
+      --eth-glow: #8aa0f5;
+      --text: #dde3ea;
+      --text-dim: #7a8694;
+      --text-faint: #3d4855;
+      --accent: #c8d8f0;
+    }
+    * { margin: 0; padding: 0; box-sizing: border-box; }
+    html { scroll-behavior: smooth; }
+    body {
+      background: var(--bg);
+      color: var(--text);
+      font-family: 'DM Mono', monospace;
+      font-weight: 300;
+      overflow-x: hidden;
+    }
+    nav {
+      position: fixed;
+      top: 0; left: 0; right: 0;
+      z-index: 100;
+      padding: 1.25rem 3rem;
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      border-bottom: 1px solid var(--border);
+      background: rgba(10,13,15,0.9);
+      backdrop-filter: blur(12px);
+    }
+    .nav-logo {
+      font-family: 'Playfair Display', serif;
+      font-style: italic;
+      font-size: 1.1rem;
+      color: var(--text);
+      text-decoration: none;
+    }
+    .nav-links { display: flex; gap: 2rem; list-style: none; }
+    .nav-links a {
+      font-size: 0.75rem;
+      letter-spacing: 0.12em;
+      text-transform: uppercase;
+      color: var(--text-dim);
+      text-decoration: none;
+    }
+    .nav-links a:hover { color: var(--text); }
+    .nos { color: var(--eth-glow); }
+    .article-wrap { max-width: 840px; margin: 0 auto; padding: 10rem 2rem 4rem; }
+    .article-meta {
+      font-size: 0.68rem;
+      letter-spacing: 0.2em;
+      text-transform: uppercase;
+      color: var(--eth);
+      margin-bottom: 1.5rem;
+    }
+    .article-title {
+      font-family: 'Playfair Display', serif;
+      font-size: clamp(2.2rem, 5vw, 3.4rem);
+      line-height: 1.1;
+      margin-bottom: 0.75rem;
+      color: var(--text);
+    }
+    .article-title .tachado {
+      color: var(--text-faint);
+      text-decoration: line-through;
+      text-decoration-thickness: 2px;
+      font-style: italic;
+    }
+    .article-subtitle {
+      font-family: 'Playfair Display', serif;
+      font-style: italic;
+      font-size: clamp(1.1rem, 2.5vw, 1.4rem);
+      line-height: 1.3;
+      color: var(--text-dim);
+      margin-bottom: 2rem;
+      padding-bottom: 1.5rem;
+      border-bottom: 1px solid var(--border);
+    }
+    .article-body h2 {
+      font-family: 'Playfair Display', serif;
+      font-size: 1.5rem;
+      font-weight: 400;
+      color: var(--accent);
+      margin: 3rem 0 1.25rem;
+      line-height: 1.3;
+    }
+    .article-body p {
+      font-size: 1rem;
+      line-height: 1.95;
+      color: var(--text-dim);
+      margin-bottom: 1.5rem;
+    }
+    .article-body a {
+      color: var(--eth);
+      text-decoration: none;
+      border-bottom: 1px solid rgba(98,126,234,0.3);
+      transition: border-color 0.2s;
+    }
+    .article-body a:hover { border-color: var(--eth); }
+    .article-body strong { color: var(--text); font-weight: 400; }
+    .article-body em { color: var(--accent); font-style: italic; }
+    .article-body code {
+      font-family: 'DM Mono', monospace;
+      font-size: 0.85em;
+      background: var(--surface);
+      border: 1px solid var(--border);
+      border-radius: 4px;
+      padding: 0.1rem 0.4rem;
+      color: var(--accent);
+    }
+    .pullquote {
+      border-left: 2px solid var(--eth);
+      padding: 0.5rem 0 0.5rem 1.5rem;
+      margin: 2rem 0;
+      font-family: 'Playfair Display', serif;
+      font-style: italic;
+      font-size: 1.2rem;
+      line-height: 1.5;
+      color: var(--accent);
+    }
+    .article-figure { margin: 2.75rem 0; }
+    .article-figure img {
+      width: 100%;
+      height: auto;
+      display: block;
+      border-radius: 8px;
+      border: 1px solid var(--border);
+    }
+    .article-figure figcaption {
+      font-size: 0.72rem;
+      letter-spacing: 0.04em;
+      color: var(--text-faint);
+      margin-top: 0.7rem;
+      text-align: center;
+      line-height: 1.5;
+    }
+    /* placeholder de imagen — se reemplaza por <img> cuando lleguen los archivos */
+    .img-placeholder {
+      width: 100%;
+      border: 1px dashed var(--border);
+      border-radius: 8px;
+      background: var(--surface);
+      padding: 3rem 1.5rem;
+      text-align: center;
+      color: var(--text-faint);
+      font-size: 0.8rem;
+      letter-spacing: 0.05em;
+      line-height: 1.6;
+    }
+    /* apartado técnico cedido a Claude */
+    .claude-aside {
+      margin: 3.5rem 0;
+      border: 1px solid var(--border);
+      border-left: 2px solid var(--eth);
+      border-radius: 10px;
+      background: linear-gradient(180deg, rgba(98,126,234,0.05), rgba(15,19,22,0.4));
+      padding: 2rem 2rem 1.5rem;
+    }
+    .claude-aside-label {
+      font-size: 0.64rem;
+      letter-spacing: 0.22em;
+      text-transform: uppercase;
+      color: var(--eth);
+      margin-bottom: 1.25rem;
+      display: flex;
+      align-items: center;
+      gap: 0.6rem;
+    }
+    .claude-aside-label::before {
+      content: "";
+      width: 6px; height: 6px;
+      border-radius: 50%;
+      background: var(--eth-glow);
+      box-shadow: 0 0 8px var(--eth);
+    }
+    .claude-aside h3 {
+      font-family: 'Playfair Display', serif;
+      font-size: 1.25rem;
+      font-weight: 400;
+      color: var(--accent);
+      margin: 1.75rem 0 0.9rem;
+      line-height: 1.3;
+    }
+    .claude-aside h3:first-of-type { margin-top: 0; }
+    .claude-aside p {
+      font-size: 0.95rem;
+      line-height: 1.85;
+      color: var(--text-dim);
+      margin-bottom: 1.2rem;
+    }
+    .claude-aside code {
+      font-family: 'DM Mono', monospace;
+      font-size: 0.82em;
+      background: var(--bg);
+      border: 1px solid var(--border);
+      border-radius: 4px;
+      padding: 0.1rem 0.4rem;
+      color: var(--accent);
+    }
+    .claude-aside strong { color: var(--text); font-weight: 400; }
+    .file-table {
+      width: 100%;
+      border-collapse: collapse;
+      margin: 0.5rem 0 1.5rem;
+      font-size: 0.85rem;
+    }
+    .file-table td {
+      border-bottom: 1px solid var(--border);
+      padding: 0.6rem 0.5rem;
+      vertical-align: top;
+      color: var(--text-dim);
+      line-height: 1.55;
+    }
+    .file-table td:first-child { white-space: nowrap; width: 1%; padding-right: 1.2rem; }
+    .file-table code { font-size: 0.85em; }
+    .claude-aside-close {
+      font-size: 0.78rem;
+      color: var(--text-faint);
+      font-style: italic;
+      border-top: 1px solid var(--border);
+      padding-top: 1.1rem;
+      margin-top: 1.5rem;
+      margin-bottom: 0;
+    }
+    .article-end { max-width: 840px; margin: 0 auto; padding: 0 2rem 5rem; }
+    .article-end-box { border: 1px solid var(--border); border-radius: 10px; padding: 2rem; background: var(--surface); }
+    .article-end-label { font-size: 0.68rem; letter-spacing: 0.2em; text-transform: uppercase; color: var(--eth); margin-bottom: 0.6rem; }
+    .article-end-text { font-size: 0.92rem; color: var(--text-dim); margin-bottom: 1.2rem; line-height: 1.7; }
+    .article-end-row { display: flex; gap: 0.6rem; flex-wrap: wrap; }
+    .article-end-input { flex: 1; min-width: 200px; background: var(--bg); border: 1px solid var(--border); border-radius: 6px; padding: 0.7rem 0.9rem; color: var(--text); font-family: inherit; font-size: 0.85rem; }
+    .article-end-btn { background: var(--eth); color: #fff; border: none; border-radius: 6px; padding: 0.7rem 1.3rem; font-family: inherit; font-size: 0.8rem; letter-spacing: 0.08em; cursor: pointer; }
+    .article-end-btn:hover { background: var(--eth-glow); }
+    .article-back { display: inline-block; margin-top: 1.6rem; font-size: 0.78rem; letter-spacing: 0.1em; text-transform: uppercase; color: var(--text-dim); text-decoration: none; }
+    .article-back:hover { color: var(--eth); }
+    footer {
+      padding: 2.5rem 3rem;
+      font-size: 0.65rem;
+      color: var(--text-faint);
+      border-top: 1px solid var(--border);
+    }
+    footer .footer-inner { display: flex; justify-content: space-between; align-items: center; gap: 1.5rem; flex-wrap: wrap; width: 100%; }
+    .footer-links { display: flex; gap: 1.4rem; flex-wrap: wrap; }
+    .footer-links a { color: var(--text-dim); text-decoration: none; font-size: 0.65rem; letter-spacing: 0.12em; text-transform: uppercase; transition: color 0.2s; }
+    .footer-links a:hover { color: var(--eth); }
+    @media (max-width: 768px) {
+      nav { padding: 1rem 1.5rem; }
+      .nav-links { display: none; }
+      .article-wrap { padding: 8rem 1.5rem 3rem; }
+    }
+  </style>
+</head>
+<body>
+
+<nav>
+  <a href="/" class="nav-logo">Ethernauta</a>
+  <ul class="nav-links">
+    <li><a href="/#entradas">Entradas</a></li>
+    <li><a href="/#ethxplorando">ETHxplorando</a></li>
+    <li><a href="/#humanos">Huma<span class="nos">(nos)</span></a></li>
+    <li><a href="/#nombre">El nombre</a></li>
+    <li><a href="/#autor">Autor</a></li>
+    <li><a href="https://x.com/saquelogarcia" target="_blank">X</a></li>
+  </ul>
+</nav>
+
+<article class="article-wrap">
+  <p class="article-meta">ETHxplorando &nbsp;·&nbsp; Agosto 2026</p>
+  <h1 class="article-title">Educación <span class="tachado">en</span> sin cadenas</h1>
+
+  <div class="article-body">
+
+    <p>Construí una blockchain educativa que funciona sin internet y a baterías, hecha 100% con material escolar para que los estudiantes del secundario puedan tener sus primeras aproximaciones a la cadena de bloques de manera clara y segura. Mientras te cuento sobre esto, colamos algunas reflexiones sobre a quiénes les enseñamos tecnología, y cómo.</p>
+
+    <p>Estos últimos meses estuve trabajando en el desarrollo de una blockchain educativa para estudiantes de una escuela secundaria técnica pública de Buenos Aires. La llamamos un "simulador de blockchain" porque su uso es educativo. Se enciende y se apaga para la clase y por supuesto que no resguarda valor económico ni transacciones reales. Pero mientras está prendido, su funcionamiento es 100% real. Es decir: hay nodos, hay transacciones, hay validación, se generan bloques y los bloques se encadenan.</p>
+
+    <p>Como detalle de color en el que ya profundizaremos, los nodos se comunican entre sí por radiofrecuencia, sin necesidad de internet y con una autonomía interesante de la red eléctrica. La llamamos EDUCHAIN, y más abajo iremos desarrollando en mayor profundidad.</p>
+
+    <p>Pero antes quiero que pensemos un poco en el contexto: por qué estamos haciendo esto y qué enfoque queremos darle.</p>
+
+    <figure class="article-figure">
+      <img src="img/educhain-aula.webp" alt="Aula de una escuela técnica argentina: un grupo de estudiantes trabajando en netbooks alrededor de mesas unidas, y un docente al frente junto a una pantalla que muestra un diagrama de EDUCHAIN con bloques encadenados.">
+      <figcaption>El taller en marcha. Escena recreada con IA para no exponer a los estudiantes.</figcaption>
+    </figure>
+
+    <p>Desde un conocimiento bastante profundo que creo que tengo del ámbito educativo y del nicho web3, me aventuro a decir que este último, y el ámbito techie en general, a menudo habla para adentro. Es una caja de resonancia: ideas rebotando entre personas que comparten no solo el entusiasmo, sino casi siempre una misma manera de vivir. Y desde esa burbuja se vuelve muy difícil ver a quien no está en ella.</p>
+
+    <p>Para un pibe de secundaria, blockchain es una palabra lejana. Lo poco que le llegó es el criptobro (o alto funcionario público) estafador o el precio de Bitcoin. De la tecnología en sí, nada. Y cuando el ecosistema intenta salir a educar, a bajar esto a una escuela, muchas veces pasa algo parecido a lo del misionero que le explica sobre las diferencias entre serafines, tronos y dominaciones a alguien con urgencias o intereses bastante más terrenales. No por mala fe: es que no (re)conoce al otro. No sabe qué necesita, ni qué le pasa, ni cómo hablarle. Y sin eso, hasta el mensaje más genuino cae en saco roto. Cuando el intento siquiera existe.</p>
+
+    <p>Por otro lado, tampoco podemos dejar de ver que muchas veces, sumado a esos problemas de no saber a quién se le habla ni cómo hablarle, el mensaje tampoco es gran cosa. Muchas de las conferencias que nos ha tocado disfrutar estos tiempos versan sobre productos que resuelven (o dicen que resuelven) problemas que aún no se inventaron. O si resuelven problemas reales, son problemas de sectores sociales pequeñísimos; o, en el mejor de los casos, tal vez acercan una innovación que podría ser interesante para sectores más masivos, pero el enriedo de UX que muchas veces mantener el ethos nos conlleva hace que el intento de dar a conocer la tecnología quede diluido a los 3 minutos de charla.</p>
+
+    <p>Ni hablar de las veces que el intento de enseñar sobre la tecnología es una publicidad encubierta de algún producto puntual de algún sponsor importante del escenario en el que se habla. Y lamentablemente a veces da la impresión de que, incluso si todos los problemas anteriores no existieran, el propositor de una app o una idea ni siquiera está convencido de la misma. Vamos a ser bien pensados, pero… ¿cuántos founders mantienen productos en los que no creen pero hacen como si, para sostener, por lo menos en época de vacas gordas, la bendición de los grants o VC de turno?</p>
+
+    <p>Sería imposible tratar de desentrañar este complejo nudo de una sola vez. Ojalá tuviéramos en nuestras manos la espada de Alejandro Magno y pudiéramos cortar este nudo gordiano de un golpe. Pero no. Por eso traigo, apenas, un lugar desde donde pararme: el del que conoce los dos lados.</p>
+
+    <p>Ahora bien, volviendo a centrarnos en EDUCHAIN, podemos decir que la idea era fácil de enunciar y difícil de cumplir: una blockchain de verdad, que efectivamente comunique nodos, registre de forma descentralizada y valide, pero que corriera con el 100% de lo que ya hay en cualquier escuela pública. Sin internet, sin hosting, sin comprar un peso de nada. Y como todo lo que intento, la mejor forma de contarla es mostrándola funcionar.</p>
+
+    <h2>El cuello de botella no era el que yo pensaba</h2>
+
+    <p>Las ideas y la interfaz las resolví bastante rápido en modo vibe-coding con la ayuda de mi amigo Claudio (especiales gracias a Anthropic por las semanas en las que liberó a Fable). El cuello de botella era otro: cómo comunicar los nodos entre sí sin depender de un hosting. Una blockchain, al fin y al cabo, es antes que nada una red: si los nodos no se hablan, no hay red.</p>
+
+    <p>Ahí uní los puntos con algo que venía masticando hace tiempo y que da para todo un artículo aparte: ¿cuándo y cómo, si es que a alguien le importa, iremos cortando los cordones umbilicales de las blockchains con los proveedores de internet y de electricidad? Tal vez nunca nos detuvimos a pensar demasiado en qué pasa si, por ejemplo, la Casa Blanca ordena dar de baja todas las IP relacionadas con proyectos "cripto". O si las empresas eléctricas, por orden ajena o motu proprio, deciden restringir los domicilios (por lo menos los que puedan identificar) que proveen nodos a la red. Y conectando con eso que vengo masticando hace bastante tiempo, me acordé de la comunicación por radio que usamos en otros proyectos de educación tecnológica: las placas BBC Micro:bit, que hay en todas las escuelas.</p>
+
+    <p>Fue un golazo, pero costó. Hubo que debuggear bastante para que las transacciones salieran y entraran entre los cuatro nodos. Pero funciona: cuatro netbooks se mandan datos por el aire, sin un solo servidor de por medio.</p>
+
+    <figure class="article-figure">
+      <img src="img/educhain-netbook-microbit.webp" alt="Primer plano de una placa Micro:bit conectada por USB a una netbook, con varios LEDs rojos encendidos mientras transmite; al fondo, otra netbook con el dashboard de EDUCHAIN.">
+      <figcaption>La Micro:bit enchufada por USB. Los LEDs encendidos son un paquete saliendo al aire.</figcaption>
+    </figure>
+
+    <h2>El ciclo de vida de una transacción</h2>
+
+    <p>Los estudiantes se envían entre nodos un token educativo que bautizamos <code>$EDU</code>. El nodo 0 le manda 10 <code>$EDU</code> al nodo 1. El nodo 0 arma la transacción y la firma con su clave privada, usando <strong>Ed25519</strong>. Después se autovalida: verifica su propia firma, chequea el saldo y descarta duplicados. Si algo no cierra, ni se enciende la radio.</p>
+
+    <p>La transacción se propaga por las Micro:bit y cada nodo verifica la firma con la clave pública del emisor. Acá hay algo que suele confundirse y que en el taller conviene frenar a explicar: el hash prueba que la transacción no fue modificada, pero quién la autorizó lo prueba la firma. <strong>Integridad y autoría son cosas distintas.</strong></p>
+
+    <figure class="article-figure">
+      <img src="img/educhain-tx-pasos.webp" alt="Pantalla del simulador titulada Tu transacción paso a paso: firma con clave privada, transmisión por radio, verificación de la firma, inclusión en un bloque y confirmación inmutable, los cinco pasos tildados en verde.">
+      <figcaption>El simulador muestra cada etapa: firma, transmisión por radio, verificación, inclusión en bloque y confirmación.</figcaption>
+    </figure>
+
+    <p>La red usa <strong>SHA-256</strong>, el mismo hash que Bitcoin. Todos los nodos validan la transacción y la guardan en su mempool. Y acá aparece una limitación honesta de la arquitectura: no hay votación ni acuse de recibo entre nodos. Cada uno valida por su cuenta y, como todos aplican las mismas reglas, llegan al mismo resultado. Funciona, pero ninguno le avisa al resto "yo ya validé esto".</p>
+
+    <h2>Cómo se arma un bloque</h2>
+
+    <p>El nodo de menor ID entre los que están online propone un bloque cada 15 segundos. Ese número tiene su historia: antes eran 8 segundos, y por lo general salía una sola transacción por bloque, con lo cual los dos conceptos (transacción y bloque) se confundían en la explicación. ¿Por qué pasaba? Porque hay que esperar unos segundos entre transacciones para que las radios no se pisen al transmitir. Con esa espera y un ciclo de 8 segundos que además podías agarrar empezado, era casi imposible que quedaran dos o más en un mismo bloque. Y un bloque con una sola transacción poco se parece a uno real.</p>
+
+    <figure class="article-figure">
+      <img src="img/educhain-tres-nodos.webp" alt="Tres netbooks escolares Sarmiento en fila corriendo el dashboard de EDUCHAIN, con una placa Micro:bit conectada por USB entre ellas.">
+      <figcaption>Tres de los cuatro nodos, cada uno con su propia copia de la cadena. En el medio, la Micro:bit que transmite por radio.</figcaption>
+    </figure>
+
+    <p>El tamaño del bloque trajo otro problema lindo. Completo, un bloque excedía el límite del paquete de datos que puede transmitir la radio de la Micro:bit, que son 250 bytes por paquete. Por eso el nodo proponente arma solo el encabezado, lo firma y genera el hash. Ahí va la altura, el timestamp, su ID, el hash del bloque previo, un resumen de las transacciones incluidas (que cumple, salvando las distancias, la función del merkle root) y su firma de 64 bytes.</p>
+
+    <p>Solo eso se transmite: 84 bytes fijos más 6 por transacción. Cada nodo reconstruye el bloque con las transacciones de su propio mempool. Y por eso tampoco se puede estirar mucho más el ciclo: cada transacción suma 6 bytes al encabezado, así que a partir de unas 12 el paquete deja de entrar en la radio.</p>
+
+    <p>Propagado el encabezado, los demás nodos reconstruyen el detalle de todas las transacciones del bloque desde su propio mempool y luego lo incluyen y listo: la cadena se construye en el dashboard de cada máquina, en vivo, frente a los ojos de los estudiantes. Cada bloque se encadena al anterior por su hash, y esa es la parte donde la magia sucede delante de los pibes.</p>
+
+    <figure class="article-figure">
+      <img src="img/educhain-explorador.webp" alt="Explorador de bloques de EDUCHAIN: tres bloques encadenados, cada uno mostrando en color el hash del bloque anterior; la coincidencia de colores indica que la cadena está íntegra.">
+      <figcaption>El explorador de bloques: cada bloque muestra el hash del anterior. Si alguien tocara un bloque viejo, la cadena se rompería.</figcaption>
+    </figure>
+
+    <p>Hasta acá el proyecto, contado por mí. Pero hay una parte que no me corresponde contar en primera persona: el código. La lógica, la arquitectura y las decisiones pedagógicas son mías, pero la implementación fina es obra de la Inteligencia Artificial. Así que esa parte del artículo se la cedo: que la cuente quien la tipeó, que además la explica mejor que yo.</p>
+
+    <div class="claude-aside">
+      <div class="claude-aside-label">Nota técnica · por Claude</div>
+
+      <p>Hola. El Ethernauta me pasó el volante para esta parte. Voy a contar qué hay adentro del repositorio sin adornarlo: es un proyecto educativo, sigue en desarrollo, y varias cosas están resueltas de la forma más simple posible a propósito.</p>
+
+      <h3>Qué hay en cada archivo</h3>
+
+      <p>Todo es Python en la raíz, sin frameworks. Ocho archivos hacen el trabajo:</p>
+
+      <table class="file-table">
+        <tr><td><code>node.py</code></td><td>El corazón. Arranca el nodo, maneja las claves, despacha los mensajes que entran y corre el loop de consenso. Se ejecuta con <code>python node.py &lt;id&gt;</code>.</td></tr>
+        <tr><td><code>chain.py</code></td><td>El ledger, guardado en SQLite. Validación, balances, mempool, alta de bloques y resolución de bifurcaciones.</td></tr>
+        <tr><td><code>block.py</code></td><td>Las estructuras de transacción y bloque: hashing, firma y verificación Ed25519, y los formatos en que las cosas viajan.</td></tr>
+        <tr><td><code>transport_microbit.py</code></td><td>El transporte real. Habla con la placa por USB serial.</td></tr>
+        <tr><td><code>transport.py</code></td><td>Un transporte alternativo por red local, para desarrollar sin hardware.</td></tr>
+        <tr><td><code>firmware_relay.py</code></td><td>MicroPython que se flashea a la Micro:bit. Es un puente: lo que entra por serial sale por radio y viceversa.</td></tr>
+        <tr><td><code>api.py</code></td><td>Un servidor HTTP mínimo que le da de comer al dashboard.</td></tr>
+        <tr><td><code>dashboard.html</code></td><td>La interfaz del navegador. Un solo archivo, sin dependencias.</td></tr>
+      </table>
+
+      <p>Las firmas usan la librería <code>cryptography</code>; el serial, <code>pyserial</code>. El resto (SQLite, hashing) viene con Python. El dashboard no carga una sola librería externa.</p>
+
+      <h3>La mejor pelea del proyecto: 250 bytes</h3>
+
+      <p>La radio de la Micro:bit transmite paquetes de <strong>250 bytes como máximo</strong>. Ese número gobernó buena parte del diseño, y es la restricción que más me gustó resolver.</p>
+
+      <p>Una transacción, en binario, ocupa 76 bytes: 12 de datos (quién, a quién, cuánto, cuándo, un número para que no se repita) y 64 de la firma Ed25519. Entra cómoda. El problema aparece al transmitir. El bloque, de hecho, viaja en binario codificado en base64; pero la transacción no: viaja como JSON con los números en texto hexadecimal. Y ahí la cuenta cambia feo: esa firma de 64 bytes, escrita en hex, son 128 caracteres, todo envuelto en las llaves del JSON. Es una <strong>inconsistencia del código</strong>, no una limitación de la radio: el mismo proyecto demuestra, con el bloque, que se puede mandar binario.</p>
+
+      <p>Medido sobre una transacción real, el paquete pesa <strong>242 bytes</strong>. El límite es 250. <strong>Quedan 8 bytes de aire.</strong> Un campo más, o que el reloj sume un dígito, y el paquete se cae: el sistema lo descarta, avisa con un warning, y esa transacción se pierde para el resto de la red. Es, con honestidad, la limitación más urgente del proyecto. Se arregla codificando en binario en vez de hex (bajaría a unos 133 bytes), pero eso todavía no está hecho.</p>
+
+      <p>Hay dos cosas que parecen criptografía y no lo son, y conviene decirlo claro porque en el aula la diferencia <em>es</em> la clase.</p>
+
+      <p>El payload viaja "cifrado" con una clave (<code>SHARED_SECRET</code>) que está escrita a mano en el código y es la misma para todos los nodos. En un repositorio público, esa clave es pública: cualquiera la lee. O sea, no es seguridad, es ofuscación con fines didácticos, para mostrar que el contenido no viaja en texto pelado. Al lado, las firmas Ed25519 <strong>sí</strong> son criptografía de verdad, verificable, imposible de falsificar sin la clave privada. Ese contraste, "esto es de utilería y esto es real", es una de las cosas más útiles que un estudiante puede ver.</p>
+
+      <p>La clave privada de cada nodo, además, se guarda sin cifrar en el disco. En cualquier software de producción sería inaceptable. Acá es lo correcto: protege un token que no vale nada, y pedirle a los chicos que tipeen una contraseña en cada arranque sería fricción sin propósito.</p>
+
+      <p>EDUCHAIN no tiene votación entre nodos. Nadie pregunta ni confirma nada. Cada nodo, cada 15 segundos, corre la misma regla (<em>el nodo de menor número que esté online propone el bloque</em>) sobre los mismos datos, y como todos ejecutan lo mismo, todos llegan al mismo resultado sin hablar. Es consenso por determinismo, no por acuerdo.</p>
+
+      <p>Funciona, pero tiene un límite honesto: si dos nodos proponen a la vez y la cadena se bifurca, el sistema sabe desempatar solo cuando la diferencia es de un bloque. Si dos versiones de la historia se separaron hace rato, no se reconcilian solas. El Ethereum real dedica su maquinaria más pesada justamente a esto, a que miles de máquinas que no confían entre sí acuerden una sola historia. Verlo faltar en una red de cuatro netbooks es la mejor forma de entender por qué esa maquinaria existe.</p>
+
+      <p class="claude-aside-close">Nada de esto es software de producción, y no pretende serlo. Es un proyecto educativo, vivo, que se sigue tocando. Lo que hoy está mal, mañana capaz está mejor. El código completo, con sus virtudes y sus alambres, está abierto para que lo revises vos mismo.</p>
+    </div>
+
+    <p>Vuelvo yo.</p>
+
+    <h2>Una limitación más, del lado del taller</h2>
+
+    <p>Claude ya fue honesto con las limitaciones del código. Agrego una que es más operativa que técnica, porque en el aula se siente. Los nodos no se dan a conocer solos: antes de arrancar hay que cargar a mano las claves públicas de todos en cada máquina. No lleva más de tres minutos copiar y pegar un archivo con un pendrive, pero es un paso manual, y si una clave falta o el archivo queda mal escrito, ese nodo rechaza todo en silencio. Tiene solución desde el código. Todavía no llegamos ahí.</p>
+
+    <h2>Y entonces, ¿para qué?</h2>
+
+    <p>Durante el taller se va y se vuelve al simulador todo el tiempo, mientras se desarrollan las explicaciones: historia del dinero, blockchain como tecnología, usos financieros y no financieros. Y por sobre todas las cosas, protección digital. Encaramos de frente los scams, los ponzis y los riesgos de la ludopatía, y ponemos el acento en los usos de una tecnología que nace con fines monetarios pero se amplía a la ciencia, la ciudadanía, el arte, la infraestructura y la educación.</p>
+
+    <p>Acá quiero ser honesto, porque es donde el ecosistema suele mentirse. No le vendamos a un pibe que la blockchain le va a cambiar la vida. Al que no llega a fin de mes, DeFi no le importa, y con razón. Ponerse a timbear en un yield farming o en un lanzador de memecoins lo que no tiene no es algo que yo le vaya a recomendar a un estudiante. Esa parte del asunto, la del casino, se la muestro para que la sepa esquivar, no para que entre.</p>
+
+    <p>Lo que sí les muestro es el potencial. Que esta tecnología, bien usada, podría servir para cosas que a la gente de a pie le pueden mejorar aunque sea un poco el día: certificar un título o un documento sin trámites eternos ni sellos que se pierden; una identidad verificable sin tener que entregar toda tu vida; herramientas de votación que se puedan auditar; redes donde no dependas de un único dueño que decide qué ves y qué no; un registro de propiedad y posibilidad de monetización para el que hace arte.</p>
+
+    <p>Y para el que se engancha de verdad, hay un horizonte más concreto todavía: si estudia una ingeniería o informática, hay industrias que ya usan esto en serio, trazabilidad de lo que se produce, tokenización de activos del mundo real, etcétera, y que van a necesitar gente que entienda.</p>
+
+    <p>EDUCHAIN no es un producto ni pretende serlo. Es una excusa para que un grupo de adolescentes de una técnica pública toque, con las manos y con lo que ya tiene, algo que hasta ese día era una abstracción lejana. Que la cadena se construya en su propia pantalla, con transacciones que ellos firmaron, cambia por completo la conversación.</p>
+
+    <p>El código es abierto: está todo <a href="https://github.com/tomasmikamusic/educhain" target="_blank">en el repositorio del proyecto</a>. Si das clase de tecnología y lo querés llevar a tu escuela, tomalo, rompelo y mejoralo.</p>
+
+  </div>
+
+  <div class="article-footer">
+    <p><em>El Ethernauta</em></p>
+  </div>
+</article>
+
+<div class="article-end">
+  <div class="article-end-box">
+    <div class="article-end-label">Suscribite</div>
+    <p class="article-end-text">Cuando publico algo nuevo te llega directo.</p>
+    <form action="https://lat.us9.list-manage.com/subscribe/post?u=90f06fd6ef77efc02413b626e&amp;id=641e6184d6&amp;f_id=0098dde1f0" method="post" target="_blank">
+      <div class="article-end-row">
+        <input type="email" name="EMAIL" class="article-end-input" placeholder="tu@email.com" required>
+        <div aria-hidden="true" style="position:absolute;left:-5000px;">
+          <input type="text" name="b_90f06fd6ef77efc02413b626e_641e6184d6" tabindex="-1" value="">
+        </div>
+        <button type="submit" class="article-end-btn">Suscribirme</button>
+      </div>
+    </form>
+  </div>
+  <a class="article-back" href="/">&#8592; Volver al inicio</a>
+</div>
+
+<footer>
+  <div class="footer-inner">
+    <span>Ethernauta</span>
+    <nav class="footer-links">
+      <a href="/#entradas">Entradas</a>
+      <a href="/#ethxplorando">ETHxplorando</a>
+      <a href="/#humanos">Huma<span class="nos">(nos)</span></a>
+      <a href="/archivo.html">Archivo</a>
+      <a href="/#autor">Autor</a>
+      <a href="https://x.com/saquelogarcia" target="_blank">X</a>
+    </nav>
+    <span>ethernauta.lat — Buenos Aires, 2026</span>
+  </div>
+</footer>
+
+</body>
+</html>
