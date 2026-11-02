@@ -4,16 +4,22 @@
   <link rel="icon" type="image/svg+xml" href="/favicon.svg">
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>Ethernauta</title>
-  <meta name="description" content="Divulgación independiente sobre Ethereum. Protocolo, gobernanza y escalabilidad explicados con claridad.">
+  <title>Ethernauta | Ethereum, tecnología y descentralización</title>
+  <meta name="description" content="Ethernauta: artículos sobre Ethereum, inteligencia artificial, descentralización y tecnología, desde Buenos Aires. Análisis y experiencias propias.">
   <link rel="canonical" href="https://ethernauta.lat/">
   <meta property="og:title" content="Ethernauta — Ethereum, el héroe colectivo">
-  <meta property="og:description" content="Divulgación independiente sobre Ethereum. Protocolo, gobernanza y escalabilidad explicados con claridad.">
+  <meta property="og:description" content="Ethernauta: artículos sobre Ethereum, inteligencia artificial, descentralización y tecnología, desde Buenos Aires. Análisis y experiencias propias.">
   <meta property="og:url" content="https://ethernauta.lat/">
   <meta property="og:type" content="website">
+  <meta property="og:locale" content="es_AR">
+  <meta name="twitter:card" content="summary_large_image">
+  <meta name="twitter:title" content="Ethernauta | Ethereum, tecnología y descentralización">
+  <meta name="twitter:description" content="Artículos sobre Ethereum, inteligencia artificial y tecnología, con análisis y experiencias propias.">
+  <meta name="twitter:image" content="https://ethernauta.lat/img/og-cover.jpg">
   <meta property="og:image" content="https://ethernauta.lat/img/og-cover.jpg">
   <meta name="google-site-verification" content="8NiWnPYwIExoYH1wO9Gt1iavvXK0ATwD8qMACkVNxPg" />
   <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
   <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:ital,wght@0,400;0,700;1,400&family=DM+Mono:wght@300;400&display=swap" rel="stylesheet">
   <style>
     :root {
@@ -108,7 +114,7 @@
     .section-inner { max-width: 1200px; margin: 0 auto; }
     .section-header { display: flex; align-items: baseline; gap: 1.5rem; margin-bottom: 4rem; }
     .section-index { font-size: 0.65rem; letter-spacing: 0.32em; text-transform: uppercase; color: var(--eth); font-family: 'DM Mono', monospace; }
-    .section-title { font-family: 'Playfair Display', serif; font-size: 1.6rem; color: var(--text); letter-spacing: -0.01em; }
+    .section-title { font-weight: 400; font-family: 'Playfair Display', serif; font-size: 1.6rem; color: var(--text); letter-spacing: -0.01em; }
     .section-line { flex: 1; height: 1px; background: linear-gradient(to right, var(--border), transparent); margin-left: 1rem; }
     .featured-post { display: block; border: 1px solid var(--border); border-radius: 1rem; padding: 3rem 2.5rem; background: linear-gradient(180deg, rgba(15,19,22,0.65), rgba(10,13,15,0.45)); text-decoration: none; transition: border-color 0.4s, transform 0.4s, box-shadow 0.4s; margin-bottom: 3rem; position: relative; overflow: hidden; }
     .featured-post::before { content: ""; position: absolute; top: -60px; right: -60px; width: 220px; height: 220px; border-radius: 50%; background: radial-gradient(circle, rgba(98,126,234,0.25), transparent 65%); opacity: 0; transition: opacity 0.5s; }
@@ -195,6 +201,9 @@
     .footer-links a { color: var(--text-dim); text-decoration: none; font-size: 0.65rem; letter-spacing: 0.12em; text-transform: uppercase; transition: color 0.2s; }
     .footer-links a:hover { color: var(--eth); }
   </style>
+  <script type="application/ld+json">
+  {"@context":"https://schema.org","@type":"WebSite","name":"Ethernauta","url":"https://ethernauta.lat/","inLanguage":"es-AR","description":"Artículos sobre Ethereum, inteligencia artificial, descentralización y tecnología."}
+  </script>
   <!-- Google Analytics -->
   <script async src="https://www.googletagmanager.com/gtag/js?id=G-SJXWGTQH22"></script>
   <script>
@@ -246,18 +255,24 @@
   <div class="section-inner">
     <div class="section-header">
       <span class="section-index">01</span>
-      <span class="section-title">Entradas</span>
+      <h2 class="section-title">Entradas</h2>
       <span class="section-line"></span>
     </div>
-    <a class="featured-post" href="/educhain.html">
-      <div class="post-meta">ETHxplorando &nbsp;·&nbsp; Agosto 2026 &nbsp;·&nbsp; Última publicación</div>
-      <div class="featured-title">Educación <span class="tachado">en</span> sin cadenas</div>
-      <div class="featured-excerpt">Construí una blockchain educativa que funciona sin internet y a batería, hecha 100% con material escolar. La excusa para hablar de a quién le enseñamos tecnología, y cómo.</div>
+    <a class="featured-post" href="/costo-inteligencia-artificial.html">
+      <div class="post-meta">Entradas &nbsp;·&nbsp; Noviembre 2026 &nbsp;·&nbsp; Última publicación</div>
+      <div class="featured-title">El hombre más rico del mundo no puede pagar la cuenta de la inteligencia artificial. ¿Vos vas a poder?</div>
+      <div class="featured-excerpt">El caso de Grok Bot abre preguntas sobre cuánto cuesta sostener agentes de inteligencia artificial, quién podrá pagar la automatización y qué recursos exige su crecimiento.</div>
       <div class="featured-link">Leer entrada <span>→</span></div>
     </a>
     <div class="posts-carousel-wrapper">
       <button class="carousel-btn" id="prevBtn" aria-label="Anterior">&#8592;</button>
       <div class="posts-grid" id="postsCarousel">
+        <a class="post-card" href="/educhain.html">
+          <div class="post-meta">ETHxplorando &nbsp;·&nbsp; Agosto 2026</div>
+          <div class="post-title">Educación <span class="tachado">en</span> sin cadenas</div>
+          <div class="post-excerpt">Una blockchain educativa que funciona sin internet, con material escolar y radios Micro:bit. Una reflexión sobre cómo enseñamos tecnología.</div>
+          <div class="post-link">Leer <span>→</span></div>
+        </a>
         <a class="post-card" href="/cuatro-esquinas-ethereum.html">
           <div class="post-meta">Huma<span class="nos">(nos)</span> &nbsp;·&nbsp; Junio 2026</div>
           <div class="post-title">Las cuatro esquinas de Ethereum</div>
@@ -340,7 +355,7 @@
       <button class="carousel-btn" id="nextBtn" aria-label="Siguiente">&#8594;</button>
     </div>
     <div class="carousel-footer">
-      <span class="carousel-counter" id="carouselCounter">1 / 13</span>
+      <span class="carousel-counter" id="carouselCounter">1 / 14</span>
       <a class="archive-link" href="/archivo.html">Ver todas las entradas <span>→</span></a>
     </div>
   </div>
@@ -349,7 +364,7 @@
   <div class="section-inner">
     <div class="section-header">
       <span class="section-index">02</span>
-      <span class="section-title">ETHxplorando</span>
+      <h2 class="section-title">ETHxplorando</h2>
       <span class="section-line"></span>
     </div>
     <div class="ethxplorando-grid">
@@ -380,7 +395,7 @@
   <div class="section-inner">
     <div class="section-header">
       <span class="section-index">03</span>
-      <span class="section-title">Huma<span class="nos">(nos)</span></span>
+      <h2 class="section-title">Huma<span class="nos">(nos)</span></h2>
       <span class="section-line"></span>
     </div>
     <div class="ethxplorando-grid">
